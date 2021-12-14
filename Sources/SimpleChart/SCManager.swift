@@ -7,13 +7,11 @@
 
 import Foundation
 
-public let manager = SCManager.manager
-
+@available(iOS 15, macOS 12.0, *)
 public class SCManager {
-    static let manager = SCManager()
     private init(){}
     
-    public func convertDataType(data: [Double]) -> [SCChartData]{
+    public static func convertDataType(data: [Double]) -> [SCChartData]{
         var chartData: [SCChartData] = [SCChartData]()
         for (_, value) in data.enumerated(){
             chartData.append(SCChartData(value))
