@@ -40,8 +40,8 @@ public struct SCRangeChartConfig {
             }
         }
         // add margin below and above upper and lower bound, using 5% of lower bound value
-        self.min = minLower + minLower * 0.95
-        self.max = minLower * 0.95 + maxUpper
+        self.min = minLower - ((maxUpper-minLower)*0.05) //
+        self.max = maxUpper + ((maxUpper-minLower)*0.05) //
         self.showLabel = showLabel
         self.showLegend = showLegend
         self.showInterval = showInterval
