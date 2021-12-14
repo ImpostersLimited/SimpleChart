@@ -1,7 +1,7 @@
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-public struct SimpleChartView: View {
+public struct SimpleChart: View {
     
     @State var chartData: [SCChartData]
     @State var chartConfig: SCChartConfig
@@ -38,12 +38,5 @@ public struct SimpleChartView: View {
     private func setConfig(_ chartData: [SCChartData], _ baseZero: Bool = false, _ spacing: Double? = nil, _ width: Double? = nil){
         let chartConfig = SCChartConfig(chartData, baseZero, spacing, width)
         self.chartConfig = chartConfig
-    }
-}
-
-@available(iOS 15, macOS 12.0, *)
-struct SimpleChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        SimpleChartView([SCChartData]())
     }
 }
