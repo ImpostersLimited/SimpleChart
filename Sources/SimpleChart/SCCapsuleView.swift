@@ -19,6 +19,7 @@ struct SCCapsuleView: View {
     }
     var body: some View {
         Capsule()
+            .frame(width: 10, height: 100, alignment: .center)
     }
 }
 

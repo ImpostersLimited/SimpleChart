@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
@@ -24,7 +25,6 @@ public struct SimpleChart: View {
                     SCCapsuleView(self.chartConfig, self.chartData[index])
                         .padding(.horizontal)
                         .padding(.vertical, 4)
-                        .background(Capsule().foregroundColor(Color.purple))
                         .foregroundColor(.white)
                 }
             }
@@ -38,5 +38,12 @@ public struct SimpleChart: View {
     private func setConfig(_ chartData: [SCChartData], _ baseZero: Bool = false, _ spacing: Double? = nil, _ width: Double? = nil){
         let chartConfig = SCChartConfig(chartData, baseZero, spacing, width)
         self.chartConfig = chartConfig
+    }
+}
+
+@available(iOS 15, macOS 12.0, *)
+public struct SCChart_Previews: PreviewProvider {
+    static public var previews: some View {
+        SimpleChart([SCChartData(10.0)])
     }
 }
