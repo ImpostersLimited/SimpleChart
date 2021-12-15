@@ -17,7 +17,7 @@ struct SCCapsule: View {
     var height: Double
     var offset: Double
     
-    public init(_ config: SCRangeChartConfig, _ data: SCRangeChartData, _ size: CGSize){
+    init(_ config: SCRangeChartConfig, _ data: SCRangeChartData, _ size: CGSize){
         self.config = config
         self.data = data
         self.size = size
@@ -27,9 +27,26 @@ struct SCCapsule: View {
     }
     
     var body: some View {
+        //ZStack{
         Capsule()
             .frame(width: width, height: height)
             .offset(x: 0, y: -offset)
+            .foregroundColor(config.foregroundColor)
+        /*
+         VStack{
+         Text(String(format: "%.0f", data.upper))
+         .rotationEffect(Angle(degrees: -90))
+         .font(.system(size: size.width*config.widthFactor*0.9))
+         .offset(x: 0, y: -offset)
+         .foregroundColor(.accentColor)
+         Text(String(format: "%.0f", data.lower))
+         .rotationEffect(Angle(degrees: -90))
+         .font(.system(size: size.width*config.widthFactor*0.9))
+         .offset(x: 0, y: -offset)
+         .foregroundColor(.accentColor)
+         }
+         */
+        //}
     }
 }
 

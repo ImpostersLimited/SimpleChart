@@ -8,7 +8,8 @@
 import Foundation
 
 @available(iOS 15, macOS 12.0, *)
-public struct SCChartData: Codable, Equatable {
+
+public struct SCLineChartData: Codable, Equatable {
     public init(_ value: Double){
         self.value = value
     }

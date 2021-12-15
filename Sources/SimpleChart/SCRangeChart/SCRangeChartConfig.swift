@@ -24,9 +24,10 @@ public struct SCRangeChartConfig {
     let max: Double
     let spacingFactor: Double
     let widthFactor: Double
+    let actualMax: Double
+    let actualMin: Double
     
-    
-    public init(_ chartData: [SCRangeChartData], _ baseZero: Bool = false, _ showInterval: Bool = false, _ showLegend: Bool = false, _ showLabel: Bool = false, _ foregroundColor: Color = .primary, _ numOfInterval: Int? = nil, _ xLabel: String? = nil, _ yLabel: String? = nil){
+    public init(_ chartData: [SCRangeChartData], _ baseZero: Bool = false, _ showInterval: Bool = true, _ showLegend: Bool = false, _ showLabel: Bool = false, _ foregroundColor: Color = .primary, _ numOfInterval: Int? = 3, _ xLabel: String? = nil, _ yLabel: String? = nil){
         self.chartData = chartData
         self.baseZero = baseZero
         var minLower = Double.infinity
@@ -39,9 +40,11 @@ public struct SCRangeChartConfig {
                 maxUpper = item.upper
             }
         }
-        // add margin below and above upper and lower bound, using 5% of lower bound value
-        self.min = minLower - ((maxUpper-minLower)*0.05) //
-        self.max = maxUpper + ((maxUpper-minLower)*0.05) //
+        // add margin below and above upper and lower bound, using 8 percemt of lower bound value
+        self.min = minLower - ((maxUpper-minLower)*0.08)
+        self.max = maxUpper + ((maxUpper-minLower)*0.08)
+        self.actualMax = maxUpper
+        self.actualMin = minLower
         self.showLabel = showLabel
         self.showLegend = showLegend
         self.showInterval = showInterval
@@ -49,9 +52,15 @@ public struct SCRangeChartConfig {
         self.xLabel = xLabel
         self.numOfInterval = numOfInterval
         self.foregroundColor = foregroundColor
-        // need to minus 1 as the number of spacing within bars is equal to count - 1
-        let temp = (Double(chartData.count)*3) - 1
-        self.spacingFactor = 1/temp
-        self.widthFactor = 2/temp
+        // need to minus 1 as the number of spacing within bars is equal to count + 1
+        if chartData.count > 1 {
+            let temp = (Double(chartData.count)*3) + 1
+            self.spacingFactor = 1/temp
+            self.widthFactor = 2/temp
+        }
+        else {
+            self.spacingFactor = 0
+            self.widthFactor = 1
+        }
     }
 }

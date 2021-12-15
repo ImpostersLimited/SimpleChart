@@ -9,6 +9,7 @@ import Foundation
 
 @available(iOS 15, macOS 12.0, *)
 public struct SCRangeChartData: Codable, Equatable {
+    
     public init(_ lower: Double, _ upper: Double){
         self.lower = lower
         self.upper = upper
