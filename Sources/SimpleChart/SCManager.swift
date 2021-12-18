@@ -20,6 +20,30 @@ public class SCManager {
         return chartData
     }
     
+    public static func getBarChartData(data: [Double]) -> [SCBarChartData]{
+        var chartData: [SCBarChartData] = [SCBarChartData]()
+        for (_, value) in data.enumerated(){
+            chartData.append(SCBarChartData(value))
+        }
+        return chartData
+    }
+    
+    public static func getHistogramData(data: [Double]) -> [SCHistogramData]{
+        var chartData: [SCHistogramData] = [SCHistogramData]()
+        for (_, value) in data.enumerated(){
+            chartData.append(SCHistogramData(value))
+        }
+        return chartData
+    }
+    
+    public static func getQuadCurveData(data: [Double]) -> [SCQuadCurveData]{
+        var chartData: [SCQuadCurveData] = [SCQuadCurveData]()
+        for (_, value) in data.enumerated(){
+            chartData.append(SCQuadCurveData(value))
+        }
+        return chartData
+    }
+    
     public static func getRangeChartData(lower: [Double], upper: [Double]) -> [SCRangeChartData]? {
         if lower.count == upper.count {
             var returnedData = [SCRangeChartData]()
@@ -33,4 +57,5 @@ public class SCManager {
             return nil
         }
     }
+    
 }
