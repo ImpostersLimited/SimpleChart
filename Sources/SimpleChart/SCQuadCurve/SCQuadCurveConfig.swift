@@ -1,16 +1,18 @@
 //
-//  SCLineChartConfig.swift
+//  SCQuadCurveConfig.swift
 //  
 //
-//  Created by fung on 15/12/2021.
+//  Created by fung on 18/12/2021.
 //
 
+import Foundation
 import Foundation
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-public struct SCLineChartConfig {
-    let chartData: [SCLineChartData]
+public struct SCQuadCurveConfig {
+    let chartData: [SCQuadCurveData]
+    var segments: [SCQuadSegment]
     let baseZero: Bool
     let showInterval: Bool
     let showLegend: Bool
@@ -26,7 +28,7 @@ public struct SCLineChartConfig {
     let actualMax: Double
     let actualMin: Double
     
-    public init(_ chartData: [SCLineChartData], _ baseZero: Bool = false, _ showInterval: Bool = true, _ showLegend: Bool = false, _ showLabel: Bool = false, _ foregroundColor: Color = .primary, _ numOfInterval: Int? = 3, _ xLabel: String? = nil, _ yLabel: String? = nil){
+    public init(_ chartData: [SCQuadCurveData], _ baseZero: Bool = false, _ showInterval: Bool = true, _ showLegend: Bool = false, _ showLabel: Bool = false, _ foregroundColor: Color = .primary, _ numOfInterval: Int? = 3, _ xLabel: String? = nil, _ yLabel: String? = nil){
         self.chartData = chartData
         self.baseZero = baseZero
         var minLower = Double.infinity
@@ -51,9 +53,25 @@ public struct SCLineChartConfig {
         self.xLabel = xLabel
         self.numOfInterval = numOfInterval
         self.foregroundColor = foregroundColor
+        self.segments = [SCQuadSegment]()
+        for index in 0..<chartData.count {
+            if index == 0{
+                let temp = SCQuadSegment(nil, chartData[index].value, chartData[Int(index+1)].value)
+                self.segments.append(temp)
+            }
+            else if index == self.chartData.count {
+                let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, nil)
+                self.segments.append(temp)
+            }
+            else {
+                let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, chartData[Int(index+1)].value)
+                self.segments.append(temp)
+            }
+        }
+        
         // need to minus 1 as the number of spacing within bars is equal to count + 1
         if chartData.count > 1 {
-            let temp = (Double(chartData.count)) - 1
+            let temp = ((Double(chartData.count)) - 1) * 2
             self.spacingFactor = 1/temp
             self.widthFactor = 1/temp
         }

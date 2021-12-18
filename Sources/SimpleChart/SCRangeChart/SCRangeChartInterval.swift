@@ -22,9 +22,8 @@ struct SCRangeChartInterval: View {
         ZStack(alignment: .topLeading){
             Path { path in
                 let xRoot = 0.0
-                path.move(to: CGPoint(x: xRoot, y: size.height))
-                path.addLine(to: CGPoint(x: xRoot, y: 0.0))
-                path.move(to: CGPoint(x: xRoot, y: size.height))
+                path.move(to: CGPoint(x: xRoot, y: 0.0))
+                path.addLine(to: CGPoint(x: xRoot, y: size.height))
                 path.addLine(to: CGPoint(x: size.width, y: size.height))
                 for i in 1..<((config.numOfInterval ?? 0)+1) {
                     let intervalPoints = Double(size.height)/Double((config.numOfInterval ?? 0) + 1)

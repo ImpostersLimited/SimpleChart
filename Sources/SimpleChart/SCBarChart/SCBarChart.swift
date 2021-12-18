@@ -1,19 +1,19 @@
 //
-//  SwiftUIView.swift
+//  SCBarChart.swift
+//  
 //
-//
-//  Created by fung on 13/12/2021.
+//  Created by fung on 18/12/2021.
 //
 
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-public struct SCRangeChart: View {
+public struct SCBarChart: View {
     
-    @State var chartData: [SCRangeChartData]
-    @State var chartConfig: SCRangeChartConfig
+    @State var chartData: [SCBarChartData]
+    @State var chartConfig: SCBarChartConfig
     
-    public init(config: SCRangeChartConfig) {
+    public init(config: SCBarChartConfig) {
         self.chartData = config.chartData
         self.chartConfig = config
     }
@@ -22,10 +22,10 @@ public struct SCRangeChart: View {
         ZStack{
             GeometryReader { proxy in
                 VStack{
-                    Spacer().frame(width: proxy.size.width)
+                    Spacer().frame(maxWidth: proxy.size.width, minHeight: 0.00000000001)
                     HStack(alignment: .bottom, spacing: chartConfig.spacingFactor*proxy.size.width, content: {
                         ForEach(chartData.indices) { index in
-                            SCCapsule(self.chartConfig, self.chartData[index], proxy.size)
+                            SCBar(self.chartConfig, self.chartData[index], proxy.size)
                                 .foregroundColor(.white)
                         }
                     })
@@ -35,7 +35,7 @@ public struct SCRangeChart: View {
             if chartConfig.showInterval {
                 GeometryReader { proxy in
                     VStack{
-                        SCRangeChartInterval(chartConfig, proxy.size)
+                        SCBarChartInterval(chartConfig, proxy.size)
                     }
                     .frame(width: proxy.size.width, height: proxy.size.height)
                 }
@@ -46,21 +46,20 @@ public struct SCRangeChart: View {
 }
 
 @available(iOS 15, macOS 12.0, *)
-public struct SCChart_Previews: PreviewProvider {
+public struct SCBarChart_Previews: PreviewProvider {
     static public var previews: some View {
-        let temp: [SCRangeChartData] = [
-            SCRangeChartData(0.0, 10.0),
-            SCRangeChartData(1.0, 7.0),
-            SCRangeChartData(2.0, 9.0),
-            SCRangeChartData(1.0, 4.0),
-            SCRangeChartData(4.0, 9.0),
-            SCRangeChartData(3.0, 6.0),
-            SCRangeChartData(2.0, 7.0),
-            SCRangeChartData(3.0, 8.0),
-            SCRangeChartData(5.0, 9.0),
-            SCRangeChartData(0.0, 9.0)
-        ]
-        SCRangeChart(config: SCRangeChartConfig(temp))
+        let temp: [SCBarChartData] = [
+            SCBarChartData(0.0),
+            SCBarChartData(1.0),
+            SCBarChartData(2.0),
+            SCBarChartData(1.0),
+            SCBarChartData(4.0),
+            SCBarChartData(3.0),
+            SCBarChartData(2.0),
+            SCBarChartData(3.0),
+            SCBarChartData(5.0),
+            SCBarChartData(3.5)]
+        SCBarChart(config: SCBarChartConfig(temp))
             .frame(width: 100.0, height: 100.0)
     }
 }

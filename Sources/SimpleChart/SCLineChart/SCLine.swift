@@ -31,8 +31,15 @@ struct SCLine: View {
                     path.addLine(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
                 }
             }
+            //path.closeSubpath()
+            path.addLine(to: CGPoint(x: size.width, y: size.height))
+            path.addLine(to: CGPoint(x: 0, y: size.height))
+            path.closeSubpath()
+            //path.addLine(to: CGPoint(x: , y: ))
         }
-        .stroke()
+        .fill(LinearGradient(gradient: Gradient(colors: [Color.black, Color.gray]), startPoint: .top, endPoint: .bottom))
+        //.stroke()
+        //.fill(Color.accentColor)
         .foregroundColor(config.foregroundColor)
     }
 }

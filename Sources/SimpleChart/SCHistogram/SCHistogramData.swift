@@ -1,14 +1,15 @@
 //
-//  SCLineChartData.swift
+//  SCHistogramData.swift
 //  
 //
-//  Created by fung on 13/12/2021.
+//  Created by fung on 18/12/2021.
 //
 
 import Foundation
 
 @available(iOS 15, macOS 12.0, *)
-public struct SCLineChartData: Codable, Equatable {
+public struct SCHistogramData: Codable, Equatable {
+    
     public init(_ value: Double){
         self.value = value
     }

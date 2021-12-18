@@ -1,19 +1,19 @@
 //
-//  SCLineChartInterval.swift
+//  SCQuadCurveInterval.swift
 //  
 //
-//  Created by fung on 15/12/2021.
+//  Created by fung on 18/12/2021.
 //
 
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-struct SCLineChartInterval: View {
+struct SCQuadCurveInterval: View {
     
-    @State var config: SCLineChartConfig
+    @State var config: SCQuadCurveConfig
     @State var size: CGSize
     
-    init(_ config: SCLineChartConfig, _ size: CGSize){
+    init(_ config: SCQuadCurveConfig, _ size: CGSize){
         self.config = config
         self.size = size
     }
@@ -47,20 +47,20 @@ struct SCLineChartInterval: View {
 }
 
 @available(iOS 15, macOS 12.0, *)
-struct SCLineChartInterval_Previews: PreviewProvider {
+struct SCQuadCurveInterval_Previews: PreviewProvider {
     static var previews: some View {
-        let temp: [SCLineChartData] = [
-            SCLineChartData(0.0),
-            SCLineChartData(1.0),
-            SCLineChartData(2.0),
-            SCLineChartData(1.0),
-            SCLineChartData(4.0),
-            SCLineChartData(3.0),
-            SCLineChartData(2.0),
-            SCLineChartData(3.0),
-            SCLineChartData(5.0),
-            SCLineChartData(3.5)]
-        SCLineChartInterval(SCLineChartConfig(temp), CGSize(width: 150, height: 150))
+        let temp: [SCQuadCurveData] = [
+            SCQuadCurveData(0.0),
+            SCQuadCurveData(1.0),
+            SCQuadCurveData(2.0),
+            SCQuadCurveData(1.0),
+            SCQuadCurveData(4.0),
+            SCQuadCurveData(3.0),
+            SCQuadCurveData(2.0),
+            SCQuadCurveData(3.0),
+            SCQuadCurveData(5.0),
+            SCQuadCurveData(3.5)]
+        SCQuadCurveInterval(SCQuadCurveConfig(temp), CGSize(width: 150, height: 150))
             .frame(width: 150, height: 150)
     }
 }
