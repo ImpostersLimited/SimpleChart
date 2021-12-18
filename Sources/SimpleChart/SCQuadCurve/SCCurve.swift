@@ -22,16 +22,15 @@ struct SCCurve: View {
     
     var body: some View {
         Path{path in
-            
             for i in 0..<config.segments.count {
                 let tempY = size.height - ((size.height * (config.segments[i].p2 - config.min)) / (config.max - config.min))
                 let controlY = size.height - ((size.height * (config.segments[i].p_control - config.min)) / (config.max - config.min))
                 if i == 0 {
                     path.move(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
-                    path.addQuadCurve(to: CGPoint(x: Double(0.0+(width*2*Double(i))), y: tempY), control: CGPoint(x: Double(0.0+(width*2*Double(i))-1), y: controlY))
+                    path.addQuadCurve(to: CGPoint(x: Double(0.0+(width*2*Double(i))), y: tempY), control: CGPoint(x: Double(0.0+(width*2*(Double(i)-1))), y: controlY))
                 }
                 else {
-                    path.addQuadCurve(to: CGPoint(x: Double(0.0+(width*2*Double(i))), y: tempY), control: CGPoint(x: Double(0.0+(width*2*Double(i))-1), y: controlY))
+                    path.addQuadCurve(to: CGPoint(x: Double(0.0+(width*2*Double(i))), y: tempY), control: CGPoint(x: Double(0.0+(width*2*(Double(i)-1))), y: controlY))
                 }
             }
             /*
@@ -60,16 +59,11 @@ struct SCCurve: View {
 struct SCCurve_Previews: PreviewProvider {
     static var previews: some View {
         let temp: [SCQuadCurveData] = [
-            SCQuadCurveData(0.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(2.0),
             SCQuadCurveData(1.0),
             SCQuadCurveData(4.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(2.0),
-            SCQuadCurveData(3.0),
             SCQuadCurveData(5.0),
-            SCQuadCurveData(0.5)]
+            SCQuadCurveData(5.0)
+            ]
         SCCurve(SCQuadCurveConfig(temp), CGSize(width: 90, height: 90))
             .frame(width: 90, height: 90)
     }

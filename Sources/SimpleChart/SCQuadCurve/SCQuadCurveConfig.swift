@@ -41,8 +41,14 @@ public struct SCQuadCurveConfig {
             }
         }
         // add margin below and above upper and lower bound, using 5% of lower bound value
-        self.min = minLower - ((maxUpper-minLower)*0.03)
-        self.max = maxUpper + ((maxUpper-minLower)*0.03)
+        if maxUpper != minLower {
+            self.min = minLower - ((maxUpper-minLower)*0.03)
+            self.max = maxUpper + ((maxUpper-minLower)*0.03)
+        }
+        else {
+            self.min = minLower*0.97
+            self.max = maxUpper*1.03
+        }
         self.actualMax = maxUpper
         self.actualMin = minLower
         self.showLabel = showLabel
