@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import Foundation
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
 public struct SCQuadCurveConfig {
-    let chartData: [SCQuadCurveData]
     var segments: [SCQuadSegment]
+    let chartData: [SCQuadCurveData]
     let baseZero: Bool
     let showInterval: Bool
     let showLegend: Bool
@@ -59,11 +58,11 @@ public struct SCQuadCurveConfig {
                 let temp = SCQuadSegment(nil, chartData[index].value, chartData[Int(index+1)].value)
                 self.segments.append(temp)
             }
-            else if index == self.chartData.count {
+            else if index == chartData.count-1 {
                 let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, nil)
                 self.segments.append(temp)
             }
-            else {
+            else if index < chartData.count-1{
                 let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, chartData[Int(index+1)].value)
                 self.segments.append(temp)
             }

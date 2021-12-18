@@ -22,6 +22,7 @@ struct SCCurve: View {
     
     var body: some View {
         Path{path in
+            
             for i in 0..<config.segments.count {
                 let tempY = size.height - ((size.height * (config.segments[i].p2 - config.min)) / (config.max - config.min))
                 let controlY = size.height - ((size.height * (config.segments[i].p_control - config.min)) / (config.max - config.min))
@@ -48,7 +49,7 @@ struct SCCurve: View {
             path.addLine(to: CGPoint(x: 0, y: size.height))
             path.closeSubpath()
         }
-        .fill(LinearGradient(gradient: Gradient(colors: [Color.black, Color.gray]), startPoint: .top, endPoint: .bottom))
+        .fill(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.red]), startPoint: .top, endPoint: .bottom))
         //.stroke()
         //.fill(Color.accentColor)
         .foregroundColor(config.foregroundColor)
@@ -64,11 +65,11 @@ struct SCCurve_Previews: PreviewProvider {
             SCQuadCurveData(2.0),
             SCQuadCurveData(1.0),
             SCQuadCurveData(4.0),
-            SCQuadCurveData(3.0),
+            SCQuadCurveData(1.0),
             SCQuadCurveData(2.0),
             SCQuadCurveData(3.0),
             SCQuadCurveData(5.0),
-            SCQuadCurveData(3.5)]
+            SCQuadCurveData(0.5)]
         SCCurve(SCQuadCurveConfig(temp), CGSize(width: 90, height: 90))
             .frame(width: 90, height: 90)
     }
