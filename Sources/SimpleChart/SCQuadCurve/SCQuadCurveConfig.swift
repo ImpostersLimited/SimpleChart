@@ -59,24 +59,33 @@ public struct SCQuadCurveConfig {
         self.numOfInterval = numOfInterval
         self.foregroundColor = foregroundColor
         self.segments = [SCQuadSegment]()
-        for index in 0..<chartData.count {
-            if index == 0{
-                let temp = SCQuadSegment(nil, chartData[index].value, chartData[Int(index+1)].value)
-                self.segments.append(temp)
-            }
-            else if index == chartData.count-1 {
-                let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, nil)
-                self.segments.append(temp)
-            }
-            else if index < chartData.count-1{
-                let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, chartData[Int(index+1)].value)
-                self.segments.append(temp)
+        if (chartData.count > 2) {
+            for i in 0..<Int(chartData.count-1) {
+                let asdf = i+1
+                let temp = SCQuadSegment(chartData[i].value, chartData[asdf].value)
+                segments.append(temp)
             }
         }
+        /*
+         for index in 0..<chartData.count {
+             if index == 0{
+                 let temp = SCQuadSegment(nil, chartData[index].value, chartData[Int(index+1)].value)
+                 self.segments.append(temp)
+             }
+             else if index == chartData.count-1 {
+                 let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, nil)
+                 self.segments.append(temp)
+             }
+             else if index < chartData.count-1{
+                 let temp = SCQuadSegment(chartData[Int(index-1)].value, chartData[index].value, chartData[Int(index+1)].value)
+                 self.segments.append(temp)
+             }
+         }
+         */
         
         // need to minus 1 as the number of spacing within bars is equal to count + 1
         if chartData.count > 1 {
-            let temp = ((Double(chartData.count)) - 1) * 2
+            let temp = Double((chartData.count-1)*4)
             self.spacingFactor = 1/temp
             self.widthFactor = 1/temp
         }
