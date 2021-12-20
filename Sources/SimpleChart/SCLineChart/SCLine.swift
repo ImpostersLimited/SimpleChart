@@ -8,44 +8,59 @@
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-struct SCLine: View {
+internal struct SCLine: View {
     
     @State var config: SCLineChartConfig
     @State var size: CGSize
     var width: Double
     
-    init(_ config: SCLineChartConfig, _ size: CGSize){
+    internal init(_ config: SCLineChartConfig, _ size: CGSize){
         self.config = config
         self.size = size
         self.width = config.widthFactor * size.width
     }
     
-    var body: some View {
-        Path{path in
-            for i in 0..<config.chartData.count{
-                let tempY = size.height - ((size.height * (config.chartData[i].value - config.min)) / (config.max - config.min))
-                if i == 0 {
-                    path.move(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
+    internal var body: some View {
+        if config.stroke {
+            Path{path in
+                for i in 0..<config.chartData.count{
+                    let tempY = size.height - ((size.height * (config.chartData[i].value - config.min)) / (config.max - config.min))
+                    if i == 0 {
+                        path.move(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
+                    }
+                    else {
+                        path.addLine(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
+                    }
                 }
-                else {
-                    path.addLine(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
-                }
+                path.addLine(to: CGPoint(x: size.width, y: size.height))
+                path.addLine(to: CGPoint(x: 0, y: size.height))
+                path.closeSubpath()
             }
-            //path.closeSubpath()
-            path.addLine(to: CGPoint(x: size.width, y: size.height))
-            path.addLine(to: CGPoint(x: 0, y: size.height))
-            path.closeSubpath()
-            //path.addLine(to: CGPoint(x: , y: ))
+            .stroke()
+            .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
         }
-        .fill(LinearGradient(gradient: Gradient(colors: [Color.black, Color.gray]), startPoint: .top, endPoint: .bottom))
-        //.stroke()
-        //.fill(Color.accentColor)
-        .foregroundColor(config.foregroundColor)
+        else {
+            Path{path in
+                for i in 0..<config.chartData.count{
+                    let tempY = size.height - ((size.height * (config.chartData[i].value - config.min)) / (config.max - config.min))
+                    if i == 0 {
+                        path.move(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
+                    }
+                    else {
+                        path.addLine(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
+                    }
+                }
+                path.addLine(to: CGPoint(x: size.width, y: size.height))
+                path.addLine(to: CGPoint(x: 0, y: size.height))
+                path.closeSubpath()
+            }
+            .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+        }
     }
 }
 
 @available(iOS 15, macOS 12.0, *)
-struct SCLine_Previews: PreviewProvider {
+internal struct SCLine_Previews: PreviewProvider {
     static var previews: some View {
         let temp: [SCLineChartData] = [
             SCLineChartData(0.0),
@@ -58,7 +73,7 @@ struct SCLine_Previews: PreviewProvider {
             SCLineChartData(3.0),
             SCLineChartData(5.0),
             SCLineChartData(3.5)]
-        SCLine(SCLineChartConfig(temp), CGSize(width: 90, height: 90))
+        SCLine(SCLineChartConfig(chartData: temp), CGSize(width: 90, height: 90))
             .frame(width: 90, height: 90)
     }
 }

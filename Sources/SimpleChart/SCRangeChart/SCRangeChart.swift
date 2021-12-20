@@ -32,13 +32,11 @@ public struct SCRangeChart: View {
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
-            if chartConfig.showInterval {
-                GeometryReader { proxy in
-                    VStack{
-                        SCRangeChartInterval(chartConfig, proxy.size)
-                    }
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+            GeometryReader { proxy in
+                VStack{
+                    SCRangeChartInterval(chartConfig, proxy.size)
                 }
+                .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
         .padding(.all, 5)
@@ -60,7 +58,8 @@ public struct SCChart_Previews: PreviewProvider {
             SCRangeChartData(5.0, 9.0),
             SCRangeChartData(0.0, 9.0)
         ]
-        SCRangeChart(config: SCRangeChartConfig(temp))
+        SCRangeChart(config: SCRangeChartConfig(chartData: temp))
             .frame(width: 100.0, height: 100.0)
+.previewInterfaceOrientation(.portrait)
     }
 }

@@ -8,47 +8,63 @@
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-struct SCLineChartInterval: View {
+internal struct SCLineChartInterval: View {
     
     @State var config: SCLineChartConfig
     @State var size: CGSize
     
-    init(_ config: SCLineChartConfig, _ size: CGSize){
+    internal init(_ config: SCLineChartConfig, _ size: CGSize){
         self.config = config
         self.size = size
     }
     
-    var body: some View {
+    internal var body: some View {
         ZStack(alignment: .topLeading){
             Path { path in
                 let xRoot = 0.0
-                path.move(to: CGPoint(x: xRoot, y: 0.0))
-                path.addLine(to: CGPoint(x: xRoot, y: size.height))
-                path.addLine(to: CGPoint(x: size.width, y: size.height))
-                for i in 1..<((config.numOfInterval ?? 0)+1) {
-                    let intervalPoints = Double(size.height)/Double((config.numOfInterval ?? 0) + 1)
-                    path.move(to: CGPoint(x: xRoot, y: size.height - (intervalPoints*Double(i))))
-                    path.addLine(to: CGPoint(x: size.width, y: size.height - (intervalPoints*Double(i))))
+                if config.showXAxis && config.showYAxis {
+                    path.move(to: CGPoint(x: xRoot, y: 0.0))
+                    path.addLine(to: CGPoint(x: xRoot, y: size.height))
+                    path.addLine(to: CGPoint(x: size.width, y: size.height))
                 }
-            }.stroke().foregroundColor(.secondary)
-            VStack{
-                Text(String(format: "%.0f", config.actualMax))
-                    .font(.system(size: size.height/15))
-                    .foregroundColor(.secondary)
-                    .offset(x: size.width/100, y: 0)
-                Spacer()
-                Text(String(format: "%.0f", config.actualMin))
-                    .font(.system(size: size.height/15))
-                    .foregroundColor(.secondary)
-                    .offset(x: size.width/100, y: 0)
+                else if config.showXAxis || config.showYAxis {
+                    if config.showYAxis {
+                        path.move(to: CGPoint(x: xRoot, y: 0.0))
+                        path.addLine(to: CGPoint(x: xRoot, y: size.height))
+                    }
+                    else if config.showXAxis {
+                        path.move(to: CGPoint(x: xRoot, y: size.height))
+                        path.addLine(to: CGPoint(x: size.width, y: size.height))
+                    }
+                }
+                if config.showInterval {
+                    for i in 1..<(config.numOfInterval+1) {
+                        let intervalPoints = Double(size.height)/Double((config.numOfInterval ?? 0) + 1)
+                        path.move(to: CGPoint(x: xRoot, y: size.height - (intervalPoints*Double(i))))
+                        path.addLine(to: CGPoint(x: size.width, y: size.height - (intervalPoints*Double(i))))
+                    }
+                }
+            }.stroke(lineWidth: 0.5).foregroundColor(.secondary)
+            if config.showYAxisFigure {
+                VStack{
+                    Text(String(format: "%.0f", config.actualMax))
+                        .font(.system(size: size.height/15))
+                        .foregroundColor(config.yAxisFigureColor)
+                        .offset(x: size.width/100, y: 0)
+                    Spacer()
+                    Text(String(format: "%.0f", config.actualMin))
+                        .font(.system(size: size.height/15))
+                        .foregroundColor(config.yAxisFigureColor)
+                        .offset(x: size.width/100, y: 0)
+                }
             }
         }
     }
 }
 
 @available(iOS 15, macOS 12.0, *)
-struct SCLineChartInterval_Previews: PreviewProvider {
-    static var previews: some View {
+internal struct SCLineChartInterval_Previews: PreviewProvider {
+    static internal var previews: some View {
         let temp: [SCLineChartData] = [
             SCLineChartData(0.0),
             SCLineChartData(1.0),
@@ -60,7 +76,7 @@ struct SCLineChartInterval_Previews: PreviewProvider {
             SCLineChartData(3.0),
             SCLineChartData(5.0),
             SCLineChartData(3.5)]
-        SCLineChartInterval(SCLineChartConfig(temp), CGSize(width: 150, height: 150))
+        SCLineChartInterval(SCLineChartConfig(chartData: temp), CGSize(width: 150, height: 150))
             .frame(width: 150, height: 150)
     }
 }

@@ -27,13 +27,11 @@ public struct SCLineChart: View {
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
-            if chartConfig.showInterval {
-                GeometryReader { proxy in
-                    VStack{
-                        SCLineChartInterval(chartConfig, proxy.size)
-                    }
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+            GeometryReader { proxy in
+                VStack{
+                    SCLineChartInterval(chartConfig, proxy.size)
                 }
+                .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
         .padding(.all, 5)
@@ -54,7 +52,7 @@ public struct SCLineChart_Previews: PreviewProvider {
             SCLineChartData(3.0),
             SCLineChartData(10.0),
             SCLineChartData(0)]
-        SCLineChart(config: SCLineChartConfig(temp))
+        SCLineChart(config: SCLineChartConfig(chartData: temp))
             .frame(width: 100, height: 100)
     }
 }

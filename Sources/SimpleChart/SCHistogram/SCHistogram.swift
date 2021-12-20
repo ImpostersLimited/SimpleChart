@@ -32,13 +32,11 @@ public struct SCHistogram: View {
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
-            if chartConfig.showInterval {
-                GeometryReader { proxy in
-                    VStack{
-                        SCHistogramInterval(chartConfig, proxy.size)
-                    }
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+            GeometryReader { proxy in
+                VStack{
+                    SCHistogramInterval(chartConfig, proxy.size)
                 }
+                .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
         .padding(.all, 5)
@@ -59,7 +57,7 @@ public struct SCHistogram_Previews: PreviewProvider {
             SCHistogramData(3.0),
             SCHistogramData(5.0),
             SCHistogramData(3.5)]
-        SCHistogram(config: SCHistogramConfig(temp))
+        SCHistogram(config: SCHistogramConfig(chartData: temp))
             .frame(width: 100.0, height: 100.0)
     }
 }

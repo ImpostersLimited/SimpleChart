@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-struct SCCapsule: View {
+internal struct SCCapsule: View {
     
     @State var config: SCRangeChartConfig
     @State var data: SCRangeChartData
@@ -17,7 +17,7 @@ struct SCCapsule: View {
     var height: Double
     var offset: Double
     
-    init(_ config: SCRangeChartConfig, _ data: SCRangeChartData, _ size: CGSize){
+    internal init(_ config: SCRangeChartConfig, _ data: SCRangeChartData, _ size: CGSize){
         self.config = config
         self.data = data
         self.size = size
@@ -26,33 +26,26 @@ struct SCCapsule: View {
         self.offset = (size.height * (data.lower - config.min)) / (config.max - config.min)
     }
     
-    var body: some View {
-        //ZStack{
-        Capsule()
-            .frame(width: width, height: height)
-            .offset(x: 0, y: -offset)
-            .foregroundColor(config.foregroundColor)
-        /*
-         VStack{
-         Text(String(format: "%.0f", data.upper))
-         .rotationEffect(Angle(degrees: -90))
-         .font(.system(size: size.width*config.widthFactor*0.9))
-         .offset(x: 0, y: -offset)
-         .foregroundColor(.accentColor)
-         Text(String(format: "%.0f", data.lower))
-         .rotationEffect(Angle(degrees: -90))
-         .font(.system(size: size.width*config.widthFactor*0.9))
-         .offset(x: 0, y: -offset)
-         .foregroundColor(.accentColor)
-         }
-         */
-        //}
+    internal var body: some View {
+        if config.stroke {
+            Capsule()
+                .stroke()
+                .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+                .frame(width: width, height: height)
+                .offset(x: 0, y: -offset)
+        }
+        else {
+            Capsule()
+                .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+                .frame(width: width, height: height)
+                .offset(x: 0, y: -offset)
+        }
     }
 }
 
 @available(iOS 15, macOS 12.0, *)
-struct SCCapsule_Previews: PreviewProvider {
-    static var previews: some View {
+internal struct SCCapsule_Previews: PreviewProvider {
+    static internal var previews: some View {
         let temp: [SCRangeChartData] = [
             SCRangeChartData(0.0, 1.0),
             SCRangeChartData(1.0, 2.0),
@@ -64,6 +57,6 @@ struct SCCapsule_Previews: PreviewProvider {
             SCRangeChartData(7.0, 8.0),
             SCRangeChartData(8.0, 9.0),
             SCRangeChartData(9.0, 10.0)]
-        SCCapsule(SCRangeChartConfig(temp), SCRangeChartData(1.0, 5.0), CGSize(width: 100, height: 100))
+        SCCapsule(SCRangeChartConfig(chartData: temp), SCRangeChartData(1.0, 5.0), CGSize(width: 100, height: 100))
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-struct SCHistogramBar: View {
+internal struct SCHistogramBar: View {
     
     @State var config: SCHistogramConfig
     @State var data: SCHistogramData
@@ -16,7 +16,7 @@ struct SCHistogramBar: View {
     var width: Double
     var height: Double
     
-    init(_ config: SCHistogramConfig, _ data: SCHistogramData, _ size: CGSize){
+    internal init(_ config: SCHistogramConfig, _ data: SCHistogramData, _ size: CGSize){
         self.config = config
         self.data = data
         self.size = size
@@ -25,17 +25,24 @@ struct SCHistogramBar: View {
         //self.offset = (size.height * (data.lower - config.min)) / (config.max - config.min)
     }
     
-    var body: some View {
-        Rectangle()
-            .frame(width: width, height: height)
-            .foregroundColor(config.foregroundColor)
-            .border(Color.gray, width: 1)
+    internal var body: some View {
+        if config.stroke {
+            Rectangle()
+                .stroke()
+                .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+                .frame(width: width, height: height)
+        }
+        else {
+            Rectangle()
+                .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+                .frame(width: width, height: height)
+        }
     }
 }
 
 @available(iOS 15, macOS 12.0, *)
-struct SCHistogramBar_Previews: PreviewProvider {
-    static var previews: some View {
+internal struct SCHistogramBar_Previews: PreviewProvider {
+    static internal var previews: some View {
         let temp: [SCHistogramData] = [
             SCHistogramData(0.0),
             SCHistogramData(1.0),
@@ -47,6 +54,6 @@ struct SCHistogramBar_Previews: PreviewProvider {
             SCHistogramData(3.0),
             SCHistogramData(5.0),
             SCHistogramData(3.5)]
-        SCHistogramBar(SCHistogramConfig(temp), SCHistogramData(1.0), CGSize(width: 100, height: 100))
+        SCHistogramBar(SCHistogramConfig(chartData: temp), SCHistogramData(1.0), CGSize(width: 100, height: 100))
     }
 }

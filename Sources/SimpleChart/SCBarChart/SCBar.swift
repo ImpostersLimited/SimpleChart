@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(iOS 15, macOS 12.0, *)
-struct SCBar: View {
+internal struct SCBar: View {
     
     @State var config: SCBarChartConfig
     @State var data: SCBarChartData
@@ -16,7 +16,7 @@ struct SCBar: View {
     var width: Double
     var height: Double
     
-    init(_ config: SCBarChartConfig, _ data: SCBarChartData, _ size: CGSize){
+    internal init(_ config: SCBarChartConfig, _ data: SCBarChartData, _ size: CGSize){
         self.config = config
         self.data = data
         self.size = size
@@ -25,16 +25,24 @@ struct SCBar: View {
         //self.offset = (size.height * (data.lower - config.min)) / (config.max - config.min)
     }
     
-    var body: some View {
-        Rectangle()
-            .frame(width: width, height: height)
-            .foregroundColor(config.foregroundColor)
+    internal var body: some View {
+        if config.stroke {
+            Rectangle()
+                .stroke()
+                .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+                .frame(width: width, height: height)
+        }
+        else {
+            Rectangle()
+                .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
+                .frame(width: width, height: height)
+        }
     }
 }
 
 @available(iOS 15, macOS 12.0, *)
-struct SCBar_Previews: PreviewProvider {
-    static var previews: some View {
+internal struct SCBar_Previews: PreviewProvider {
+    static internal var previews: some View {
         let temp: [SCBarChartData] = [
             SCBarChartData(0.0),
             SCBarChartData(1.0),
@@ -46,6 +54,6 @@ struct SCBar_Previews: PreviewProvider {
             SCBarChartData(3.0),
             SCBarChartData(5.0),
             SCBarChartData(3.5)]
-        SCBar(SCBarChartConfig(temp), SCBarChartData(1.0), CGSize(width: 100, height: 100))
+        SCBar(SCBarChartConfig(chartData: temp, color: [.red, .green]), SCBarChartData(1.0), CGSize(width: 100, height: 100))
     }
 }

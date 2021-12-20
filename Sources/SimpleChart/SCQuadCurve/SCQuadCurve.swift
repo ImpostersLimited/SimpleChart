@@ -27,13 +27,11 @@ public struct SCQuadCurve: View {
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
-            if chartConfig.showInterval {
-                GeometryReader { proxy in
-                    VStack{
-                        SCQuadCurveInterval(chartConfig, proxy.size)
-                    }
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+            GeometryReader { proxy in
+                VStack{
+                    SCQuadCurveInterval(chartConfig, proxy.size)
                 }
+                .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
         .padding(.all, 5)
@@ -54,7 +52,7 @@ public struct SCQuadCurve_Previews: PreviewProvider {
             SCQuadCurveData(3.0),
             SCQuadCurveData(10.0),
             SCQuadCurveData(9.0)]
-        SCQuadCurve(config: SCQuadCurveConfig(temp))
+        SCQuadCurve(config: SCQuadCurveConfig(chartData: temp, showInterval: true, color: [.red], numOfInterval: 1, gradientStart: .topLeading, gradientEnd: .bottomTrailing))
             .frame(width: 100, height: 100)
     }
 }

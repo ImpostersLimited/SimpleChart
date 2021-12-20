@@ -32,13 +32,11 @@ public struct SCBarChart: View {
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
-            if chartConfig.showInterval {
-                GeometryReader { proxy in
-                    VStack{
-                        SCBarChartInterval(chartConfig, proxy.size)
-                    }
-                    .frame(width: proxy.size.width, height: proxy.size.height)
+            GeometryReader { proxy in
+                VStack{
+                    SCBarChartInterval(chartConfig, proxy.size)
                 }
+                .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
         .padding(.all, 5)
@@ -59,7 +57,7 @@ public struct SCBarChart_Previews: PreviewProvider {
             SCBarChartData(3.0),
             SCBarChartData(5.0),
             SCBarChartData(3.5)]
-        SCBarChart(config: SCBarChartConfig(temp))
+        SCBarChart(config: SCBarChartConfig(chartData: temp))
             .frame(width: 100.0, height: 100.0)
     }
 }
