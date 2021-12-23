@@ -80,7 +80,12 @@ public class SCManager {
         if lower.count == upper.count {
             var returnedData = [SCRangeChartData]()
             for i in 0..<lower.count {
-                returnedData.append(SCRangeChartData(lower[i], upper[i]))
+                if lower[i] <= upper[i] {
+                    returnedData.append(SCRangeChartData(lower[i], upper[i]))
+                }
+                else {
+                    returnedData.append(SCRangeChartData(upper[i], lower[i]))
+                }
             }
             return returnedData
         }
@@ -94,7 +99,12 @@ public class SCManager {
         if lower.count == upper.count {
             var returnedData = [SCRangeChartData]()
             for i in 0..<lower.count {
-                returnedData.append(SCRangeChartData(Double(lower[i]), Double(upper[i])))
+                if lower[i] <= upper[i] {
+                    returnedData.append(SCRangeChartData(Double(lower[i]), Double(upper[i])))
+                }
+                else {
+                    returnedData.append(SCRangeChartData(Double(upper[i]),Double(lower[i])))
+                }
             }
             return returnedData
         }
@@ -104,18 +114,28 @@ public class SCManager {
         }
     }
     
-    public static func getRangeChartData(data: [(lower: Double, upper: Double)]) -> [SCRangeChartData]? {
+    public static func getRangeChartData(data: [(lower: Double, upper: Double)]) -> [SCRangeChartData] {
         var returnedData = [SCRangeChartData]()
         for i in 0..<data.count {
-            returnedData.append(SCRangeChartData(data[i].lower, data[i].upper))
+            if data[i].lower <= data[i].upper{
+                returnedData.append(SCRangeChartData(data[i].lower, data[i].upper))
+            }
+            else {
+                returnedData.append(SCRangeChartData(data[i].upper,data[i].lower))
+            }
         }
         return returnedData
     }
     
-    public static func getRangeChartData(data: [(lower: Int, upper: Int)]) -> [SCRangeChartData]? {
+    public static func getRangeChartData(data: [(lower: Int, upper: Int)]) -> [SCRangeChartData] {
         var returnedData = [SCRangeChartData]()
         for i in 0..<data.count {
-            returnedData.append(SCRangeChartData(Double(data[i].lower), Double(data[i].upper)))
+            if data[i].lower <= data[i].upper{
+                returnedData.append(SCRangeChartData(Double(data[i].lower), Double(data[i].upper)))
+            }
+            else {
+                returnedData.append(SCRangeChartData(Double(data[i].upper),Double(data[i].lower)))
+            }
         }
         return returnedData
     }

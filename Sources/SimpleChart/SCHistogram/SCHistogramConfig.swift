@@ -38,7 +38,19 @@ public struct SCHistogramConfig {
     
     public init(chartData: [SCHistogramData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, stroke: Bool = false, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary){
         self.chartData = chartData
-        self.baseZero = baseZero
+        var allPositive = true
+        for item in chartData {
+            if item.value < 0 {
+                allPositive = false
+            }
+        }
+        if allPositive && baseZero {
+            self.baseZero = true
+        }
+        else {
+            self.baseZero = false
+        }
+        //self.baseZero = baseZero
         var minLower = Double.infinity
         var maxUpper = -Double.infinity
         for item in chartData {

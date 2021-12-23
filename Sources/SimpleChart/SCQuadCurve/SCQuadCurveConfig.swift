@@ -38,7 +38,18 @@ public struct SCQuadCurveConfig {
     
     public init(chartData: [SCQuadCurveData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, stroke: Bool = false, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary){
         self.chartData = chartData
-        
+        var allPositive = true
+        for item in chartData {
+            if item.value < 0 {
+                allPositive = false
+            }
+        }
+        if allPositive && baseZero {
+            self.baseZero = true
+        }
+        else {
+            self.baseZero = false
+        }
         var minLower = Double.infinity
         var maxUpper = -Double.infinity
         for item in chartData {
@@ -50,7 +61,7 @@ public struct SCQuadCurveConfig {
             }
         }
         // add margin below and above upper and lower bound, using 5% of lower bound value
-        self.baseZero = baseZero
+        //self.baseZero = baseZero
         if self.baseZero {
             if maxUpper != minLower {
                 self.min = 0
