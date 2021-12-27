@@ -14,6 +14,10 @@ Available Charts:
 4. Quad Curve (curved version of line chart)
 5. Range Chart (a chart to represent the range of data within the same time period, similar to heart rate range representation in Apple Health app)
 
+Sample:
+<img width="344" alt="Screenshot 2021-12-27 at 19 26 29" src="https://user-images.githubusercontent.com/75328711/147467866-aa103159-2f11-454d-9147-0a09124488a4.png">
+
+
 All convinence method either accept [Double] or [Int] as an input, except for the following methods:
 
 ```swift
