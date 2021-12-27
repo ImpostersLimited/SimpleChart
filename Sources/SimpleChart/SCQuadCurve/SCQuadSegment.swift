@@ -7,7 +7,8 @@
 
 import Foundation
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCQuadSegment: Codable, Equatable {
     internal init(_ p1: Double, _ p2: Double){
         self.p1 = p1

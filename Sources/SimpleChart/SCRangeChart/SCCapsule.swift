@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCCapsule: View {
     
     @State var config: SCRangeChartConfig
@@ -43,7 +44,8 @@ internal struct SCCapsule: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCCapsule_Previews: PreviewProvider {
     static internal var previews: some View {
         let temp: [SCRangeChartData] = [

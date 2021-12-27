@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCRangeChartConfig {
     
     let chartData: [SCRangeChartData]

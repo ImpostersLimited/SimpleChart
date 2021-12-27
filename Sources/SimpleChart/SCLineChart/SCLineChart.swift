@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCLineChart: View {
     
     @State var chartData: [SCLineChartData]
@@ -38,7 +39,8 @@ public struct SCLineChart: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCLineChart_Previews: PreviewProvider {
     static public var previews: some View {
         let temp: [SCLineChartData] = [

@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCLineChartInterval: View {
     
     @State var config: SCLineChartConfig
@@ -39,7 +40,7 @@ internal struct SCLineChartInterval: View {
                 }
                 if config.showInterval {
                     for i in 1..<(config.numOfInterval+1) {
-                        let intervalPoints = Double(size.height)/Double((config.numOfInterval ?? 0) + 1)
+                        let intervalPoints = Double(size.height)/Double(config.numOfInterval + 1)
                         path.move(to: CGPoint(x: xRoot, y: size.height - (intervalPoints*Double(i))))
                         path.addLine(to: CGPoint(x: size.width, y: size.height - (intervalPoints*Double(i))))
                     }
@@ -62,7 +63,8 @@ internal struct SCLineChartInterval: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCLineChartInterval_Previews: PreviewProvider {
     static internal var previews: some View {
         let temp: [SCLineChartData] = [

@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 struct SCRangeChartInterval: View {
     
     @State var config: SCRangeChartConfig
@@ -62,7 +63,8 @@ struct SCRangeChartInterval: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 struct SCRangeChartInterval_Previews: PreviewProvider {
     static var previews: some View {
         let temp: [SCRangeChartData] = [

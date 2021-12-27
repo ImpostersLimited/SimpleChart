@@ -2,6 +2,8 @@
 
 SimpleChart is a package developed for our company, with the intent of sharing to the developer community. As you may know, there are already a lot of SwiftUI charting library. This is yet another implementations.
 
+Supported platforms include iOS v13, macOS v10.15, tvOS v13, watchOS v6, macCatalyst v.13. Basically all SwiftUI support platforms are supported.
+
 What makes this package different? SimpleChart provides utility methods for you to create the chartData list, which is the only necessary parameter for all of our charts config object. To use the provided convinence method, import SimpleChart, call SCManager and the associated methods. SCManager is the manager for all methods provided by this package. SCManager is a shared instance and it is a singleton object.
 
 Available Charts:

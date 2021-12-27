@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCHistogramBar: View {
     
     @State var config: SCHistogramConfig
@@ -40,7 +41,8 @@ internal struct SCHistogramBar: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCHistogramBar_Previews: PreviewProvider {
     static internal var previews: some View {
         let temp: [SCHistogramData] = [

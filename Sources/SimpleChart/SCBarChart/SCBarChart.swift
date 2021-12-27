@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCBarChart: View {
     
     @State var chartData: [SCBarChartData]
@@ -43,7 +44,8 @@ public struct SCBarChart: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCBarChart_Previews: PreviewProvider {
     static public var previews: some View {
         let temp: [SCBarChartData] = [
@@ -58,6 +60,6 @@ public struct SCBarChart_Previews: PreviewProvider {
             SCBarChartData(5.0),
             SCBarChartData(3.5)]
         SCBarChart(config: SCBarChartConfig(chartData: temp))
-            .frame(width: 100.0, height: 100.0)
+            .frame(width: 300, height: 300)
     }
 }

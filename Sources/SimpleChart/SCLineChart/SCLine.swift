@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCLine: View {
     
     @State var config: SCLineChartConfig
@@ -32,9 +33,11 @@ internal struct SCLine: View {
                         path.addLine(to: CGPoint(x: Double(0.0+(width*Double(i))), y: tempY))
                     }
                 }
-                path.addLine(to: CGPoint(x: size.width, y: size.height))
-                path.addLine(to: CGPoint(x: 0, y: size.height))
-                path.closeSubpath()
+                /*
+                 path.addLine(to: CGPoint(x: size.width, y: size.height))
+                 path.addLine(to: CGPoint(x: 0, y: size.height))
+                 path.closeSubpath()
+                 */
             }
             .stroke()
             .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
@@ -59,7 +62,8 @@ internal struct SCLine: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCLine_Previews: PreviewProvider {
     static var previews: some View {
         let temp: [SCLineChartData] = [

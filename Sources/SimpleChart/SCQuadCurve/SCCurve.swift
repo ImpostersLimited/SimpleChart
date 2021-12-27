@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCCurve: View {
     
     @State var config: SCQuadCurveConfig
@@ -35,9 +36,10 @@ internal struct SCCurve: View {
                     path.addQuadCurve(to: pt2, control: controlPoint(p1: mid, p2: pt2))
                     pt1 = pt2
                 }
-                path.addLine(to: CGPoint(x: size.width, y: size.height))
-                path.addLine(to: CGPoint(x: 0, y: size.height))
-                path.addLine(to: CGPoint(x: 0, y: tempY))
+                /*
+                 path.addLine(to: CGPoint(x: size.width, y: size.height))
+                 path.addLine(to: CGPoint(x: 0, y: size.height))
+                 path.addLine(to: CGPoint(x: 0, y: tempY))*/
             }
             .stroke()
             .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
@@ -86,7 +88,8 @@ internal struct SCCurve: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCCurve_Previews: PreviewProvider {
     static internal var previews: some View {
         let temp: [SCQuadCurveData] = [

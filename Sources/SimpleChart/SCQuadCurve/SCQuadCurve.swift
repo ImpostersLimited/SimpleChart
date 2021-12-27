@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCQuadCurve: View {
     
     @State var chartData: [SCQuadCurveData]
@@ -38,7 +39,8 @@ public struct SCQuadCurve: View {
     }
 }
 
-@available(iOS 15, macOS 12.0, *)
+//@available(iOS 15, macOS 12.0, *)
+@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 public struct SCQuadCurve_Previews: PreviewProvider {
     static public var previews: some View {
         let temp: [SCQuadCurveData] = [
