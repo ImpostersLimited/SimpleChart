@@ -31,13 +31,16 @@ public struct SCRangeChartConfig {
     let showYAxis: Bool
     let showYAxisFigure: Bool
     let stroke: Bool
+    let strokeWidth: CGFloat
     let xLegendColor: Color
     let yLegendColor: Color
     let gradientStart: UnitPoint
     let gradientEnd: UnitPoint
     let yAxisFigureColor: Color
+    let intervalLineWidth: CGFloat
+    let intervalColor: Color
     
-    public init(chartData: [SCRangeChartData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, stroke: Bool = false, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary){
+    public init(chartData: [SCRangeChartData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary){
         self.chartData = chartData
         var allPositive = true
         for item in chartData {
@@ -66,6 +69,7 @@ public struct SCRangeChartConfig {
         self.showYAxis = showYAxis
         self.showYAxisFigure = showYAxisFigure
         self.stroke = stroke
+        self.strokeWidth = strokeWidth
         self.xLegendColor = xLegendColor
         self.yLegendColor = yLegendColor
         self.gradientStart = gradientStart
@@ -98,6 +102,8 @@ public struct SCRangeChartConfig {
         self.showLabel = showLabel
         self.showLegend = showLegend
         self.showInterval = showInterval
+        self.intervalLineWidth = intervalLineWidth
+        self.intervalColor = intervalColor
         self.xLegend = xLegend
         self.yLegend = yLegend
         self.numOfInterval = numOfInterval

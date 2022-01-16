@@ -45,7 +45,7 @@ internal struct SCQuadCurveInterval: View {
                         path.addLine(to: CGPoint(x: size.width, y: size.height - (intervalPoints*Double(i))))
                     }
                 }
-            }.stroke(lineWidth: 0.5).foregroundColor(.secondary)
+            }.stroke(lineWidth: config.intervalLineWidth).foregroundColor(config.intervalColor)
             if config.showYAxisFigure {
                 VStack{
                     Text(String(format: "%.0f", config.actualMax))

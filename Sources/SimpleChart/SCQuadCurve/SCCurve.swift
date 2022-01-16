@@ -41,7 +41,7 @@ internal struct SCCurve: View {
                  path.addLine(to: CGPoint(x: 0, y: size.height))
                  path.addLine(to: CGPoint(x: 0, y: tempY))*/
             }
-            .stroke()
+            .stroke(lineWidth: config.strokeWidth)
             .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
         }
         else {

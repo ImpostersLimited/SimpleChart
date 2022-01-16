@@ -39,7 +39,7 @@ internal struct SCLine: View {
                  path.closeSubpath()
                  */
             }
-            .stroke()
+            .stroke(lineWidth: config.strokeWidth)
             .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
         }
         else {

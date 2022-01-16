@@ -30,7 +30,7 @@ internal struct SCBar: View {
     internal var body: some View {
         if config.stroke {
             Rectangle()
-                .stroke()
+                .stroke(lineWidth: config.strokeWidth)
                 .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
                 .frame(width: width, height: height)
         }

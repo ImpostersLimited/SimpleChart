@@ -30,7 +30,7 @@ internal struct SCCapsule: View {
     internal var body: some View {
         if config.stroke {
             Capsule()
-                .stroke()
+                .stroke(lineWidth: config.strokeWidth)
                 .fill(LinearGradient(colors: config.color, startPoint: config.gradientStart, endPoint: config.gradientEnd))
                 .frame(width: width, height: height)
                 .offset(x: 0, y: -offset)

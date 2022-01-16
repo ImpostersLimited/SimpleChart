@@ -17,7 +17,6 @@ Available Charts:
 Sample:
 <img width="344" alt="Screenshot 2021-12-27 at 19 26 29" src="https://user-images.githubusercontent.com/75328711/147467866-aa103159-2f11-454d-9147-0a09124488a4.png">
 
-
 All convinence method either accept [Double] or [Int] as an input, except for the following methods:
 
 ```swift
@@ -28,9 +27,35 @@ This methods accept both [Double] or [Int], as the “lower” and “upper” a
 
 All customizations will be done in the config object. You may see the initializer for all of the possible customizations. A special case is that the baseZero might be overrided by the initializer if the data input include negative number.
 
-Pending to implement:
+The following are the properties of different config object that can be customized. If you have no need to customize any specific properties, just remove them from the initializers when you create your config object as default arguments have been implemented. IntervalLineWidth and IntervalColor have effects in all X axis line, Y axis line and all interval lines behind the chart.
+
+```swift
+chartData: [SCBarChartData]
+baseZero: Bool = false
+showInterval: Bool = false
+showXAxis: Bool = false
+showYAxis: Bool = false
+showYAxisFigure: Bool = false
+showLegend: Bool = false
+showLabel: Bool = false
+intervalColor: Color = .secondary
+intervalLineWidth: CGFloat = 0.5
+stroke: Bool = false
+strokeWidth: CGFloat = 1
+color: [Color] = [.primary]
+numOfInterval: Int = 3
+xLegend: String = ""
+yLegend: String = ""
+xLegendColor: Color = .primary
+yLegendColor: Color = .primary
+gradientStart: UnitPoint = .top
+gradientEnd: UnitPoint = .bottom
+yAxisFigureColor: Color = .secondary
+```
+
+Features pending to implement:
 
 1. Legend and associated customizations
-2. Label for each axis
+2. Label for each data points
 
-The above customizations are already included in the config object, but not implemented in the actual chart views. More customizations will be coming and support and pull request are welcome.
+The above pending features have been included in the config object, but it will not have any effect in the actual chart views. More customizations will be coming and support and pull request are welcome.
