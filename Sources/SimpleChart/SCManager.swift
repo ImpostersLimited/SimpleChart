@@ -13,6 +13,26 @@ public class SCManager {
     
     private init(){}
     
+    public static func defaultBarChartData() -> [SCBarChartData] {
+        return [SCBarChartData(3.1),SCBarChartData(2.1),SCBarChartData(3.1),SCBarChartData(5.1), SCBarChartData(9.9)]
+    }
+    
+    public static func defaultHistogramData() -> [SCHistogramData] {
+        return [SCHistogramData(3.1),SCHistogramData(2.1),SCHistogramData(3.1),SCHistogramData(5.1), SCHistogramData(9.9)]
+    }
+    
+    public static func defaultLineChartData() -> [SCLineChartData] {
+        return [SCLineChartData(3.1),SCLineChartData(2.1),SCLineChartData(3.1),SCLineChartData(5.1), SCLineChartData(9.9)]
+    }
+    
+    public static func defaultQuadCurveData() -> [SCQuadCurveData] {
+        return [SCQuadCurveData(3.1),SCQuadCurveData(2.1),SCQuadCurveData(3.1),SCQuadCurveData(5.1), SCQuadCurveData(9.9)]
+    }
+    
+    public static func defaultRangeChartData() -> [SCRangeChartData] {
+        return [SCRangeChartData(1.0, 3.1),SCRangeChartData(1.0, 2.1),SCRangeChartData(1.0, 3.1),SCRangeChartData(1.0, 5.1), SCRangeChartData(1.0, 9.9)]
+    }
+    
     public static func getLineChartData(data: [Double]) -> [SCLineChartData]{
         var chartData: [SCLineChartData] = [SCLineChartData]()
         for (_, value) in data.enumerated(){

@@ -39,7 +39,11 @@ public struct SCLineChartConfig {
     let intervalLineWidth: CGFloat
     let intervalColor: Color
     
-    public init(chartData: [SCLineChartData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary){
+    public init(chartData: [SCLineChartData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary, minLower: Double = Double.infinity, maxUpper: Double = -Double.infinity){
+        var chartData = chartData
+        if chartData.isEmpty {
+            chartData = SCManager.defaultLineChartData()
+        }
         self.chartData = chartData
         var allPositive = true
         for item in chartData {
@@ -54,14 +58,20 @@ public struct SCLineChartConfig {
             self.baseZero = false
         }
         //self.baseZero = baseZero
-        var minLower = Double.infinity
-        var maxUpper = -Double.infinity
-        for item in chartData {
-            if item.value < minLower {
-                minLower = item.value
+        var minLower = minLower
+        var maxUpper = maxUpper
+        if minLower == Double.infinity {
+            for item in chartData {
+                if item.value < minLower {
+                    minLower = item.value
+                }
             }
-            if item.value > maxUpper {
-                maxUpper = item.value
+        }
+        if maxUpper == -Double.infinity {
+            for item in chartData {
+                if item.value > maxUpper {
+                    maxUpper = item.value
+                }
             }
         }
         self.showXAxis = showXAxis
