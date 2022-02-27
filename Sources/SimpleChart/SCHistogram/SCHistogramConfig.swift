@@ -39,8 +39,9 @@ public struct SCHistogramConfig {
     let yAxisFigureColor: Color
     let intervalLineWidth: CGFloat
     let intervalColor: Color
+    let yAxisFigureFontFactor: Double
     
-    public init(chartData: [SCHistogramData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary, minLower: Double = Double.infinity, maxUpper: Double = -Double.infinity){
+    public init(chartData: [SCHistogramData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary, yAxisFigureFontFactor: Double = 0.06667, minLower: Double = Double.infinity, maxUpper: Double = -Double.infinity){
         var chartData = chartData
         if chartData.isEmpty {
             chartData = SCManager.defaultHistogramData()
@@ -75,6 +76,7 @@ public struct SCHistogramConfig {
                 }
             }
         }
+        self.yAxisFigureFontFactor = yAxisFigureFontFactor
         self.showXAxis = showXAxis
         self.showYAxis = showYAxis
         self.showYAxisFigure = showYAxisFigure

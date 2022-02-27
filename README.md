@@ -4,7 +4,7 @@ SimpleChart is a package developed for our company, with the intent of sharing t
 
 Supported platforms include iOS v13, macOS v10.15, tvOS v13, watchOS v6, macCatalyst v.13. Basically all SwiftUI support platforms are supported.
 
-What makes this package different? SimpleChart provides utility methods for you to create the chartData list, which is the only necessary parameter for all of our charts config object. To use the provided convinence method, import SimpleChart, call SCManager and the associated methods. SCManager is the manager for all methods provided by this package. SCManager is a shared instance and it is a singleton object.
+What makes this package different? SimpleChart provides utility methods for you to create the chartData list, which is the only necessary parameter for all of our charts config object. To use the provided convenience method, import SimpleChart, call SCManager and the associated methods. SCManager is the manager for all methods provided by this package. SCManager is a shared instance and it is a singleton object.
 
 Available Charts:
 
@@ -25,7 +25,7 @@ SCManager.getRangeChartData()
 
 This methods accept both [Double] or [Int], as the “lower” and “upper” argument, along with a list of named tuple (lower: [Double], upper: [Double]) or (lower: [Int], upper: [Int]) for the “data” argument.
 
-All customizations will be done in the config object. You may see the initializer for all of the possible customizations. A special case is that the baseZero might be overrided by the initializer if the data input include negative number.
+All customizations will be done in the config object. You may see the initializer for all of the possible customizations. A special case is that the baseZero might be overridden by the initializer if the data input include negative number.
 
 The following are the properties of different config object that can be customized. If you have no need to customize any specific properties, just remove them from the initializers when you create your config object as default arguments have been implemented. IntervalLineWidth and IntervalColor have effects in all X axis line, Y axis line and all interval lines behind the chart.
 
@@ -51,7 +51,10 @@ yLegendColor: Color = .primary
 gradientStart: UnitPoint = .top
 gradientEnd: UnitPoint = .bottom
 yAxisFigureColor: Color = .secondary
+yAxisFigureFontFactor: Double = 0.06667
 ```
+
+yAxisFigureFontFactor is a factor to scale the font size according to the chart height, default font size = chart.height/15 .
 
 Features pending to implement:
 

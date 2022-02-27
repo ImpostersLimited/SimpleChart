@@ -47,14 +47,14 @@ internal struct SCBarChartInterval: View {
                 }
             }.stroke(lineWidth: config.intervalLineWidth).foregroundColor(config.intervalColor)
             if config.showYAxisFigure {
-                VStack{
-                    Text(String(format: "%.0f", config.actualMax))
-                        .font(.system(size: size.height/15))
+                VStack(alignment: .leading){
+                    Text(String(format: "%.0f", config.actualMax.rounded(.up)))
+                        .font(.system(size: size.height*config.yAxisFigureFontFactor))
                         .foregroundColor(config.yAxisFigureColor)
                         .offset(x: size.width/100, y: 0)
                     Spacer()
-                    Text(String(format: "%.0f", config.actualMin))
-                        .font(.system(size: size.height/15))
+                    Text(String(format: "%.0f", config.actualMin.rounded(.up)))
+                        .font(.system(size: size.height*config.yAxisFigureFontFactor))
                         .foregroundColor(config.yAxisFigureColor)
                         .offset(x: size.width/100, y: 0)
                 }

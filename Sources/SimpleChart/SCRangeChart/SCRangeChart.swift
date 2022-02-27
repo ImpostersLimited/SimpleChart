@@ -60,7 +60,7 @@ public struct SCChart_Previews: PreviewProvider {
             SCRangeChartData(5.0, 9.0),
             SCRangeChartData(0.0, 9.0)
         ]
-        SCRangeChart(config: SCRangeChartConfig(chartData: temp))
+        SCRangeChart(config: SCRangeChartConfig(chartData: temp, showInterval: true, showYAxisFigure: true))
             .frame(width: 300, height: 300)
     }
 }
