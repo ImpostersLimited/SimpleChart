@@ -15,6 +15,7 @@ jobs:
   route-issue:
     runs-on: ubuntu-latest
     env:
+      PROJECT_ID: PVT_kwDOBH1sx84BRMRS
       PROJECT_URL: https://github.com/orgs/ImpostersLimited/projects/5
       PROJECT_TOKEN: ${{ secrets.IMPOSTERSLIMITED_PROJECT_AUTOMATION_TOKEN }}
     steps:
@@ -32,10 +33,41 @@ jobs:
 
       - name: Add issue to ImpostersLimited Main project
         if: ${{ env.PROJECT_TOKEN != '' }}
-        uses: actions/add-to-project@v1.0.2
+        uses: actions/github-script@v7
         with:
-          project-url: ${{ env.PROJECT_URL }}
           github-token: ${{ env.PROJECT_TOKEN }}
+          script: |
+            const projectId = process.env.PROJECT_ID
+            const projectUrl = process.env.PROJECT_URL
+            const contentId = context.payload.issue.node_id
+
+            try {
+              await github.graphql(
+                `mutation($projectId: ID!, $contentId: ID!) {
+                  addProjectV2ItemById(input: { projectId: $projectId, contentId: $contentId }) {
+                    item {
+                      id
+                    }
+                  }
+                }`,
+                { projectId, contentId }
+              )
+
+              core.info(`Added issue #${context.payload.issue.number} to ${projectUrl}`)
+            } catch (error) {
+              const message = String(error?.message ?? error)
+
+              if (
+                message.includes('already exists') ||
+                message.includes('already added') ||
+                message.includes('already in the project')
+              ) {
+                core.info(`Issue #${context.payload.issue.number} is already in ${projectUrl}`)
+                return
+              }
+
+              core.setFailed(`Failed to add issue #${context.payload.issue.number} to ${projectUrl}: ${message}`)
+            }
 
       - name: Warn when project token is not configured
         if: ${{ env.PROJECT_TOKEN == '' }}
