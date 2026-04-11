@@ -11,13 +11,16 @@ import SwiftUI
 @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
+/// Renders a reusable 3D composition built from `SCChart3DMark` values.
 public struct SCComposedChart3D: View {
     public let composition: SCChart3DComposition
 
+    /// Creates a 3D composed chart from a prepared composition value.
     public init(composition: SCChart3DComposition) {
         self.composition = composition
     }
 
+    /// Creates a 3D composed chart directly from marks and an optional pose.
     public init(
         marks: [SCChart3DMark],
         pose: SCChart3DPoseStyle = .default

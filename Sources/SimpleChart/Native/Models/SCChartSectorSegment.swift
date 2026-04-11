@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+/// Represents one segment in a sector or donut chart.
 public struct SCChartSectorSegment: Identifiable, Equatable {
     public let id: String
     public let title: String
     public let value: Double
     public let color: Color?
 
+    /// Creates a sector segment from title, value, and optional explicit color.
     public init(id: String? = nil, title: String, value: Double, color: Color? = nil) {
         self.id = id ?? title
         self.title = title

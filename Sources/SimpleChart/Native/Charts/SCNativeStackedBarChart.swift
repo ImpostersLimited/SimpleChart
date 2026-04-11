@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A stacked bar chart that accumulates segment values within each category.
 public struct SCNativeStackedBarChart: View {
     public let segments: [SCChartStackSegment]
     public let axesStyle: SCChartAxesStyle
@@ -15,6 +16,7 @@ public struct SCNativeStackedBarChart: View {
     public let legend: SCChartLegend
     public let foregroundStyleScale: SCChartForegroundStyleScale
 
+    /// Creates a stacked bar chart from prebuilt stack-segment models.
     public init(
         segments: [SCChartStackSegment],
         axesStyle: SCChartAxesStyle = .standard(),
@@ -31,6 +33,7 @@ public struct SCNativeStackedBarChart: View {
         self.foregroundStyleScale = foregroundStyleScale ?? .categorical(segmentNames, palette: palette)
     }
 
+    /// Creates a stacked bar chart from explicit segment values and category order.
     public init(
         groups: [SCChartBarGroup],
         axesStyle: SCChartAxesStyle = .standard(),
@@ -49,6 +52,7 @@ public struct SCNativeStackedBarChart: View {
         )
     }
 
+    /// Creates a stacked bar chart from floating-point tuples of category, segment, and value.
     public init<T: BinaryFloatingPoint>(
         groups: [(String, [(String, T)])],
         axesStyle: SCChartAxesStyle = .standard(),
@@ -67,6 +71,7 @@ public struct SCNativeStackedBarChart: View {
         )
     }
 
+    /// Creates a stacked bar chart from integer tuples of category, segment, and value.
     public init<T: BinaryInteger>(
         groups: [(String, [(String, T)])],
         axesStyle: SCChartAxesStyle = .standard(),

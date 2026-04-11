@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Represents a single point in 3D chart space.
 public struct SCChart3DPoint: Identifiable, Equatable {
     public let id: String
     public let x: Double
@@ -14,6 +15,7 @@ public struct SCChart3DPoint: Identifiable, Equatable {
     public let z: Double
     public let label: String?
 
+    /// Creates a 3D point with optional label metadata.
     public init(
         id: String? = nil,
         x: Double,
@@ -30,6 +32,7 @@ public struct SCChart3DPoint: Identifiable, Equatable {
 }
 
 public extension SCChart3DPoint {
+    /// Builds 3D points from floating-point tuples and optional parallel labels.
     static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint, V: BinaryFloatingPoint>(
         points: [(T, U, V)],
         labels: [String]? = nil
@@ -45,6 +48,7 @@ public extension SCChart3DPoint {
         }
     }
 
+    /// Builds 3D points from integer tuples and optional parallel labels.
     static func make<T: BinaryInteger, U: BinaryInteger, V: BinaryInteger>(
         points: [(T, U, V)],
         labels: [String]? = nil

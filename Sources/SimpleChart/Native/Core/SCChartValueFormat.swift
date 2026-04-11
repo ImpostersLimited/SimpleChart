@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Formats numeric values for axis labels, annotations, and inspection callouts.
 public enum SCChartNumericValueFormat: Equatable, Codable {
     case automatic
     case compact
@@ -14,6 +15,7 @@ public enum SCChartNumericValueFormat: Equatable, Codable {
     case percent(precision: Int = 0)
     case number(precision: Int = 0)
 
+    /// Converts a numeric value into display text using the selected formatting strategy.
     public func string(from value: Double) -> String {
         switch self {
         case .automatic:
@@ -36,6 +38,7 @@ public enum SCChartNumericValueFormat: Equatable, Codable {
     }
 }
 
+/// Formats dates for time-series axes, annotations, and inspection callouts.
 public enum SCChartDateValueFormat: Equatable, Codable {
     case automatic
     case date
@@ -44,6 +47,7 @@ public enum SCChartDateValueFormat: Equatable, Codable {
     case monthYear
     case hourMinute
 
+    /// Converts a date into display text using the selected formatting strategy.
     public func string(from date: Date) -> String {
         switch self {
         case .automatic:

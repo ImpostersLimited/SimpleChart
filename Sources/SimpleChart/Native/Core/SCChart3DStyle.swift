@@ -11,6 +11,7 @@ import SwiftUI
 @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
+/// Presets the viewing angle used when rendering 3D chart compositions.
 public enum SCChart3DPoseStyle: Equatable {
     case `default`
     case front
@@ -25,10 +26,12 @@ public enum SCChart3DPoseStyle: Equatable {
 @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
+/// Styles point, rectangle, rule, and surface marks in 3D chart wrappers.
 public struct SCChart3DSeriesStyle: Equatable {
     public let color: Color
     public let symbolSize: CGFloat
 
+    /// Creates a 3D series style from a color and default symbol size.
     public init(
         color: Color = .accentColor,
         symbolSize: CGFloat = 40

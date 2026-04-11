@@ -8,12 +8,14 @@
 import Charts
 import SwiftUI
 
+/// A ready-made scatter chart backed by explicit x/y points.
 public struct SCNativeScatterChart: View {
     public let points: [SCChartScatterPoint]
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a scatter chart from prebuilt scatter points.
     public init(
         points: [SCChartScatterPoint],
         seriesStyle: SCChartSeriesStyle = .scatter(),
@@ -26,6 +28,7 @@ public struct SCNativeScatterChart: View {
         self.domain = domain ?? .auto(values: points.map(\.y))
     }
 
+    /// Creates a scatter chart from floating-point `(x, y)` tuples.
     public init<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         points: [(T, U)],
         labels: [String]? = nil,
@@ -41,6 +44,7 @@ public struct SCNativeScatterChart: View {
         )
     }
 
+    /// Creates a scatter chart from labeled floating-point scatter tuples.
     public init<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         labeledPoints: [(String, T, U)],
         seriesStyle: SCChartSeriesStyle = .scatter(),

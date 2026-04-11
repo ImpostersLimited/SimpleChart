@@ -10,6 +10,7 @@ import SwiftUI
 
 //@available(iOS 15, macOS 12.0, *)
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+/// Deprecated legacy configuration container for the original quad-curve API.
 public struct SCQuadCurveConfig {
     var segments: [SCQuadSegment]
     let chartData: [SCQuadCurveData]
@@ -42,6 +43,7 @@ public struct SCQuadCurveConfig {
     let yAxisFigureFontFactor: Double
     
     @available(*, deprecated, message: "Use SCNativeQuadCurveChart with SCChartPoint, SCChartSeriesStyle, SCChartAxesStyle, and SCChartDomain instead.")
+    /// Creates a legacy quad-curve configuration value for compatibility with the original API surface.
     public init(chartData: [SCQuadCurveData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary, yAxisFigureFontFactor: Double = 0.06667, minLower: Double = Double.infinity, maxUpper: Double = -Double.infinity){
         var chartData = chartData
         if chartData.isEmpty {

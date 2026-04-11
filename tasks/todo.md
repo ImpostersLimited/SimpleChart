@@ -1,5 +1,10 @@
 # Active Todo
 
+- [x] Audit the remaining exposed public API surface for missing Xcode Quick Help coverage
+- [x] Add `///` documentation for all remaining public types and public entry points in the package
+- [x] Update changelog and review notes for the full API Quick Help pass
+- [x] Re-run `swift build` to verify the documentation pass did not break the package
+
 - [x] Audit the first-discovery public API for missing Xcode Quick Help summaries
 - [x] Add focused `///` documentation to the core models, styles, composition entrypoints, and primary wrappers
 - [x] Update changelog/review notes for the Quick Help documentation pass
@@ -185,3 +190,6 @@
 - Verified on 2026-04-10 after the helper-kernel completeness slice with `swift test`: package builds cleanly and 65 tests pass.
 - Added Xcode Quick Help summaries to the first-discovery public API surface, covering the core point/range/time/reference models, domain/style helpers, composed-chart entrypoints, and the main line/bar/inspection wrappers.
 - Verified on 2026-04-11 after the Quick Help documentation pass with `swift build`: package builds cleanly.
+- Expanded the Xcode Quick Help pass to cover the full exposed package API surface, including the remaining native wrappers/helpers, shared interaction and viewport properties, `SCChartDomain` overloads, and the deprecated legacy compatibility layer.
+- The symbol-level audit for public types, initializers, helper functions, and exposed computed properties now returns zero undocumented symbols across `Sources/SimpleChart` when preview-only declarations are excluded.
+- Verified on 2026-04-11 after the full-package Quick Help pass with `swift build` and `swift test`: package builds cleanly and 68 tests pass.

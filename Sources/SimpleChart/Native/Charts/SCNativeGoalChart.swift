@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A composed chart that overlays goal reference lines on top of bar values.
 public struct SCNativeGoalChart: View {
     public let points: [SCChartPoint]
     public let goal: SCChartReferenceLine
@@ -15,6 +16,7 @@ public struct SCNativeGoalChart: View {
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a goal chart from prebuilt categorical points and goal lines.
     public init(
         points: [SCChartPoint],
         goal: SCChartReferenceLine,
@@ -32,6 +34,7 @@ public struct SCNativeGoalChart: View {
         self.domain = domain ?? .auto(values: points.map(\.value) + referenceValues, baseZero: true)
     }
 
+    /// Creates a goal chart from floating-point values, optional labels, and goal lines.
     public init<T: BinaryFloatingPoint>(
         values: [T],
         labels: [String]? = nil,

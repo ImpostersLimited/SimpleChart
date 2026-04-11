@@ -9,12 +9,14 @@ import Charts
 import SwiftUI
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized line-plot wrapper for numeric x/y point series.
 public struct SCNativeLinePlotChart: View {
     public let points: [SCChartPlotPoint]
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a line plot from prebuilt numeric plot points.
     public init(
         points: [SCChartPlotPoint],
         seriesStyle: SCChartSeriesStyle = .line(),
@@ -27,6 +29,7 @@ public struct SCNativeLinePlotChart: View {
         self.domain = domain ?? .auto(values: points.map(\.y))
     }
 
+    /// Creates a line plot from floating-point `(x, y)` tuples.
     public init<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         points: [(T, U)],
         seriesName: String? = nil,
@@ -73,6 +76,7 @@ public struct SCNativeLinePlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized area-plot wrapper for numeric x/y point series.
 public struct SCNativeAreaPlotChart: View {
     public let points: [SCChartPlotPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -80,6 +84,7 @@ public struct SCNativeAreaPlotChart: View {
     public let domain: SCChartDomain?
     public let stacking: SCChartPlotStacking
 
+    /// Creates an area plot from prebuilt numeric plot points.
     public init(
         points: [SCChartPlotPoint],
         seriesStyle: SCChartSeriesStyle = .area(),
@@ -124,6 +129,7 @@ public struct SCNativeAreaPlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized bar-plot wrapper for point, span, or range plot input.
 public struct SCNativeBarPlotChart: View {
     public let points: [SCChartPlotPoint]
     public let spans: [SCChartPlotSpan]
@@ -135,6 +141,7 @@ public struct SCNativeBarPlotChart: View {
     public let height: SCChartPlotDimension
     public let stacking: SCChartPlotStacking
 
+    /// Creates a bar plot from point-based plot input.
     public init(
         points: [SCChartPlotPoint],
         seriesStyle: SCChartSeriesStyle = .bar(),
@@ -155,6 +162,7 @@ public struct SCNativeBarPlotChart: View {
         self.stacking = stacking
     }
 
+    /// Creates a bar plot from span-based plot input.
     public init(
         spans: [SCChartPlotSpan],
         seriesStyle: SCChartSeriesStyle = .bar(),
@@ -173,6 +181,7 @@ public struct SCNativeBarPlotChart: View {
         self.stacking = .standard
     }
 
+    /// Creates a bar plot from range-based plot input.
     public init(
         ranges: [SCChartPlotRange],
         seriesStyle: SCChartSeriesStyle = .bar(),
@@ -239,12 +248,14 @@ public struct SCNativeBarPlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized point-plot wrapper for numeric x/y point series.
 public struct SCNativePointPlotChart: View {
     public let points: [SCChartPlotPoint]
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a point plot from prebuilt numeric plot points.
     public init(
         points: [SCChartPlotPoint],
         seriesStyle: SCChartSeriesStyle = .scatter(),
@@ -275,6 +286,7 @@ public struct SCNativePointPlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized rectangle-plot wrapper for explicit numeric rectangles.
 public struct SCNativeRectanglePlotChart: View {
     public let rectangles: [SCChartPlotRectangle]
     public let seriesStyle: SCChartSeriesStyle
@@ -283,6 +295,7 @@ public struct SCNativeRectanglePlotChart: View {
     public let width: SCChartPlotDimension
     public let height: SCChartPlotDimension
 
+    /// Creates a rectangle plot from prebuilt plot rectangles.
     public init(
         rectangles: [SCChartPlotRectangle],
         seriesStyle: SCChartSeriesStyle = .bar(),
@@ -318,6 +331,7 @@ public struct SCNativeRectanglePlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A function-based line-plot wrapper that samples a scalar function over x.
 public struct SCNativeFunctionLinePlotChart: View {
     public let xTitle: String
     public let yTitle: String
@@ -326,6 +340,7 @@ public struct SCNativeFunctionLinePlotChart: View {
     public let axesStyle: SCChartAxesStyle
     public let function: @Sendable (Double) -> Double
 
+    /// Creates a function line plot from axis titles and a scalar function.
     public init(
         xTitle: String,
         yTitle: String,
@@ -356,6 +371,7 @@ public struct SCNativeFunctionLinePlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A function-based line-plot wrapper for parametric curves.
 public struct SCNativeParametricLinePlotChart: View {
     public let xTitle: String
     public let yTitle: String
@@ -365,6 +381,7 @@ public struct SCNativeParametricLinePlotChart: View {
     public let axesStyle: SCChartAxesStyle
     public let function: @Sendable (Double) -> (x: Double, y: Double)
 
+    /// Creates a parametric line plot from axis titles, parameter domain, and a curve function.
     public init(
         xTitle: String,
         yTitle: String,
@@ -403,6 +420,7 @@ public struct SCNativeParametricLinePlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A function-based area-plot wrapper for single-value or band-value functions.
 public struct SCNativeFunctionAreaPlotChart: View {
     public let xTitle: String
     public let yTitle: String
@@ -414,6 +432,7 @@ public struct SCNativeFunctionAreaPlotChart: View {
     public let singleFunction: (@Sendable (Double) -> Double)?
     public let bandFunction: (@Sendable (Double) -> (yStart: Double, yEnd: Double))?
 
+    /// Creates a function area plot from a scalar function sampled over x.
     public init(
         xTitle: String,
         yTitle: String,
@@ -433,6 +452,7 @@ public struct SCNativeFunctionAreaPlotChart: View {
         self.bandFunction = nil
     }
 
+    /// Creates a function area plot from a band function sampled over x.
     public init(
         xTitle: String,
         yStartTitle: String,

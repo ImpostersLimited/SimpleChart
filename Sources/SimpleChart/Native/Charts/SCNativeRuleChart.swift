@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A chart that renders one or more reference-rule overlays without a primary series.
 public struct SCNativeRuleChart: View {
     public let referenceLines: [SCChartReferenceLine]
     public let axesStyle: SCChartAxesStyle
@@ -17,6 +18,7 @@ public struct SCNativeRuleChart: View {
     public let plotStyle: SCChartPlotStyle
     public let domain: SCChartDomain?
 
+    /// Creates a rule chart from prebuilt reference lines.
     public init(
         referenceLines: [SCChartReferenceLine],
         axesStyle: SCChartAxesStyle = .minimal,
@@ -37,6 +39,7 @@ public struct SCNativeRuleChart: View {
         self.domain = domain ?? .auto(values: referenceLines.map(\.value), baseZero: baseZero, paddingRatio: paddingRatio)
     }
 
+    /// Creates a rule chart from raw y-values using a shared title and color.
     public init(
         referenceLine: SCChartReferenceLine,
         axesStyle: SCChartAxesStyle = .minimal,

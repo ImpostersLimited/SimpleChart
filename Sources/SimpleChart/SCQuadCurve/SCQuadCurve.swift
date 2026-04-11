@@ -8,11 +8,13 @@
 import SwiftUI
 
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
+/// Deprecated compatibility wrapper that forwards the original quad-curve config API to the native quad-curve implementation.
 public struct SCQuadCurve: View {
     let chartData: [SCQuadCurveData]
     let chartConfig: SCQuadCurveConfig
     
     @available(*, deprecated, message: "Use SCNativeQuadCurveChart with SCChartPoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
+    /// Creates the deprecated quad-curve wrapper from a legacy configuration value.
     public init(config: SCQuadCurveConfig) {
         self.chartData = config.chartData
         self.chartConfig = config

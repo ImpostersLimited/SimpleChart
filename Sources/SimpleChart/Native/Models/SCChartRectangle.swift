@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Represents a rectangle mark bounded by categorical x positions and numeric y bounds.
 public struct SCChartRectangle: Identifiable, Equatable {
     public let id: String
     public let xStart: Double
@@ -16,6 +17,7 @@ public struct SCChartRectangle: Identifiable, Equatable {
     public let color: Color?
     public let annotation: SCChartAnnotation?
 
+    /// Creates a rectangle mark from explicit x/y bounds and optional styling.
     public init(
         id: String? = nil,
         xStart: Double,

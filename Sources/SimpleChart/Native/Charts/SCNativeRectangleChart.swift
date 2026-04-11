@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A chart that renders explicit rectangle marks across numeric x and y bounds.
 public struct SCNativeRectangleChart: View {
     public let rectangles: [SCChartRectangle]
     public let seriesStyle: SCChartSeriesStyle
@@ -18,6 +19,7 @@ public struct SCNativeRectangleChart: View {
     public let plotStyle: SCChartPlotStyle
     public let domain: SCChartDomain?
 
+    /// Creates a rectangle chart from prebuilt rectangle models.
     public init(
         rectangles: [SCChartRectangle],
         seriesStyle: SCChartSeriesStyle = .bar(),
@@ -44,6 +46,7 @@ public struct SCNativeRectangleChart: View {
         )
     }
 
+    /// Creates a rectangle chart from floating-point rectangle tuples.
     public init<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         rectangles: [(T, T, U, U)],
         colors: [Color] = [],
@@ -71,6 +74,7 @@ public struct SCNativeRectangleChart: View {
         )
     }
 
+    /// Creates a rectangle chart from integer rectangle tuples.
     public init<T: BinaryInteger, U: BinaryInteger>(
         rectangles: [(T, T, U, U)],
         colors: [Color] = [],

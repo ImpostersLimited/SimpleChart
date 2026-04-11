@@ -47,7 +47,7 @@
 
 ### Changed
 
-- Added Xcode Quick Help documentation to the first-discovery public API surface so the core models, styles, composition entrypoints, and primary wrappers are easier to explore directly from Xcode.
+- Added Xcode Quick Help documentation across the full exposed package API surface, including the native wrapper/helper layer and the deprecated compatibility layer, so every public type and entry point is easier to discover directly from Xcode.
 - Raised minimum supported platform versions to Swift Charts baselines:
   - iOS 16+
   - macOS 13+

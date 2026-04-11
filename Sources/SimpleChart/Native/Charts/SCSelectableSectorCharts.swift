@@ -9,6 +9,7 @@ import Charts
 import SwiftUI
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A sector chart wrapper with angle selection and inspection support.
 public struct SCSelectableSectorChart: View {
     public let segments: [SCChartSectorSegment]
     public let palette: [Color]
@@ -17,6 +18,7 @@ public struct SCSelectableSectorChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates a selectable sector chart bound directly to an optional selection.
     public init(
         segments: [SCChartSectorSegment],
         selection: Binding<SCChartSelection?>,
@@ -31,6 +33,7 @@ public struct SCSelectableSectorChart: View {
         self.gestureConfiguration = gestureConfiguration
     }
 
+    /// Creates a selectable sector chart bound to the shared selection-state helper.
     public init(
         segments: [SCChartSectorSegment],
         selectionState: Binding<SCChartSelectionState>,
@@ -50,6 +53,7 @@ public struct SCSelectableSectorChart: View {
         )
     }
 
+    /// Creates a selectable sector chart from floating-point `(title, value)` tuples.
     public init<T: BinaryFloatingPoint>(
         segments: [(String, T)],
         selection: Binding<SCChartSelection?>,
@@ -67,6 +71,7 @@ public struct SCSelectableSectorChart: View {
         )
     }
 
+    /// Creates a selectable sector chart from integer `(title, value)` tuples.
     public init<T: BinaryInteger>(
         segments: [(String, T)],
         selection: Binding<SCChartSelection?>,
@@ -163,6 +168,7 @@ public struct SCSelectableSectorChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A donut chart wrapper with angle selection and inspection support.
 public struct SCSelectableDonutChart: View {
     public let segments: [SCChartSectorSegment]
     public let innerRadiusRatio: Double
@@ -172,6 +178,7 @@ public struct SCSelectableDonutChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates a selectable donut chart bound directly to an optional selection.
     public init(
         segments: [SCChartSectorSegment],
         selection: Binding<SCChartSelection?>,
@@ -188,6 +195,7 @@ public struct SCSelectableDonutChart: View {
         self.gestureConfiguration = gestureConfiguration
     }
 
+    /// Creates a selectable donut chart bound to the shared selection-state helper.
     public init(
         segments: [SCChartSectorSegment],
         selectionState: Binding<SCChartSelectionState>,
@@ -209,6 +217,7 @@ public struct SCSelectableDonutChart: View {
         )
     }
 
+    /// Creates a selectable donut chart from floating-point `(title, value)` tuples.
     public init<T: BinaryFloatingPoint>(
         segments: [(String, T)],
         selection: Binding<SCChartSelection?>,
@@ -228,6 +237,7 @@ public struct SCSelectableDonutChart: View {
         )
     }
 
+    /// Creates a selectable donut chart from integer `(title, value)` tuples.
     public init<T: BinaryInteger>(
         segments: [(String, T)],
         selection: Binding<SCChartSelection?>,

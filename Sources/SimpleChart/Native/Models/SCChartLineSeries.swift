@@ -7,12 +7,14 @@
 
 import Foundation
 
+/// Represents one named series inside a multi-line chart.
 public struct SCChartLineSeries: Identifiable, Equatable {
     public let id: String
     public let name: String
     public let points: [SCChartPoint]
     public let style: SCChartSeriesStyle
 
+    /// Creates a named line series from prebuilt points and optional styling.
     public init(
         id: String? = nil,
         name: String,
@@ -27,6 +29,7 @@ public struct SCChartLineSeries: Identifiable, Equatable {
 }
 
 public extension SCChartLineSeries {
+    /// Builds a line series from floating-point values and optional labels.
     static func make<T: BinaryFloatingPoint>(
         name: String,
         values: [T],
@@ -40,6 +43,7 @@ public extension SCChartLineSeries {
         )
     }
 
+    /// Builds a line series from integer values and optional labels.
     static func make<T: BinaryInteger>(
         name: String,
         values: [T],

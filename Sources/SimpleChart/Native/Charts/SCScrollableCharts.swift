@@ -9,6 +9,7 @@ import Charts
 import SwiftUI
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A categorical line chart wrapper with scrollable x-domain support.
 public struct SCScrollableLineChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -21,6 +22,7 @@ public struct SCScrollableLineChart: View {
 
     @Binding private var viewport: SCChartViewport
 
+    /// Creates a scrollable line chart bound to an explicit viewport value.
     public init(
         points: [SCChartPoint],
         viewport: Binding<SCChartViewport>,
@@ -43,6 +45,7 @@ public struct SCScrollableLineChart: View {
         self.yAxisFormat = yAxisFormat
     }
 
+    /// Creates a scrollable line chart from a visible-domain helper instead of a full scroll behavior.
     public init(
         points: [SCChartPoint],
         viewport: Binding<SCChartViewport>,
@@ -122,12 +125,14 @@ public struct SCScrollableLineChart: View {
         )
     }
 
+    /// The currently configured visible-domain window for scrolling.
     public var visibleDomain: SCChartVisibleDomain {
         scrollBehavior.visibleDomain
     }
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A time-series line chart wrapper with scrollable date-domain support.
 public struct SCScrollableTimeSeriesChart: View {
     public let points: [SCChartTimePoint]
     public let scrollBehavior: SCChartScrollBehavior
@@ -141,6 +146,7 @@ public struct SCScrollableTimeSeriesChart: View {
 
     @Binding private var scrollPosition: Date
 
+    /// Creates a scrollable time-series chart bound to an explicit date scroll position.
     public init(
         points: [SCChartTimePoint],
         scrollPosition: Binding<Date>,
@@ -165,6 +171,7 @@ public struct SCScrollableTimeSeriesChart: View {
         self.yAxisFormat = yAxisFormat
     }
 
+    /// Creates a scrollable time-series chart from a visible-domain helper instead of a full scroll behavior.
     public init(
         points: [SCChartTimePoint],
         scrollPosition: Binding<Date>,
@@ -228,6 +235,7 @@ public struct SCScrollableTimeSeriesChart: View {
         }
     }
 
+    /// The currently configured visible-domain window for scrolling.
     public var visibleDomain: SCChartVisibleDomain {
         scrollBehavior.visibleDomain
     }

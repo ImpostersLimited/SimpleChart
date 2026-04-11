@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A grouped bar chart that compares multiple series within each category.
 public struct SCNativeGroupedBarChart: View {
     public let groups: [SCChartBarGroup]
     public let axesStyle: SCChartAxesStyle
@@ -15,6 +16,7 @@ public struct SCNativeGroupedBarChart: View {
     public let legend: SCChartLegend
     public let foregroundStyleScale: SCChartForegroundStyleScale
 
+    /// Creates a grouped bar chart from prebuilt grouped-bar models.
     public init(
         groups: [SCChartBarGroup],
         axesStyle: SCChartAxesStyle = .standard(),
@@ -31,6 +33,7 @@ public struct SCNativeGroupedBarChart: View {
         self.foregroundStyleScale = foregroundStyleScale ?? .categorical(seriesNames, palette: palette)
     }
 
+    /// Creates a grouped bar chart from floating-point grouped tuples.
     public init<T: BinaryFloatingPoint>(
         groups: [(String, [(String, T)])],
         axesStyle: SCChartAxesStyle = .standard(),
@@ -49,6 +52,7 @@ public struct SCNativeGroupedBarChart: View {
         )
     }
 
+    /// Creates a grouped bar chart from integer grouped tuples.
     public init<T: BinaryInteger>(
         groups: [(String, [(String, T)])],
         axesStyle: SCChartAxesStyle = .standard(),

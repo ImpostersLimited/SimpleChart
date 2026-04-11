@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A composed chart that overlays threshold reference lines on top of line values.
 public struct SCNativeThresholdChart: View {
     public let points: [SCChartPoint]
     public let threshold: SCChartReferenceLine
@@ -14,6 +15,7 @@ public struct SCNativeThresholdChart: View {
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a threshold chart from prebuilt categorical points and threshold lines.
     public init(
         points: [SCChartPoint],
         threshold: SCChartReferenceLine,
@@ -28,6 +30,7 @@ public struct SCNativeThresholdChart: View {
         self.domain = domain ?? .auto(values: points.map(\.value) + [threshold.value], baseZero: true)
     }
 
+    /// Creates a threshold chart from floating-point values, optional labels, and threshold lines.
     public init<T: BinaryFloatingPoint>(
         values: [T],
         labels: [String]? = nil,

@@ -9,6 +9,7 @@ import Charts
 import SwiftUI
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A line chart wrapper with pointer-hover inspection support.
 public struct SCHoverableLineChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -20,6 +21,7 @@ public struct SCHoverableLineChart: View {
 
     @Binding private var hoverState: SCChartHoverState?
 
+    /// Creates a hoverable line chart bound to external hover state.
     public init(
         points: [SCChartPoint],
         hoverState: Binding<SCChartHoverState?>,
@@ -153,6 +155,7 @@ public struct SCHoverableLineChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A bar chart wrapper with pointer-hover inspection support.
 public struct SCHoverableBarChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -163,6 +166,7 @@ public struct SCHoverableBarChart: View {
 
     @Binding private var hoverState: SCChartHoverState?
 
+    /// Creates a hoverable bar chart bound to external hover state.
     public init(
         points: [SCChartPoint],
         hoverState: Binding<SCChartHoverState?>,
@@ -270,6 +274,7 @@ public struct SCHoverableBarChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A scatter chart wrapper with pointer-hover inspection support.
 public struct SCHoverableScatterChart: View {
     public let points: [SCChartScatterPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -280,6 +285,7 @@ public struct SCHoverableScatterChart: View {
 
     @Binding private var hoverState: SCChartHoverState?
 
+    /// Creates a hoverable scatter chart bound to external hover state.
     public init(
         points: [SCChartScatterPoint],
         hoverState: Binding<SCChartHoverState?>,

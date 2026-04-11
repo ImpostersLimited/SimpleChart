@@ -9,6 +9,7 @@ import Foundation
 
 /// Mutable selection state that can be stored outside a chart wrapper and rebound later.
 public struct SCChartSelectionState: Equatable {
+    /// The currently selected chart element, if any.
     public var selection: SCChartSelection?
 
     /// Creates selection state with an optional active selection.

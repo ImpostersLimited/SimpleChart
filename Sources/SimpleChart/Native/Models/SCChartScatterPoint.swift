@@ -7,12 +7,14 @@
 
 import Foundation
 
+/// Represents a single scatter-plot point with optional label metadata.
 public struct SCChartScatterPoint: Identifiable, Equatable {
     public let id: String
     public let x: Double
     public let y: Double
     public let label: String?
 
+    /// Creates a scatter point from explicit x/y coordinates and optional label text.
     public init(id: String, x: Double, y: Double, label: String? = nil) {
         self.id = id
         self.x = x

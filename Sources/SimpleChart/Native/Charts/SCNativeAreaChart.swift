@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A ready-made single-series categorical area chart backed by composed marks.
 public struct SCNativeAreaChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -14,6 +15,7 @@ public struct SCNativeAreaChart: View {
     public let domain: SCChartDomain?
     public let referenceLines: [SCChartReferenceLine]
 
+    /// Creates an area chart from prebuilt categorical points.
     public init(
         points: [SCChartPoint],
         seriesStyle: SCChartSeriesStyle = .area(),
@@ -28,6 +30,7 @@ public struct SCNativeAreaChart: View {
         self.referenceLines = referenceLines
     }
 
+    /// Creates an area chart from floating-point values and optional labels.
     public init<T: BinaryFloatingPoint>(
         values: [T],
         labels: [String]? = nil,
