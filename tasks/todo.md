@@ -1,0 +1,187 @@
+# Active Todo
+
+- [x] Audit the first-discovery public API for missing Xcode Quick Help summaries
+- [x] Add focused `///` documentation to the core models, styles, composition entrypoints, and primary wrappers
+- [x] Update changelog/review notes for the Quick Help documentation pass
+- [x] Re-run `swift build` to verify the documentation pass did not break the package
+
+- [x] Review the existing onboarding docs and identify the missing tutorial-oriented path
+- [x] Add a sequenced tutorial set under `docs/tutorials/` with copy-paste examples
+- [x] Link the tutorials from README, Getting Started, and the chart-selection guide
+- [x] Update changelog and review notes for the tutorials pass
+- [x] Verify the new docs entrypoints and tutorial links
+
+- [x] Audit the current inspection, crosshair, and time-series helper surface to identify the next user-facing gap
+- [x] Add a dedicated selectable time-series wrapper on top of the shared interaction helper layer
+- [x] Add dedicated inspector and crosshair wrappers for line, bar, scatter, and time-series charts
+- [x] Add visible-domain and scroll-behavior presets for analytics- and finance-style windows
+- [x] Add focused tests for inspection wrappers, time-series selection, and visible-window helper presets
+- [x] Re-run `swift build` and `swift test` for the inspection/time-series wrapper slice
+- [x] Update README, changelog, and review notes for the inspection/time-series wrapper slice
+
+- [x] Expand the helper kernel with first-class axis-mark policies, legend placement, foreground-style scale helpers, and richer plot-area styling
+- [x] Route composed charts and the existing native wrappers through the new helper types where the behavior is shared
+- [x] Add focused tests for axis/legend/foreground-scale/plot-style helper state and wrapper integration
+- [x] Re-run `swift build` and `swift test` for the helper-kernel completeness slice
+- [x] Update README, changelog, and review notes for the helper-kernel completeness slice
+
+- [x] Audit the current package surface against the full first-party Swift Charts framework and write a support matrix
+- [x] Define what `100% support` means for `SimpleChart` at the helper layer and the wrapper layer
+- [x] Write a full-coverage design doc for all remaining first-party Swift Charts concepts
+- [x] Write a phased implementation plan for the remaining unsupported or partially supported first-party surface
+- [x] Start the first implementation phase after the design artifacts are approved locally
+- [x] Audit the repo for stale task/docs artifacts versus the already-landed native chart surface
+- [x] Update task/docs artifacts to reflect the already-landed axis/legend/plot-style and rule/rectangle/band slices
+- [x] Add availability-gated vectorized plot helper models, wrappers, and composed-mark support for `LinePlot`, `AreaPlot`, `BarPlot`, `PointPlot`, and `RectanglePlot`
+- [x] Add availability-gated function-plot wrappers and 3D chart helpers for `Chart3D` / `SurfacePlot`
+- [x] Add focused tests for vectorized plots, function plots, and 3D helper state
+- [x] Re-run `swift build` and `swift test` for the vectorized/3D slice
+- [x] Update README, changelog, and review notes for the vectorized/3D slice
+- [x] Explore package structure, chart APIs, platform targets, and current test coverage
+- [x] Confirm whether the native Swift Charts work should be additive or replace existing APIs
+- [x] Clarify first-pass wrapper scope and compatibility expectations
+- [x] Propose implementation approaches with trade-offs and recommendation
+- [x] Present the design and get approval
+- [x] Write the design doc and add a short review section
+- [x] Write the implementation plan from the approved design
+- [x] Raise package minimum deployment targets to Swift Charts baselines
+- [x] Add native shared chart models, styles, domain helpers, and wrapper views
+- [x] Add legacy bridge adapters for config/data -> native models
+- [x] Deprecate legacy manager helpers and legacy config/data/view initializers
+- [x] Redirect legacy public chart views to native wrappers while preserving compatibility fallbacks
+- [x] Expand tests for bridge behavior and legacy compatibility
+- [x] Update README and sample usage to present the native API first
+- [x] Run full package verification and add implementation review notes
+- [x] Remove deprecated API usage from previews and sample code
+- [x] Add stronger native-wrapper state coverage beyond construction smoke tests
+- [x] Expand README with chart migration guidance and native replacement examples
+- [x] Add release notes in `CHANGELOG.md`
+- [x] Re-run `swift build` and `swift test` after the polish pass
+- [x] Add native helper builders for primitive arrays, labeled values, ranges, and domain presets
+- [x] Add native helper style and axis presets for common chart use cases
+- [x] Add convenience initializers on native wrappers that auto-build points and domains
+- [x] Add native multi-series line chart support and reference-line helpers
+- [x] Update README and changelog for the helper-first API expansion
+- [x] Verify with `swift build` and `swift test` after helper expansion
+- [x] Explore current native surface and helper gaps for full Swift Charts-style expansion
+- [x] Clarify whether the next API expansion should prefer wrappers, a DSL, or both
+- [x] Clarify scope boundary for interactions, scrolling, and platform-conditional chart behaviors
+- [x] Propose expansion approaches and recommend a package-wide API shape
+- [x] Present the full-surface chart expansion design and get approval
+- [x] Write the expansion design doc and implementation plan
+- [x] User review of the written full-surface expansion spec before implementation
+- [x] Land phase-1 foundation helpers and static wrapper families for the full-surface expansion
+- [x] Add focused tests for the new phase-1 models, composed chart helpers, and wrapper state
+- [x] Re-run `swift build` and `swift test` for the phase-1 full-surface slice
+- [x] Update README, changelog, and review notes for the phase-1 full-surface slice
+- [x] Add availability-gated interaction helpers and wrappers for chart selection and scrolling
+- [x] Add time-series wrappers plus reusable axis/visible-domain formatting helpers
+- [x] Add focused tests for interaction/time-series helper state and wrapper configuration
+- [x] Re-run `swift build` and `swift test` for the interaction/time-series slice
+- [x] Update README, changelog, and review notes for the interaction/time-series slice
+- [x] Add public composition helper types for scales, overlays, and annotations
+- [x] Expand `SCChartMark` and `SCComposedChart` to support bands, sector marks, and helper-driven annotations/overlays
+- [x] Refactor threshold/goal composition to use the shared overlay/annotation layer where it improves reuse
+- [x] Add focused tests for composition helpers, scale resolution, and overlay/band behavior
+- [x] Re-run `swift build` and `swift test` for the composition-helper slice
+- [x] Update README, changelog, and review notes for the composition-helper slice
+- [x] Add public interaction helper models for selection, inspection overlays, scroll behavior, and gesture configuration
+- [x] Refactor selectable and scrollable wrappers to use the shared interaction helper layer
+- [x] Add viewport coordination helpers for clamping and zoom-style window updates
+- [x] Add focused tests for interaction helpers, wrapper configuration, and viewport utilities
+- [x] Re-run `swift build` and `swift test` for the interaction-helper slice
+- [x] Update README, changelog, and review notes for the interaction-helper slice
+- [x] Expand annotation helpers with clearer helper-style presets for value labels and badges
+- [x] Add availability-gated selectable sector and donut wrappers using shared interaction helpers
+- [x] Add focused tests for sector selection wrappers and expanded annotation helper presets
+- [x] Re-run `swift build` and `swift test` for the sector-selection slice
+- [x] Update README, changelog, and review notes for the sector-selection slice
+- [x] Add helper-style hover inspection state and shared hover-callout rendering
+- [x] Add availability-gated hoverable line, bar, and scatter wrappers using the shared interaction layer
+- [x] Add focused tests for hover wrappers and hover helper models
+- [x] Re-run `swift build` and `swift test` for the hover-inspection slice
+- [x] Update README, changelog, and review notes for the hover-inspection slice
+- [x] Design a first-use documentation path optimized for quick start onboarding
+- [x] Add a dedicated quick start guide that gets a new user from install to first chart quickly
+- [x] Restructure README so the quick start path is the primary entrypoint and deep API reference is secondary
+- [x] Add a compact chart-selection guide for choosing the right wrapper
+- [x] Verify the updated documentation flow and update review notes
+
+## Notes
+
+- Native Swift Charts is only available on iOS 16, macOS 13, tvOS 16, and watchOS 9, so the new wrapper must be additive and availability-gated.
+- User wants the plan to cover all existing chart families, not just bar/line/range.
+- User wants a cleaner new API layer, with the old config/data API bridged onto it and marked deprecated.
+- User wants package minimum deployment targets raised to Swift Charts-supported OS versions rather than supporting fallback renderers on older platforms.
+- User wants the native layer expanded toward an easier helper-style API, and wants to know where package coverage still stops short of full Swift Charts support.
+- User wants the next expansion to use ready-made wrappers as the main API, while also exposing the composable helper layer used internally by those wrappers.
+- User wants the package documentation optimized for a short quick start path rather than a broad cookbook-first structure.
+- User now wants true `100% support` for every first-party Swift Charts surface, not just the easier/common subset.
+
+## Review
+
+- Started a new full-coverage design pass to define support for every first-party Swift Charts concept rather than only the current broad helper/wrapper subset.
+- Recommended architecture selected: new native-first API plus deprecated compatibility bridge.
+- Design spec written to `docs/plans/2026-04-09-native-swift-charts-wrapper-design.md`.
+- Implementation plan written to `docs/plans/2026-04-09-native-swift-charts-wrapper-implementation-plan.md`.
+- Native wrapper layer implemented for line, bar, histogram, quad-curve, and range charts.
+- Legacy `SC*Config`, `SC*Data`, chart views, and `SCManager` are now deprecated and bridged onto the native layer.
+- Added focused bridge coverage, including reversed range normalization behavior.
+- Verified with `swift test` on 2026-04-09: 12 tests passed, 0 failures.
+- Preview providers and `SCSample.SampleView` now demonstrate the native `SCNative*` API rather than deprecated legacy entry points.
+- Added native wrapper-state assertions for line, bar, range, quad-curve, and histogram charts.
+- README now includes a migration section with old-to-new type mappings and concrete replacement guidance.
+- Added `CHANGELOG.md` describing the native-first release, platform target bump, and deprecation strategy.
+- Verified on 2026-04-09 with `swift build` and `swift test`: package builds cleanly and 14 tests pass.
+- Added helper-first native builders, domain presets, style/axes presets, convenience initializers, multi-series line support, and reference-line helpers.
+- README now documents the helper-oriented native API and explicitly calls out the current boundary versus full Swift Charts feature parity.
+- Verified on 2026-04-09 after helper expansion with `swift build` and `swift test`: package builds cleanly and 23 tests pass.
+- Full-surface expansion design written to `docs/plans/2026-04-09-full-swift-chart-surface-design.md`.
+- Full-surface expansion implementation plan written to `docs/plans/2026-04-09-full-swift-chart-surface-implementation-plan.md`.
+- Started the first implementation slice of the full-surface expansion by adding the shared scatter/sector/grouped/stacked models plus the static wrapper families that sit on top of them.
+- Added helper-style convenience initializers for grouped bars, stacked bars, scatter charts, threshold charts, goal charts, and sector/donut charts.
+- Added `SCComposedChart` state coverage and focused tests for the expanded wrapper surface.
+- Verified on 2026-04-09 after the first full-surface slice with `swift build` and `swift test`: package builds cleanly and 31 tests pass.
+- Added time-series helpers and wrappers: `SCChartTimePoint`, `SCChartVisibleDomain`, `SCChartNumericValueFormat`, `SCChartDateValueFormat`, and `SCNativeTimeSeriesChart`.
+- Added availability-gated interaction wrappers for selection and scrolling: `SCSelectableLineChart`, `SCSelectableBarChart`, `SCSelectableScatterChart`, `SCScrollableLineChart`, and `SCScrollableTimeSeriesChart`.
+- Expanded shared chart support helpers with indexed/date axis formatting and viewport window helpers.
+- Added focused interaction/time-series tests covering formatting, viewport helpers, selection wrapper state, and scrollable wrapper configuration.
+- Verified on 2026-04-09 after the interaction/time-series slice with `swift build` and `swift test`: package builds cleanly and 37 tests pass.
+- Added the public composition helper layer: `SCChartAnnotation`, `SCChartOverlay`, `SCChartScale`, and `SCChartComposition`.
+- Expanded `SCComposedChart` with helper-driven overlays for shared reference lines, bands, point labels, and availability-gated sector marks.
+- Refactored threshold and goal wrappers to reuse the shared overlay/annotation composition path.
+- Added focused composition-helper tests covering scale resolution, overlay inference, and wrapper state.
+- Verified on 2026-04-09 after the composition-helper slice with `swift build` and `swift test`: package builds cleanly and 42 tests pass.
+- Added public interaction helper models: `SCChartSelectionState`, `SCChartInspectionOverlay`, `SCChartScrollBehavior`, `SCChartGestureConfiguration`, and `SCChartHoverState`.
+- Refactored selectable and scrollable wrappers to store and use the shared interaction helper layer while preserving compatibility overloads.
+- Added viewport coordination helpers for centered, clamped, and zoomed visible-window updates.
+- Added focused interaction-helper tests covering helper state, wrapper configuration, and viewport utilities.
+- Verified on 2026-04-09 after the interaction-helper slice with `swift build` and `swift test`: package builds cleanly and 44 tests pass.
+- Expanded `SCChartAnnotation` with helper-style caption, badge, and formatted value-label presets backed by shared annotation rendering.
+- Added availability-gated `SCSelectableSectorChart` and `SCSelectableDonutChart` wrappers for `SectorMark` angle-selection workflows.
+- Added focused tests for selectable sector/donut wrapper state and annotation helper presets.
+- Verified on 2026-04-09 after the sector-selection slice with `swift build` and `swift test`: package builds cleanly and 46 tests pass.
+- Added shared hover inspection support via `SCChartHoverState(selection:)`, shared inspection callouts, and reusable hover capture overlays.
+- Added availability-gated `SCHoverableLineChart`, `SCHoverableBarChart`, and `SCHoverableScatterChart` wrappers on the shared interaction layer.
+- Added focused hover tests covering hover-state bridging and hoverable wrapper configuration.
+- Verified on 2026-04-09 after the hover-inspection slice with `swift build` and `swift test`: package builds cleanly and 48 tests pass.
+- Added availability-gated `SCSelectableTimeSeriesChart` on top of the shared interaction helper layer for date-series selection and inspection.
+- Added dedicated `SCInspector*` and `SCCrosshair*` wrappers for line, bar, scatter, and time-series charts so common inspection patterns are directly discoverable as ready-made wrappers.
+- Added analytics/finance convenience presets for `SCChartVisibleDomain` and `SCChartScrollBehavior`, plus time-window scroll helpers for minutes/hours/days.
+- Added focused tests covering inspection-wrapper configuration, visible-window helper presets, and selectable time-series state.
+- Verified on 2026-04-10 after the inspection/time-series wrapper slice with `swift build` and `swift test`: package builds cleanly and 68 tests pass.
+- Added a dedicated quick-start entrypoint to `README.md` so new users can install the package and reach the first chart without reading the full reference surface.
+- Added `docs/getting-started.md` for first-use onboarding and `docs/chart-selection-guide.md` for choosing the right wrapper by use case and data shape.
+- Verified on 2026-04-09 after the documentation onboarding pass that the new docs files and README links resolve correctly.
+- Added `docs/tutorials/README.md` plus six sequenced tutorials covering first chart setup, helper-first data construction, interactions, time-series, composed charts, and migration from the legacy API.
+- Updated `README.md`, `docs/getting-started.md`, and `docs/chart-selection-guide.md` so the tutorials are a first-class onboarding path instead of a hidden docs subtree.
+- Verified on 2026-04-10 after the tutorials pass that the new tutorial files exist and the new entrypoint links resolve consistently.
+- Added focused state coverage for the availability-gated vectorized plot wrappers, function plot wrappers, normalized plot helper models, and 3D helper/wrapper surface in `SCNativePlotAnd3DChartTests.swift`.
+- Expanded the public wrapper catalog and coverage notes in `README.md` so the vectorized plot and 3D surfaces are discoverable from the main docs entrypoint.
+- Verified on 2026-04-10 after the vectorized/3D slice with `swift build` and `swift test`: package builds cleanly and 60 tests pass.
+- Added first-class helper state for explicit axis-mark value sources, legend placement, foreground-style scales, and richer plot-area styling.
+- Added `SCNativeGroupedAreaChart` and `SCNativeStackedAreaChart` on top of the shared line-series helper layer.
+- Refactored composed charts and the shared hover/selection inspection path to use the richer crosshair and inspector helper presets.
+- Verified on 2026-04-10 after the helper-kernel completeness slice with `swift test`: package builds cleanly and 65 tests pass.
+- Added Xcode Quick Help summaries to the first-discovery public API surface, covering the core point/range/time/reference models, domain/style helpers, composed-chart entrypoints, and the main line/bar/inspection wrappers.
+- Verified on 2026-04-11 after the Quick Help documentation pass with `swift build`: package builds cleanly.

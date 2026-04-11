@@ -7,25 +7,40 @@
 
 import SwiftUI
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCBarChart: View {
+    let chartData: [SCBarChartData]
+    let chartConfig: SCBarChartConfig
     
-    @State var chartData: [SCBarChartData]
-    @State var chartConfig: SCBarChartConfig
-    
+    @available(*, deprecated, message: "Use SCNativeBarChart with SCChartPoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
     public init(config: SCBarChartConfig) {
         self.chartData = config.chartData
         self.chartConfig = config
     }
     
     public var body: some View {
-        ZStack{
+        Group {
+            if chartConfig.stroke {
+                legacyBody
+            } else {
+                SCNativeBarChart(
+                    points: chartData.scNativePoints,
+                    seriesStyle: chartConfig.scNativeSeriesStyle,
+                    axesStyle: chartConfig.scNativeAxesStyle,
+                    domain: chartConfig.scNativeDomain
+                )
+            }
+        }
+        .padding(.all, 5)
+    }
+
+    private var legacyBody: some View {
+        ZStack {
             GeometryReader { proxy in
-                VStack{
+                VStack {
                     Spacer().frame(maxWidth: proxy.size.width, minHeight: 0.00000000001)
                     HStack(alignment: .bottom, spacing: chartConfig.spacingFactor*proxy.size.width, content: {
-                        ForEach(chartData.indices) { index in
+                        ForEach(Array(chartData.indices), id: \.self) { index in
                             SCBar(self.chartConfig, self.chartData[index], proxy.size)
                                 .foregroundColor(.white)
                         }
@@ -40,26 +55,17 @@ public struct SCBarChart: View {
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
-        .padding(.all, 5)
     }
 }
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCBarChart_Previews: PreviewProvider {
     static public var previews: some View {
-        let temp: [SCBarChartData] = [
-            SCBarChartData(0.0),
-            SCBarChartData(1.0),
-            SCBarChartData(2.0),
-            SCBarChartData(1.0),
-            SCBarChartData(4.0),
-            SCBarChartData(3.0),
-            SCBarChartData(2.0),
-            SCBarChartData(3.0),
-            SCBarChartData(5.0),
-            SCBarChartData(3.5)]
-        SCBarChart(config: SCBarChartConfig(chartData: temp))
+        SCNativeBarChart(
+            points: SCPreviewFixtures.nativeBarPoints,
+            axesStyle: SCPreviewFixtures.nativeAxesStyle,
+            domain: SCChartDomain.make(values: SCPreviewFixtures.nativeBarPoints.map(\.value))
+        )
             .frame(width: 300, height: 300)
     }
 }

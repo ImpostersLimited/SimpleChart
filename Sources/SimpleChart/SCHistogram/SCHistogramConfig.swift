@@ -41,10 +41,11 @@ public struct SCHistogramConfig {
     let intervalColor: Color
     let yAxisFigureFontFactor: Double
     
+    @available(*, deprecated, message: "Use SCNativeHistogramChart with SCHistogramBin or raw values plus SCChartAxesStyle and SCChartDomain instead.")
     public init(chartData: [SCHistogramData], baseZero: Bool = false, showInterval: Bool = false, showXAxis: Bool = false, showYAxis: Bool = false, showYAxisFigure: Bool = false, showLegend: Bool = false, showLabel: Bool = false, intervalColor: Color = .secondary, intervalLineWidth: CGFloat = 0.5, stroke: Bool = false, strokeWidth: CGFloat = 1, color: [Color] = [.primary], numOfInterval: Int = 3, xLegend: String = "", yLegend: String = "", xLegendColor: Color = .primary, yLegendColor: Color = .primary, gradientStart: UnitPoint = .top, gradientEnd: UnitPoint = .bottom, yAxisFigureColor: Color = .secondary, yAxisFigureFontFactor: Double = 0.06667, minLower: Double = Double.infinity, maxUpper: Double = -Double.infinity){
         var chartData = chartData
         if chartData.isEmpty {
-            chartData = SCManager.defaultHistogramData()
+            chartData = [3.1, 2.1, 3.1, 5.1, 9.9].map { SCHistogramData(rawValue: $0) }
         }
         self.chartData = chartData
         var allPositive = true

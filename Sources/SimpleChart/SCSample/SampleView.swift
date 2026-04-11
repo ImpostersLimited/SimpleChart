@@ -11,75 +11,52 @@ private struct SampleView: View {
     var body: some View {
         VStack{
             HStack{
-                let temp: [SCBarChartData] = [
-                    SCBarChartData(0.0),
-                    SCBarChartData(1.0),
-                    SCBarChartData(2.0),
-                    SCBarChartData(1.0),
-                    SCBarChartData(4.0),
-                    SCBarChartData(3.0),
-                    SCBarChartData(2.0),
-                    SCBarChartData(3.0),
-                    SCBarChartData(5.0),
-                    SCBarChartData(3.5)]
-                SCBarChart(config: SCBarChartConfig(chartData: temp))
+                SCNativeBarChart(
+                    points: SCPreviewFixtures.nativeBarPoints,
+                    axesStyle: SCPreviewFixtures.nativeAxesStyle,
+                    domain: SCChartDomain.make(values: SCPreviewFixtures.nativeBarPoints.map(\.value))
+                )
                     .frame(width: 150, height: 150)
-                let temp2: [SCHistogramData] = [
-                    SCHistogramData(0.0),
-                    SCHistogramData(1.0),
-                    SCHistogramData(2.0),
-                    SCHistogramData(1.0),
-                    SCHistogramData(4.0),
-                    SCHistogramData(3.0),
-                    SCHistogramData(2.0),
-                    SCHistogramData(3.0),
-                    SCHistogramData(5.0),
-                    SCHistogramData(3.5)]
-                SCHistogram(config: SCHistogramConfig(chartData: temp2, stroke: true))
+                SCNativeHistogramChart(
+                    values: SCPreviewFixtures.barValues,
+                    binCount: 4,
+                    axesStyle: SCPreviewFixtures.nativeAxesStyle
+                )
                     .frame(width: 150, height: 150)
             }
             HStack {
-                let temp3: [SCLineChartData] = [
-                    SCLineChartData(0.0),
-                    SCLineChartData(9.0),
-                    SCLineChartData(1.0),
-                    SCLineChartData(1.0),
-                    SCLineChartData(4.0),
-                    SCLineChartData(7.0),
-                    SCLineChartData(2.0),
-                    SCLineChartData(3.0),
-                    SCLineChartData(10.0),
-                    SCLineChartData(0)]
-                SCLineChart(config: SCLineChartConfig(chartData: temp3, showInterval: true, showXAxis: true, showYAxis: true, stroke: true))
+                SCNativeLineChart(
+                    points: SCPreviewFixtures.nativeLinePoints,
+                    seriesStyle: SCChartSeriesStyle(colors: [.blue, .cyan], strokeWidth: 2, showArea: true),
+                    axesStyle: SCPreviewFixtures.nativeAxesStyle,
+                    domain: SCChartDomain.make(values: SCPreviewFixtures.nativeLinePoints.map(\.value))
+                )
                     .frame(width: 150, height: 150)
-                let temp4: [SCQuadCurveData] = [
-                    SCQuadCurveData(0.0),
-                    SCQuadCurveData(9.0),
-                    SCQuadCurveData(1.0),
-                    SCQuadCurveData(1.0),
-                    SCQuadCurveData(4.0),
-                    SCQuadCurveData(7.0),
-                    SCQuadCurveData(2.0),
-                    SCQuadCurveData(3.0),
-                    SCQuadCurveData(10.0),
-                    SCQuadCurveData(9.0)]
-                SCQuadCurve(config: SCQuadCurveConfig(chartData: temp4, showInterval: true, color: [.red, .green, .gray], gradientStart: .topLeading, gradientEnd: .bottomTrailing))
+                SCNativeQuadCurveChart(
+                    points: SCPreviewFixtures.nativeQuadPoints,
+                    seriesStyle: SCChartSeriesStyle(
+                        colors: [.red, .green, .gray],
+                        showArea: true,
+                        interpolation: .catmullRom,
+                        gradientStart: .topLeading,
+                        gradientEnd: .bottomTrailing
+                    ),
+                    axesStyle: SCPreviewFixtures.nativeAxesStyle,
+                    domain: SCChartDomain.make(values: SCPreviewFixtures.nativeQuadPoints.map(\.value), paddingRatio: 0.08)
+                )
                     .frame(width: 150, height: 150)
             }
             HStack{
-                let temp5: [SCRangeChartData] = [
-                    SCRangeChartData(0.0, 10.0),
-                    SCRangeChartData(1.0, 7.0),
-                    SCRangeChartData(2.0, 9.0),
-                    SCRangeChartData(1.0, 4.0),
-                    SCRangeChartData(4.0, 9.0),
-                    SCRangeChartData(3.0, 6.0),
-                    SCRangeChartData(2.0, 7.0),
-                    SCRangeChartData(3.0, 8.0),
-                    SCRangeChartData(5.0, 9.0),
-                    SCRangeChartData(0.0, 9.0)
-                ]
-                SCRangeChart(config: SCRangeChartConfig(chartData: temp5))
+                SCNativeRangeChart(
+                    points: SCPreviewFixtures.nativeRangePoints,
+                    seriesStyle: SCChartSeriesStyle(colors: [.pink], strokeWidth: 2),
+                    axesStyle: SCPreviewFixtures.nativeAxesStyle,
+                    domain: SCChartDomain.make(
+                        lowerValues: SCPreviewFixtures.nativeRangePoints.map(\.lower),
+                        upperValues: SCPreviewFixtures.nativeRangePoints.map(\.upper),
+                        paddingRatio: 0.08
+                    )
+                )
                     .frame(width: 150, height: 150)
             }
         }

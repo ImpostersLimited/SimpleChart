@@ -7,60 +7,41 @@
 
 import SwiftUI
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCRangeChart: View {
+    let chartData: [SCRangeChartData]
+    let chartConfig: SCRangeChartConfig
     
-    @State var chartData: [SCRangeChartData]
-    @State var chartConfig: SCRangeChartConfig
-    
+    @available(*, deprecated, message: "Use SCNativeRangeChart with SCChartRangePoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
     public init(config: SCRangeChartConfig) {
         self.chartData = config.chartData
         self.chartConfig = config
     }
     
     public var body: some View {
-        ZStack{
-            GeometryReader { proxy in
-                VStack{
-                    Spacer().frame(width: proxy.size.width)
-                    HStack(alignment: .bottom, spacing: chartConfig.spacingFactor*proxy.size.width, content: {
-                        ForEach(chartData.indices) { index in
-                            SCCapsule(self.chartConfig, self.chartData[index], proxy.size)
-                                .foregroundColor(.white)
-                        }
-                    })
-                }
-                .frame(width: proxy.size.width, height: proxy.size.height)
-            }
-            GeometryReader { proxy in
-                VStack{
-                    SCRangeChartInterval(chartConfig, proxy.size)
-                }
-                .frame(width: proxy.size.width, height: proxy.size.height)
-            }
-        }
+        SCNativeRangeChart(
+            points: chartData.scNativeRangePoints,
+            seriesStyle: chartConfig.scNativeSeriesStyle,
+            axesStyle: chartConfig.scNativeAxesStyle,
+            domain: chartConfig.scNativeDomain
+        )
         .padding(.all, 5)
     }
 }
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCChart_Previews: PreviewProvider {
     static public var previews: some View {
-        let temp: [SCRangeChartData] = [
-            SCRangeChartData(0.0, 10.0),
-            SCRangeChartData(1.0, 7.0),
-            SCRangeChartData(2.0, 9.0),
-            SCRangeChartData(1.0, 4.0),
-            SCRangeChartData(4.0, 9.0),
-            SCRangeChartData(3.0, 6.0),
-            SCRangeChartData(2.0, 7.0),
-            SCRangeChartData(3.0, 8.0),
-            SCRangeChartData(5.0, 9.0),
-            SCRangeChartData(0.0, 9.0)
-        ]
-        SCRangeChart(config: SCRangeChartConfig(chartData: temp, showInterval: true, showYAxisFigure: true))
+        SCNativeRangeChart(
+            points: SCPreviewFixtures.nativeRangePoints,
+            seriesStyle: SCChartSeriesStyle(colors: [.pink], strokeWidth: 2, strokeOnly: false),
+            axesStyle: SCPreviewFixtures.nativeAxesStyle,
+            domain: SCChartDomain.make(
+                lowerValues: SCPreviewFixtures.nativeRangePoints.map(\.lower),
+                upperValues: SCPreviewFixtures.nativeRangePoints.map(\.upper),
+                paddingRatio: 0.08
+            )
+        )
             .frame(width: 300, height: 300)
     }
 }

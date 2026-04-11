@@ -40,22 +40,3 @@ internal struct SCHistogramBar: View {
         }
     }
 }
-
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
-internal struct SCHistogramBar_Previews: PreviewProvider {
-    static internal var previews: some View {
-        let temp: [SCHistogramData] = [
-            SCHistogramData(0.0),
-            SCHistogramData(1.0),
-            SCHistogramData(2.0),
-            SCHistogramData(1.0),
-            SCHistogramData(4.0),
-            SCHistogramData(3.0),
-            SCHistogramData(2.0),
-            SCHistogramData(3.0),
-            SCHistogramData(5.0),
-            SCHistogramData(3.5)]
-        SCHistogramBar(SCHistogramConfig(chartData: temp), SCHistogramData(1.0), CGSize(width: 100, height: 100))
-    }
-}

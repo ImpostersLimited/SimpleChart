@@ -87,24 +87,3 @@ internal struct SCCurve: View {
         return controlPoint
     }
 }
-
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
-internal struct SCCurve_Previews: PreviewProvider {
-    static internal var previews: some View {
-        let temp: [SCQuadCurveData] = [
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(4.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(5.0),
-            SCQuadCurveData(2.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(5.0)
-        ]
-        SCCurve(SCQuadCurveConfig(chartData: temp), CGSize(width: 90, height: 90))
-            .frame(width: 90, height: 90)
-    }
-}

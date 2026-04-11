@@ -41,22 +41,3 @@ internal struct SCBar: View {
         }
     }
 }
-
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
-internal struct SCBar_Previews: PreviewProvider {
-    static internal var previews: some View {
-        let temp: [SCBarChartData] = [
-            SCBarChartData(0.0),
-            SCBarChartData(1.0),
-            SCBarChartData(2.0),
-            SCBarChartData(1.0),
-            SCBarChartData(4.0),
-            SCBarChartData(3.0),
-            SCBarChartData(2.0),
-            SCBarChartData(3.0),
-            SCBarChartData(5.0),
-            SCBarChartData(3.5)]
-        SCBar(SCBarChartConfig(chartData: temp, color: [.red, .green]), SCBarChartData(1.0), CGSize(width: 100, height: 100))
-    }
-}

@@ -7,25 +7,40 @@
 
 import SwiftUI
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCHistogram: View {
+    let chartData: [SCHistogramData]
+    let chartConfig: SCHistogramConfig
     
-    @State var chartData: [SCHistogramData]
-    @State var chartConfig: SCHistogramConfig
-    
+    @available(*, deprecated, message: "Use SCNativeHistogramChart with SCHistogramBin or raw values plus SCChartAxesStyle instead.")
     public init(config: SCHistogramConfig) {
         self.chartData = config.chartData
         self.chartConfig = config
     }
     
     public var body: some View {
-        ZStack{
+        Group {
+            if chartConfig.stroke {
+                legacyBody
+            } else {
+                SCNativeBarChart(
+                    points: chartData.scNativePoints,
+                    seriesStyle: chartConfig.scNativeSeriesStyle,
+                    axesStyle: chartConfig.scNativeAxesStyle,
+                    domain: chartConfig.scNativeDomain
+                )
+            }
+        }
+        .padding(.all, 5)
+    }
+
+    private var legacyBody: some View {
+        ZStack {
             GeometryReader { proxy in
-                VStack{
+                VStack {
                     Spacer().frame(maxWidth: proxy.size.width, minHeight: 0.00000000001)
                     HStack(alignment: .bottom, spacing: chartConfig.spacingFactor*proxy.size.width, content: {
-                        ForEach(chartData.indices) { index in
+                        ForEach(Array(chartData.indices), id: \.self) { index in
                             SCHistogramBar(self.chartConfig, self.chartData[index], proxy.size)
                                 .foregroundColor(.white)
                         }
@@ -40,26 +55,17 @@ public struct SCHistogram: View {
                 .frame(width: proxy.size.width, height: proxy.size.height)
             }
         }
-        .padding(.all, 5)
     }
 }
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCHistogram_Previews: PreviewProvider {
     static public var previews: some View {
-        let temp: [SCHistogramData] = [
-            SCHistogramData(0.0),
-            SCHistogramData(1.0),
-            SCHistogramData(2.0),
-            SCHistogramData(1.0),
-            SCHistogramData(4.0),
-            SCHistogramData(3.0),
-            SCHistogramData(2.0),
-            SCHistogramData(3.0),
-            SCHistogramData(5.0),
-            SCHistogramData(3.5)]
-        SCHistogram(config: SCHistogramConfig(chartData: temp))
+        SCNativeHistogramChart(
+            values: SCPreviewFixtures.barValues,
+            binCount: 4,
+            axesStyle: SCPreviewFixtures.nativeAxesStyle
+        )
             .frame(width: 100.0, height: 100.0)
     }
 }

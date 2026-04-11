@@ -7,54 +7,42 @@
 
 import SwiftUI
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCQuadCurve: View {
+    let chartData: [SCQuadCurveData]
+    let chartConfig: SCQuadCurveConfig
     
-    @State var chartData: [SCQuadCurveData]
-    @State var chartConfig: SCQuadCurveConfig
-    
+    @available(*, deprecated, message: "Use SCNativeQuadCurveChart with SCChartPoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
     public init(config: SCQuadCurveConfig) {
         self.chartData = config.chartData
         self.chartConfig = config
     }
     
     public var body: some View {
-        ZStack{
-            GeometryReader { proxy in
-                ZStack{
-                    SCCurve(chartConfig, proxy.size)
-                        .frame(height: proxy.size.height)
-                }
-                .frame(width: proxy.size.width, height: proxy.size.height)
-            }
-            GeometryReader { proxy in
-                VStack{
-                    SCQuadCurveInterval(chartConfig, proxy.size)
-                }
-                .frame(width: proxy.size.width, height: proxy.size.height)
-            }
-        }
+        SCNativeQuadCurveChart(
+            points: chartData.scNativePoints,
+            seriesStyle: chartConfig.scNativeSeriesStyle,
+            axesStyle: chartConfig.scNativeAxesStyle,
+            domain: chartConfig.scNativeDomain
+        )
         .padding(.all, 5)
     }
 }
 
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
+@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 public struct SCQuadCurve_Previews: PreviewProvider {
     static public var previews: some View {
-        let temp: [SCQuadCurveData] = [
-            SCQuadCurveData(0.0),
-            SCQuadCurveData(9.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(4.0),
-            SCQuadCurveData(7.0),
-            SCQuadCurveData(2.0),
-            SCQuadCurveData(3.0),
-            SCQuadCurveData(10.0),
-            SCQuadCurveData(9.0)]
-        SCQuadCurve(config: SCQuadCurveConfig(chartData: temp, showInterval: true, color: [.red], numOfInterval: 1, gradientStart: .topLeading, gradientEnd: .bottomTrailing))
+        SCNativeQuadCurveChart(
+            points: SCPreviewFixtures.nativeQuadPoints,
+            seriesStyle: SCChartSeriesStyle(
+                colors: [.red],
+                interpolation: .catmullRom,
+                gradientStart: .topLeading,
+                gradientEnd: .bottomTrailing
+            ),
+            axesStyle: SCPreviewFixtures.nativeAxesStyle,
+            domain: SCChartDomain.make(values: SCPreviewFixtures.nativeQuadPoints.map(\.value), paddingRatio: 0.08)
+        )
             .frame(width: 100, height: 100)
     }
 }

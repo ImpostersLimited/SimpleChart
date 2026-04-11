@@ -62,23 +62,3 @@ internal struct SCQuadCurveInterval: View {
         }
     }
 }
-
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
-internal struct SCQuadCurveInterval_Previews: PreviewProvider {
-    static internal var previews: some View {
-        let temp: [SCQuadCurveData] = [
-            SCQuadCurveData(0.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(2.0),
-            SCQuadCurveData(1.0),
-            SCQuadCurveData(4.0),
-            SCQuadCurveData(3.0),
-            SCQuadCurveData(2.0),
-            SCQuadCurveData(3.0),
-            SCQuadCurveData(5.0),
-            SCQuadCurveData(3.5)]
-        SCQuadCurveInterval(SCQuadCurveConfig(chartData: temp), CGSize(width: 150, height: 150))
-            .frame(width: 150, height: 150)
-    }
-}

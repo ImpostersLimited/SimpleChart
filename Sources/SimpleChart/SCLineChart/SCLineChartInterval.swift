@@ -62,23 +62,3 @@ internal struct SCLineChartInterval: View {
         }
     }
 }
-
-//@available(iOS 15, macOS 12.0, *)
-@available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
-internal struct SCLineChartInterval_Previews: PreviewProvider {
-    static internal var previews: some View {
-        let temp: [SCLineChartData] = [
-            SCLineChartData(0.0),
-            SCLineChartData(1.0),
-            SCLineChartData(2.0),
-            SCLineChartData(1.0),
-            SCLineChartData(4.0),
-            SCLineChartData(3.0),
-            SCLineChartData(2.0),
-            SCLineChartData(3.0),
-            SCLineChartData(5.0),
-            SCLineChartData(3.5)]
-        SCLineChartInterval(SCLineChartConfig(chartData: temp), CGSize(width: 150, height: 150))
-            .frame(width: 150, height: 150)
-    }
-}
