@@ -112,6 +112,14 @@
 - [x] Add a compact chart-selection guide for choosing the right wrapper
 - [x] Verify the updated documentation flow and update review notes
 
+- [ ] Audit the current scrollable wrapper and interaction helper surface for the zoom/navigation extension points
+- [ ] Add failing tests for indexed and time-series zoom/navigation state, coordinator behavior, and wrapper configuration
+- [ ] Add a public navigation-state layer for zoomable indexed and time-series windows
+- [ ] Add a shared interaction coordinator that translates binding and gesture intent into clamped navigation updates
+- [ ] Extend the existing scrollable wrappers to adopt the new zoom/navigation API without regressing current scroll behavior
+- [ ] Update README, changelog, and review notes for the zoomable interactive wrapper slice
+- [ ] Re-run focused and full package verification for the zoom/navigation slice
+
 ## Notes
 
 - Native Swift Charts is only available on iOS 16, macOS 13, tvOS 16, and watchOS 9, so the new wrapper must be additive and availability-gated.

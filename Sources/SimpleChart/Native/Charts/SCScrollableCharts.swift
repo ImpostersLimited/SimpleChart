@@ -17,16 +17,19 @@ public struct SCScrollableLineChart: View {
     public let domain: SCChartDomain?
     public let referenceLines: [SCChartReferenceLine]
     public let scrollBehavior: SCChartScrollBehavior
+    public let zoomBehavior: SCChartZoomBehavior
     public let gestureConfiguration: SCChartGestureConfiguration
     public let yAxisFormat: SCChartNumericValueFormat
 
     @Binding private var viewport: SCChartViewport
+    @State private var lastMagnification: CGFloat = 1
 
     /// Creates a scrollable line chart bound to an explicit viewport value.
     public init(
         points: [SCChartPoint],
         viewport: Binding<SCChartViewport>,
         scrollBehavior: SCChartScrollBehavior = .continuous(.points(6)),
+        zoomBehavior: SCChartZoomBehavior = .standard,
         seriesStyle: SCChartSeriesStyle = .line(),
         axesStyle: SCChartAxesStyle = .standard(),
         domain: SCChartDomain? = nil,
@@ -37,6 +40,7 @@ public struct SCScrollableLineChart: View {
         self.points = points
         self._viewport = viewport
         self.scrollBehavior = scrollBehavior
+        self.zoomBehavior = zoomBehavior
         self.seriesStyle = seriesStyle
         self.axesStyle = axesStyle
         self.domain = domain ?? .auto(points: points, baseZero: false)
@@ -50,6 +54,7 @@ public struct SCScrollableLineChart: View {
         points: [SCChartPoint],
         viewport: Binding<SCChartViewport>,
         visibleDomain: SCChartVisibleDomain = .points(6),
+        zoomBehavior: SCChartZoomBehavior = .standard,
         seriesStyle: SCChartSeriesStyle = .line(),
         axesStyle: SCChartAxesStyle = .standard(),
         domain: SCChartDomain? = nil,
@@ -61,6 +66,7 @@ public struct SCScrollableLineChart: View {
             points: points,
             viewport: viewport,
             scrollBehavior: .continuous(visibleDomain),
+            zoomBehavior: zoomBehavior,
             seriesStyle: seriesStyle,
             axesStyle: axesStyle,
             domain: domain,
@@ -98,36 +104,68 @@ public struct SCScrollableLineChart: View {
             }
             .scChartScrollableX(
                 enabled: gestureConfiguration.allowsScrolling,
-                visibleDomain: scrollBehavior.visibleDomain,
+                visibleDomain: visibleDomain,
                 position: scrollPositionBinding
             )
             .scChartDomain(domain)
             .scChartIndexedXAxis(labels: points.map(\.plottedXValue), axesStyle: axesStyle)
             .scChartNumericYAxis(axesStyle, format: yAxisFormat)
         }
+        .simultaneousGesture(zoomGesture)
     }
 
     private var indexedPoints: [SCIndexedScrollablePoint] {
         points.enumerated().map { SCIndexedScrollablePoint(index: $0.offset, point: $0.element) }
     }
 
-    private var effectiveVisibleLength: Double {
-        max(viewport.length, scrollBehavior.visibleDomain.length)
+    private var bounds: ClosedRange<Double> {
+        0...max(Double(max(points.count, 1)), 0.0001)
+    }
+
+    private var effectiveViewport: SCChartViewport {
+        SCChartNavigationCoordinator.clampedViewport(
+            viewport,
+            zoomBehavior: zoomBehavior,
+            bounds: bounds
+        )
     }
 
     private var scrollPositionBinding: Binding<Double> {
         Binding<Double>(
-            get: { viewport.lowerBound },
+            get: { effectiveViewport.lowerBound },
             set: { newLowerBound in
                 guard gestureConfiguration.allowsScrolling else { return }
-                viewport = SCChartViewport.starting(at: newLowerBound, length: effectiveVisibleLength)
+                viewport = SCChartNavigationCoordinator.scrollViewport(
+                    effectiveViewport,
+                    to: newLowerBound,
+                    zoomBehavior: zoomBehavior,
+                    bounds: bounds
+                )
             }
         )
     }
 
     /// The currently configured visible-domain window for scrolling.
     public var visibleDomain: SCChartVisibleDomain {
-        scrollBehavior.visibleDomain
+        SCChartVisibleDomain(length: effectiveViewport.length)
+    }
+
+    private var zoomGesture: some Gesture {
+        MagnificationGesture()
+            .onChanged { value in
+                guard gestureConfiguration.allowsZooming, zoomBehavior.isEnabled else { return }
+                let delta = Double(value / lastMagnification)
+                lastMagnification = value
+                viewport = SCChartNavigationCoordinator.zoomViewport(
+                    effectiveViewport,
+                    magnification: delta,
+                    zoomBehavior: zoomBehavior,
+                    bounds: bounds
+                )
+            }
+            .onEnded { _ in
+                lastMagnification = 1
+            }
     }
 }
 
@@ -136,6 +174,7 @@ public struct SCScrollableLineChart: View {
 public struct SCScrollableTimeSeriesChart: View {
     public let points: [SCChartTimePoint]
     public let scrollBehavior: SCChartScrollBehavior
+    public let zoomBehavior: SCChartZoomBehavior
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
@@ -144,7 +183,8 @@ public struct SCScrollableTimeSeriesChart: View {
     public let gestureConfiguration: SCChartGestureConfiguration
     public let yAxisFormat: SCChartNumericValueFormat
 
-    @Binding private var scrollPosition: Date
+    private let navigationSource: SCTimeNavigationSource
+    @State private var lastMagnification: CGFloat = 1
 
     /// Creates a scrollable time-series chart bound to an explicit date scroll position.
     public init(
@@ -160,8 +200,9 @@ public struct SCScrollableTimeSeriesChart: View {
         yAxisFormat: SCChartNumericValueFormat = .automatic
     ) {
         self.points = points.sorted { $0.date < $1.date }
-        self._scrollPosition = scrollPosition
+        self.navigationSource = .scrollPosition(scrollPosition)
         self.scrollBehavior = scrollBehavior
+        self.zoomBehavior = .disabled
         self.seriesStyle = seriesStyle
         self.axesStyle = axesStyle
         self.domain = domain ?? .auto(values: points.map(\.value), baseZero: false)
@@ -198,6 +239,33 @@ public struct SCScrollableTimeSeriesChart: View {
         )
     }
 
+    /// Creates a scrollable and zoomable time-series chart bound to an explicit viewport value.
+    public init(
+        points: [SCChartTimePoint],
+        viewport: Binding<SCChartTimeViewport>,
+        scrollBehavior: SCChartScrollBehavior = .timeWindow(seconds: 60 * 60 * 24 * 7),
+        zoomBehavior: SCChartZoomBehavior = .standard,
+        seriesStyle: SCChartSeriesStyle = .line(),
+        axesStyle: SCChartAxesStyle = .standard(),
+        domain: SCChartDomain? = nil,
+        referenceLines: [SCChartReferenceLine] = [],
+        xAxisFormat: SCChartDateValueFormat = .monthDay,
+        gestureConfiguration: SCChartGestureConfiguration = .scrollOnly,
+        yAxisFormat: SCChartNumericValueFormat = .automatic
+    ) {
+        self.points = points.sorted { $0.date < $1.date }
+        self.navigationSource = .viewport(viewport)
+        self.scrollBehavior = scrollBehavior
+        self.zoomBehavior = zoomBehavior
+        self.seriesStyle = seriesStyle
+        self.axesStyle = axesStyle
+        self.domain = domain ?? .auto(values: points.map(\.value), baseZero: false)
+        self.referenceLines = referenceLines
+        self.xAxisFormat = xAxisFormat
+        self.gestureConfiguration = gestureConfiguration
+        self.yAxisFormat = yAxisFormat
+    }
+
     public var body: some View {
         SCNativeChartContainer(axesStyle: axesStyle) {
             Chart(points) { point in
@@ -226,18 +294,101 @@ public struct SCScrollableTimeSeriesChart: View {
             }
             .scChartScrollableX(
                 enabled: gestureConfiguration.allowsScrolling,
-                visibleDomain: scrollBehavior.visibleDomain,
-                position: $scrollPosition
+                visibleDomain: visibleDomain,
+                position: scrollPositionBinding
             )
             .scChartDomain(domain)
             .scChartDateXAxis(axesStyle, format: xAxisFormat)
             .scChartNumericYAxis(axesStyle, format: yAxisFormat)
         }
+        .simultaneousGesture(zoomGesture)
     }
 
     /// The currently configured visible-domain window for scrolling.
     public var visibleDomain: SCChartVisibleDomain {
-        scrollBehavior.visibleDomain
+        SCChartVisibleDomain(length: effectiveViewport.length)
+    }
+
+    private var bounds: ClosedRange<Date> {
+        let fallback = currentViewport.startDate
+        let lowerBound = points.first?.date ?? fallback
+        let upperBound = points.last?.date ?? fallback.addingTimeInterval(max(scrollBehavior.visibleDomain.length, 0.0001))
+        return lowerBound...max(lowerBound, upperBound)
+    }
+
+    private var currentViewport: SCChartTimeViewport {
+        switch navigationSource {
+        case let .scrollPosition(scrollPosition):
+            return SCChartTimeViewport.starting(
+                at: scrollPosition.wrappedValue,
+                duration: scrollBehavior.visibleDomain.length
+            )
+        case let .viewport(viewport):
+            return viewport.wrappedValue
+        }
+    }
+
+    private var effectiveZoomBehavior: SCChartZoomBehavior {
+        switch navigationSource {
+        case .scrollPosition:
+            return .disabled
+        case .viewport:
+            return zoomBehavior
+        }
+    }
+
+    private var effectiveViewport: SCChartTimeViewport {
+        SCChartNavigationCoordinator.clampedViewport(
+            currentViewport,
+            zoomBehavior: effectiveZoomBehavior,
+            bounds: bounds
+        )
+    }
+
+    private var scrollPositionBinding: Binding<Date> {
+        Binding<Date>(
+            get: { effectiveViewport.startDate },
+            set: { newStartDate in
+                guard gestureConfiguration.allowsScrolling else { return }
+                assign(
+                    SCChartNavigationCoordinator.scrollViewport(
+                        effectiveViewport,
+                        to: newStartDate,
+                        zoomBehavior: effectiveZoomBehavior,
+                        bounds: bounds
+                    )
+                )
+            }
+        )
+    }
+
+    private var zoomGesture: some Gesture {
+        MagnificationGesture()
+            .onChanged { value in
+                guard gestureConfiguration.allowsZooming, effectiveZoomBehavior.isEnabled else { return }
+                let delta = Double(value / lastMagnification)
+                lastMagnification = value
+                assign(
+                    SCChartNavigationCoordinator.zoomViewport(
+                        effectiveViewport,
+                        magnification: delta,
+                        zoomBehavior: effectiveZoomBehavior,
+                        bounds: bounds
+                    )
+                )
+            }
+            .onEnded { _ in
+                lastMagnification = 1
+            }
+    }
+
+    private func assign(_ viewport: SCChartTimeViewport) {
+        switch navigationSource {
+        case let .scrollPosition(scrollPosition):
+            scrollPosition.wrappedValue = viewport.startDate
+        case let .viewport(binding):
+            binding.wrappedValue = viewport
+        }
     }
 }
 
@@ -246,4 +397,9 @@ private struct SCIndexedScrollablePoint: Identifiable {
     let point: SCChartPoint
 
     var id: String { point.id }
+}
+
+private enum SCTimeNavigationSource {
+    case scrollPosition(Binding<Date>)
+    case viewport(Binding<SCChartTimeViewport>)
 }

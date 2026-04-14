@@ -120,24 +120,86 @@ public struct SCChartScrollBehavior: Equatable, Codable {
     }
 }
 
+/// Configures whether zoom is enabled and how far a chart window may zoom in or out.
+public struct SCChartZoomBehavior: Equatable, Codable {
+    public let isEnabled: Bool
+    public let minimumVisibleLength: Double?
+    public let maximumVisibleLength: Double?
+    public let sensitivity: Double
+
+    /// Creates a zoom policy with optional minimum/maximum visible lengths.
+    public init(
+        isEnabled: Bool = true,
+        minimumVisibleLength: Double? = nil,
+        maximumVisibleLength: Double? = nil,
+        sensitivity: Double = 1
+    ) {
+        self.isEnabled = isEnabled
+        self.minimumVisibleLength = minimumVisibleLength.map { max($0, 0.0001) }
+        self.maximumVisibleLength = maximumVisibleLength.map { max($0, 0.0001) }
+        self.sensitivity = max(sensitivity, 0.0001)
+    }
+
+    /// A permissive default zoom policy suitable for most scrollable wrappers.
+    public static let standard = SCChartZoomBehavior()
+
+    /// Disables zoom-specific behavior while keeping the API surface stable.
+    public static let disabled = SCChartZoomBehavior(
+        isEnabled: false,
+        minimumVisibleLength: nil,
+        maximumVisibleLength: nil,
+        sensitivity: 1
+    )
+
+    func clamped(length: Double, within boundsLength: Double) -> Double {
+        let lowerBound = minimumVisibleLength ?? 0.0001
+        let upperBound = min(maximumVisibleLength ?? boundsLength, max(boundsLength, 0.0001))
+        return min(max(length, lowerBound), max(upperBound, lowerBound))
+    }
+
+    func adjustedMagnification(from magnification: Double) -> Double {
+        guard magnification.isFinite else { return 1 }
+        let delta = (magnification - 1) * sensitivity
+        return max(0.0001, 1 + delta)
+    }
+}
+
 /// Enables or disables selection and scrolling gestures for interactive wrappers.
 public struct SCChartGestureConfiguration: Equatable, Codable {
+    /// Whether the wrapper should expose selection gestures.
     public let allowsSelection: Bool
+    /// Whether the wrapper should expose horizontal scrolling gestures.
     public let allowsScrolling: Bool
+    /// Whether the wrapper should expose pinch-style zoom gestures.
+    public let allowsZooming: Bool
 
-    /// Creates a gesture policy for wrappers that support selection and scrolling.
+    /// Creates a gesture policy for wrappers that support selection, scrolling, and zooming.
     public init(
         allowsSelection: Bool = true,
-        allowsScrolling: Bool = true
+        allowsScrolling: Bool = true,
+        allowsZooming: Bool = true
     ) {
         self.allowsSelection = allowsSelection
         self.allowsScrolling = allowsScrolling
+        self.allowsZooming = allowsZooming
     }
 
     public static let interactive = SCChartGestureConfiguration()
-    public static let selectionOnly = SCChartGestureConfiguration(allowsSelection: true, allowsScrolling: false)
-    public static let scrollOnly = SCChartGestureConfiguration(allowsSelection: false, allowsScrolling: true)
-    public static let staticOnly = SCChartGestureConfiguration(allowsSelection: false, allowsScrolling: false)
+    public static let selectionOnly = SCChartGestureConfiguration(
+        allowsSelection: true,
+        allowsScrolling: false,
+        allowsZooming: false
+    )
+    public static let scrollOnly = SCChartGestureConfiguration(
+        allowsSelection: false,
+        allowsScrolling: true,
+        allowsZooming: true
+    )
+    public static let staticOnly = SCChartGestureConfiguration(
+        allowsSelection: false,
+        allowsScrolling: false,
+        allowsZooming: false
+    )
 }
 
 /// Lightweight hover state that can be bridged to and from a concrete chart selection.
