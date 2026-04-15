@@ -116,4 +116,46 @@ final class SCChartZoomNavigationTests: XCTestCase {
         XCTAssertEqual(indexedViewport.length, 6, accuracy: 0.0001)
         XCTAssertEqual(timeViewport.length, 3600, accuracy: 0.0001)
     }
+
+    @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+    func testScrollableLineChartInitiallyRendersConfiguredVisibleDomainBeforeViewportTakesOver() {
+        var viewport = SCChartViewport.starting(at: 1, length: 3)
+        let binding = Binding(get: { viewport }, set: { viewport = $0 })
+        let chart = SCScrollableLineChart(
+            points: SCChartPoint.make(labeledValues: [
+                ("A", 2),
+                ("B", 4),
+                ("C", 6),
+                ("D", 8),
+                ("E", 10),
+                ("F", 12)
+            ]),
+            viewport: binding,
+            visibleDomain: .points(6),
+            zoomBehavior: .standard,
+            gestureConfiguration: .interactive
+        )
+
+        XCTAssertEqual(chart.visibleDomain.length, 6, accuracy: 0.0001)
+        XCTAssertEqual(chart.renderedVisibleDomain.length, 6, accuracy: 0.0001)
+    }
+
+    @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+    func testScrollableTimeSeriesChartLegacyScrollPositionPreservesConfiguredWindowLength() {
+        var scrollPosition = Date(timeIntervalSince1970: 100)
+        let binding = Binding(get: { scrollPosition }, set: { scrollPosition = $0 })
+        let chart = SCScrollableTimeSeriesChart(
+            points: SCChartTimePoint.make(values: [
+                (Date(timeIntervalSince1970: 100), 2),
+                (Date(timeIntervalSince1970: 130), 4),
+                (Date(timeIntervalSince1970: 160), 6)
+            ]),
+            scrollPosition: binding,
+            visibleDomain: .seconds(300),
+            gestureConfiguration: .scrollOnly
+        )
+
+        XCTAssertEqual(chart.visibleDomain.length, 300, accuracy: 0.0001)
+        XCTAssertEqual(chart.renderedVisibleDomain.length, 300, accuracy: 0.0001)
+    }
 }

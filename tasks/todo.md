@@ -1,5 +1,16 @@
 # Active Todo
 
+- [x] Fix the scrollable wrapper review regressions so initializer-driven visible windows remain compatible for indexed and legacy time-series charts
+- [x] Add focused regression tests covering the line-chart initial visible-domain contract and the legacy time-series scrollPosition window-length contract
+- [x] Re-run targeted zoom/navigation tests plus full `swift test`
+
+## Review Notes
+
+- Restored the indexed wrapper's initial visible-window precedence so `scrollBehavior` / `visibleDomain` still control first render until viewport-driven navigation takes over.
+- Restored the legacy time-series `scrollPosition` path so it preserves the configured window length instead of shrinking wide domains to the data bounds.
+- Added focused regression coverage in `SCChartZoomNavigationTests` for both review comments.
+- Verified on 2026-04-15 with `swift test --filter SCChartZoomNavigationTests` and full `swift test`: 75 tests passed.
+
 - [x] Audit the remaining exposed public API surface for missing Xcode Quick Help coverage
 - [x] Add `///` documentation for all remaining public types and public entry points in the package
 - [x] Update changelog and review notes for the full API Quick Help pass
