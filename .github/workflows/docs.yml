@@ -1,0 +1,37 @@
+name: Documentation
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/docs.yml"
+      - "CHANGELOG.md"
+      - "Package.swift"
+      - "README.md"
+      - "Sources/**"
+      - "docs/**"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/docs.yml"
+      - "CHANGELOG.md"
+      - "Package.swift"
+      - "README.md"
+      - "Sources/**"
+      - "docs/**"
+
+jobs:
+  docbuild:
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build DocC catalog
+        run: |
+          xcodebuild docbuild \
+            -scheme SimpleChart \
+            -destination 'platform=macOS' \
+            -derivedDataPath .build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO

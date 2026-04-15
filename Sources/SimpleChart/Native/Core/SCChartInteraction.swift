@@ -77,6 +77,7 @@ public enum SCChartInspectionOverlay: Equatable, Codable {
 
 /// Scroll-window behavior shared by scrollable wrappers.
 public struct SCChartScrollBehavior: Equatable, Codable {
+    /// The default visible x-domain window used when the chart first appears.
     public let visibleDomain: SCChartVisibleDomain
 
     /// Creates a scroll behavior from a visible-domain window description.
@@ -122,12 +123,22 @@ public struct SCChartScrollBehavior: Equatable, Codable {
 
 /// Configures whether zoom is enabled and how far a chart window may zoom in or out.
 public struct SCChartZoomBehavior: Equatable, Codable {
+    /// Whether pinch-style zoom interactions should change the visible window.
     public let isEnabled: Bool
+    /// The smallest allowed visible-domain length after zooming in.
     public let minimumVisibleLength: Double?
+    /// The largest allowed visible-domain length after zooming out.
     public let maximumVisibleLength: Double?
+    /// A multiplier applied to gesture magnification deltas before they update the visible window.
     public let sensitivity: Double
 
     /// Creates a zoom policy with optional minimum/maximum visible lengths.
+    ///
+    /// - Parameters:
+    ///   - isEnabled: Whether zoom gestures should be honored.
+    ///   - minimumVisibleLength: The minimum visible-domain length allowed by the policy.
+    ///   - maximumVisibleLength: The maximum visible-domain length allowed by the policy.
+    ///   - sensitivity: A multiplier that makes the zoom feel slower or faster than the raw gesture delta.
     public init(
         isEnabled: Bool = true,
         minimumVisibleLength: Double? = nil,
@@ -184,17 +195,21 @@ public struct SCChartGestureConfiguration: Equatable, Codable {
         self.allowsZooming = allowsZooming
     }
 
+    /// Enables selection, scrolling, and zooming together.
     public static let interactive = SCChartGestureConfiguration()
+    /// Enables selection only.
     public static let selectionOnly = SCChartGestureConfiguration(
         allowsSelection: true,
         allowsScrolling: false,
         allowsZooming: false
     )
+    /// Enables scrolling and zooming without selection.
     public static let scrollOnly = SCChartGestureConfiguration(
         allowsSelection: false,
         allowsScrolling: true,
         allowsZooming: true
     )
+    /// Disables all interactive gesture handling.
     public static let staticOnly = SCChartGestureConfiguration(
         allowsSelection: false,
         allowsScrolling: false,

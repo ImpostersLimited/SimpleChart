@@ -17,6 +17,7 @@ public struct SCScrollableLineChart: View {
     public let domain: SCChartDomain?
     public let referenceLines: [SCChartReferenceLine]
     public let scrollBehavior: SCChartScrollBehavior
+    /// The zoom policy applied to the visible x-domain window.
     public let zoomBehavior: SCChartZoomBehavior
     public let gestureConfiguration: SCChartGestureConfiguration
     public let yAxisFormat: SCChartNumericValueFormat
@@ -25,6 +26,8 @@ public struct SCScrollableLineChart: View {
     @State private var lastMagnification: CGFloat = 1
 
     /// Creates a scrollable line chart bound to an explicit viewport value.
+    ///
+    /// Bind a full ``SCChartViewport`` when the surrounding view needs to read or update the current indexed window programmatically.
     public init(
         points: [SCChartPoint],
         viewport: Binding<SCChartViewport>,
@@ -50,6 +53,8 @@ public struct SCScrollableLineChart: View {
     }
 
     /// Creates a scrollable line chart from a visible-domain helper instead of a full scroll behavior.
+    ///
+    /// Use this initializer when the chart should still expose viewport state externally but the initial window is easier to describe as a visible-domain helper.
     public init(
         points: [SCChartPoint],
         viewport: Binding<SCChartViewport>,
@@ -104,7 +109,7 @@ public struct SCScrollableLineChart: View {
             }
             .scChartScrollableX(
                 enabled: gestureConfiguration.allowsScrolling,
-                visibleDomain: visibleDomain,
+                visibleDomain: renderedVisibleDomain,
                 position: scrollPositionBinding
             )
             .scChartDomain(domain)
@@ -145,8 +150,14 @@ public struct SCScrollableLineChart: View {
         )
     }
 
-    /// The currently configured visible-domain window for scrolling.
+    /// The visible-domain window currently configured on the wrapper.
+    ///
+    /// This reflects the wrapper's public state rather than the internally clamped render window used while applying gesture updates.
     public var visibleDomain: SCChartVisibleDomain {
+        SCChartVisibleDomain(length: viewport.length)
+    }
+
+    private var renderedVisibleDomain: SCChartVisibleDomain {
         SCChartVisibleDomain(length: effectiveViewport.length)
     }
 
@@ -174,6 +185,7 @@ public struct SCScrollableLineChart: View {
 public struct SCScrollableTimeSeriesChart: View {
     public let points: [SCChartTimePoint]
     public let scrollBehavior: SCChartScrollBehavior
+    /// The zoom policy applied to the visible date-domain window.
     public let zoomBehavior: SCChartZoomBehavior
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
@@ -187,6 +199,8 @@ public struct SCScrollableTimeSeriesChart: View {
     @State private var lastMagnification: CGFloat = 1
 
     /// Creates a scrollable time-series chart bound to an explicit date scroll position.
+    ///
+    /// This compatibility initializer keeps the original scroll-position model and disables zoom-specific state so existing call sites keep their behavior.
     public init(
         points: [SCChartTimePoint],
         scrollPosition: Binding<Date>,
@@ -213,6 +227,8 @@ public struct SCScrollableTimeSeriesChart: View {
     }
 
     /// Creates a scrollable time-series chart from a visible-domain helper instead of a full scroll behavior.
+    ///
+    /// Use this when a date-based chart still uses the legacy scroll-position binding but the initial window is easier to describe through ``SCChartVisibleDomain``.
     public init(
         points: [SCChartTimePoint],
         scrollPosition: Binding<Date>,
@@ -240,6 +256,8 @@ public struct SCScrollableTimeSeriesChart: View {
     }
 
     /// Creates a scrollable and zoomable time-series chart bound to an explicit viewport value.
+    ///
+    /// Bind a full ``SCChartTimeViewport`` when the chart needs programmatic zoom or when multiple controls should coordinate the same visible date range.
     public init(
         points: [SCChartTimePoint],
         viewport: Binding<SCChartTimeViewport>,
@@ -294,7 +312,7 @@ public struct SCScrollableTimeSeriesChart: View {
             }
             .scChartScrollableX(
                 enabled: gestureConfiguration.allowsScrolling,
-                visibleDomain: visibleDomain,
+                visibleDomain: renderedVisibleDomain,
                 position: scrollPositionBinding
             )
             .scChartDomain(domain)
@@ -304,8 +322,14 @@ public struct SCScrollableTimeSeriesChart: View {
         .simultaneousGesture(zoomGesture)
     }
 
-    /// The currently configured visible-domain window for scrolling.
+    /// The visible-domain window currently configured on the wrapper.
+    ///
+    /// This reflects the wrapper's public viewport state rather than the internally clamped render window used while processing scroll and zoom updates.
     public var visibleDomain: SCChartVisibleDomain {
+        SCChartVisibleDomain(length: currentViewport.length)
+    }
+
+    private var renderedVisibleDomain: SCChartVisibleDomain {
         SCChartVisibleDomain(length: effectiveViewport.length)
     }
 
