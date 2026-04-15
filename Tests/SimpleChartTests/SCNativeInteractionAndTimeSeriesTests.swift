@@ -48,6 +48,27 @@ final class SCNativeInteractionAndTimeSeriesTests: XCTestCase {
         XCTAssertFalse(gestures.allowsScrolling)
     }
 
+    func testGestureConfigurationDecodesLegacyPayloadByInferringZoomFromScrolling() throws {
+        let scrollingPayload = """
+        {"allowsSelection":true,"allowsScrolling":true}
+        """.data(using: .utf8)!
+        let selectionOnlyPayload = """
+        {"allowsSelection":true,"allowsScrolling":false}
+        """.data(using: .utf8)!
+
+        let scrollingConfig = try JSONDecoder().decode(
+            SCChartGestureConfiguration.self,
+            from: scrollingPayload
+        )
+        let selectionOnlyConfig = try JSONDecoder().decode(
+            SCChartGestureConfiguration.self,
+            from: selectionOnlyPayload
+        )
+
+        XCTAssertTrue(scrollingConfig.allowsZooming)
+        XCTAssertFalse(selectionOnlyConfig.allowsZooming)
+    }
+
     func testNumericAndDateFormatsProduceStableText() {
         XCTAssertFalse(SCChartNumericValueFormat.compact.string(from: 12_400).isEmpty)
         XCTAssertTrue(SCChartNumericValueFormat.currency(code: "USD").string(from: 42).contains("$"))

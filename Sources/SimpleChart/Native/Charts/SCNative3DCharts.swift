@@ -35,7 +35,6 @@ public struct SCNative3DPointChart: View {
         )
     }
 }
-#endif
 
 @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
 @available(tvOS, unavailable)
@@ -137,3 +136,4 @@ public struct SCNativeSurfacePlotChart: View {
         )
     }
 }
+#endif

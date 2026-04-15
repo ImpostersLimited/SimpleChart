@@ -195,6 +195,25 @@ public struct SCChartGestureConfiguration: Equatable, Codable {
         self.allowsZooming = allowsZooming
     }
 
+    private enum CodingKeys: String, CodingKey {
+        case allowsSelection
+        case allowsScrolling
+        case allowsZooming
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let allowsSelection = try container.decode(Bool.self, forKey: .allowsSelection)
+        let allowsScrolling = try container.decode(Bool.self, forKey: .allowsScrolling)
+        let allowsZooming = try container.decodeIfPresent(Bool.self, forKey: .allowsZooming)
+            ?? allowsScrolling
+        self.init(
+            allowsSelection: allowsSelection,
+            allowsScrolling: allowsScrolling,
+            allowsZooming: allowsZooming
+        )
+    }
+
     /// Enables selection, scrolling, and zooming together.
     public static let interactive = SCChartGestureConfiguration()
     /// Enables selection only.

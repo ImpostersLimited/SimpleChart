@@ -1,11 +1,19 @@
 # Active Todo
 
+- [x] Fix the review follow-ups for 3D wrapper compiler guards and gesture-configuration Codable compatibility
+- [x] Add regression coverage for decoding older `SCChartGestureConfiguration` payloads
+- [x] Re-run targeted interaction tests plus full package verification
+
 - [x] Fix the scrollable wrapper review regressions so initializer-driven visible windows remain compatible for indexed and legacy time-series charts
 - [x] Add focused regression tests covering the line-chart initial visible-domain contract and the legacy time-series scrollPosition window-length contract
 - [x] Re-run targeted zoom/navigation tests plus full `swift test`
 
 ## Review Notes
 
+- Fixed the 3D wrapper compiler-guard regression so every `SCComposedChart3D`-dependent wrapper stays behind the Swift 6.3+ gate.
+- Added backward-compatible decoding for `SCChartGestureConfiguration` so older payloads infer `allowsZooming` from `allowsScrolling` when that key is absent.
+- Added focused regression coverage for legacy gesture-configuration decoding.
+- Verified on 2026-04-15 with `swift test --filter SCNativeInteractionAndTimeSeriesTests` and full `swift test`: 76 tests passed after the compatibility fixes.
 - Restored the indexed wrapper's initial visible-window precedence so `scrollBehavior` / `visibleDomain` still control first render until viewport-driven navigation takes over.
 - Restored the legacy time-series `scrollPosition` path so it preserves the configured window length instead of shrinking wide domains to the data bounds.
 - Added focused regression coverage in `SCChartZoomNavigationTests` for both review comments.
