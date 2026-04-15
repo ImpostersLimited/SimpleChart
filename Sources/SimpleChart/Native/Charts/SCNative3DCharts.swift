@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if compiler(>=6.3)
 @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
 @available(tvOS, unavailable)
 @available(watchOS, unavailable)
@@ -34,6 +35,7 @@ public struct SCNative3DPointChart: View {
         )
     }
 }
+#endif
 
 @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
 @available(tvOS, unavailable)
