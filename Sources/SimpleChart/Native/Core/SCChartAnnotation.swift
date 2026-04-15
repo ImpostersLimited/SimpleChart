@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Positions annotation content relative to the mark or overlay it decorates.
 public enum SCChartAnnotationAnchor: String, Codable, Equatable {
     case top
     case topLeading
@@ -17,12 +18,14 @@ public enum SCChartAnnotationAnchor: String, Codable, Equatable {
     case overlay
 }
 
+/// Controls the visual treatment used when rendering an annotation label.
 public enum SCChartAnnotationStyle: String, Codable, Equatable {
     case plain
     case caption
     case badge
 }
 
+/// Describes reusable annotation content for composed charts, overlays, and inspection UI.
 public struct SCChartAnnotation: Equatable {
     public let text: String
     public let color: Color
@@ -32,6 +35,7 @@ public struct SCChartAnnotation: Equatable {
     public let alignment: Alignment
     public let style: SCChartAnnotationStyle
 
+    /// Creates a reusable annotation description from explicit text, colors, and placement.
     public init(
         text: String,
         color: Color = .secondary,
@@ -52,6 +56,7 @@ public struct SCChartAnnotation: Equatable {
 }
 
 public extension SCChartAnnotation {
+    /// Creates a caption-style annotation tuned for reference lines.
     static func lineLabel(
         _ text: String,
         color: Color = .secondary,
@@ -67,6 +72,7 @@ public extension SCChartAnnotation {
         )
     }
 
+    /// Creates a badge-style callout suitable for hover and selection summaries.
     static func callout(
         _ text: String,
         color: Color = .secondary,
@@ -86,6 +92,7 @@ public extension SCChartAnnotation {
         )
     }
 
+    /// Creates a pill-shaped badge annotation.
     static func badge(
         _ text: String,
         color: Color = .primary,
@@ -105,6 +112,7 @@ public extension SCChartAnnotation {
         )
     }
 
+    /// Creates a lightweight caption annotation.
     static func caption(
         _ text: String,
         color: Color = .secondary,
@@ -120,6 +128,7 @@ public extension SCChartAnnotation {
         )
     }
 
+    /// Formats a numeric value and returns it as a badge-style annotation.
     static func valueLabel(
         _ value: Double,
         format: SCChartNumericValueFormat = .automatic,

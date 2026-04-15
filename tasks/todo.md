@@ -1,5 +1,35 @@
 # Active Todo
 
+- [x] Fix the docbuild CI regression by matching the 3D test coverage to the source-side compiler guards
+- [x] Re-run local docbuild verification, preferring Xcode 16.4 to match GitHub Actions when available
+- [x] Re-run full package tests after the docbuild fix
+
+- [x] Fix the review follow-ups for 3D wrapper compiler guards and gesture-configuration Codable compatibility
+- [x] Add regression coverage for decoding older `SCChartGestureConfiguration` payloads
+- [x] Re-run targeted interaction tests plus full package verification
+
+- [x] Fix the scrollable wrapper review regressions so initializer-driven visible windows remain compatible for indexed and legacy time-series charts
+- [x] Add focused regression tests covering the line-chart initial visible-domain contract and the legacy time-series scrollPosition window-length contract
+- [x] Re-run targeted zoom/navigation tests plus full `swift test`
+
+## Review Notes
+
+- Fixed the docbuild CI regression by moving the 3D test coverage behind the same `#if compiler(>=6.3)` gate as the source wrappers.
+- Verified on 2026-04-15 with local `xcodebuild docbuild` and full package tests after the CI-specific fix.
+- Fixed the 3D wrapper compiler-guard regression so every `SCComposedChart3D`-dependent wrapper stays behind the Swift 6.3+ gate.
+- Added backward-compatible decoding for `SCChartGestureConfiguration` so older payloads infer `allowsZooming` from `allowsScrolling` when that key is absent.
+- Added focused regression coverage for legacy gesture-configuration decoding.
+- Verified on 2026-04-15 with `swift test --filter SCNativeInteractionAndTimeSeriesTests` and full `swift test`: 76 tests passed after the compatibility fixes.
+- Restored the indexed wrapper's initial visible-window precedence so `scrollBehavior` / `visibleDomain` still control first render until viewport-driven navigation takes over.
+- Restored the legacy time-series `scrollPosition` path so it preserves the configured window length instead of shrinking wide domains to the data bounds.
+- Added focused regression coverage in `SCChartZoomNavigationTests` for both review comments.
+- Verified on 2026-04-15 with `swift test --filter SCChartZoomNavigationTests` and full `swift test`: 75 tests passed.
+
+- [x] Audit the remaining exposed public API surface for missing Xcode Quick Help coverage
+- [x] Add `///` documentation for all remaining public types and public entry points in the package
+- [x] Update changelog and review notes for the full API Quick Help pass
+- [x] Re-run `swift build` to verify the documentation pass did not break the package
+
 - [x] Audit the first-discovery public API for missing Xcode Quick Help summaries
 - [x] Add focused `///` documentation to the core models, styles, composition entrypoints, and primary wrappers
 - [x] Update changelog/review notes for the Quick Help documentation pass
@@ -107,6 +137,21 @@
 - [x] Add a compact chart-selection guide for choosing the right wrapper
 - [x] Verify the updated documentation flow and update review notes
 
+- [x] Audit the current scrollable wrapper and interaction helper surface for the zoom/navigation extension points
+- [x] Add failing tests for indexed and time-series zoom/navigation state, coordinator behavior, and wrapper configuration
+- [x] Add a public navigation-state layer for zoomable indexed and time-series windows
+- [x] Add a shared interaction coordinator that translates binding and gesture intent into clamped navigation updates
+- [x] Extend the existing scrollable wrappers to adopt the new zoom/navigation API without regressing current scroll behavior
+- [x] Update README, changelog, and review notes for the zoomable interactive wrapper slice
+- [x] Re-run focused and full package verification for the zoom/navigation slice
+
+- [x] Audit the current IDE-native documentation/tooling gap across DocC, Quick Help, and editor support
+- [x] Add a `SimpleChart.docc` catalog with a landing page and focused articles for wrapper discovery and interactive charts
+- [x] Polish high-value Quick Help on the interaction/navigation surface so symbol docs are more teachable in Xcode
+- [x] Add a contributor-facing editor support note for Xcode and sourcekit-lsp usage
+- [x] Add a GitHub Actions workflow that verifies the documentation build path
+- [x] Re-run package verification, update review notes, and sync the tracking issue for the docs/tooling slice
+
 ## Notes
 
 - Native Swift Charts is only available on iOS 16, macOS 13, tvOS 16, and watchOS 9, so the new wrapper must be additive and availability-gated.
@@ -185,3 +230,15 @@
 - Verified on 2026-04-10 after the helper-kernel completeness slice with `swift test`: package builds cleanly and 65 tests pass.
 - Added Xcode Quick Help summaries to the first-discovery public API surface, covering the core point/range/time/reference models, domain/style helpers, composed-chart entrypoints, and the main line/bar/inspection wrappers.
 - Verified on 2026-04-11 after the Quick Help documentation pass with `swift build`: package builds cleanly.
+- Expanded the Xcode Quick Help pass to cover the full exposed package API surface, including the remaining native wrappers/helpers, shared interaction and viewport properties, `SCChartDomain` overloads, and the deprecated legacy compatibility layer.
+- The symbol-level audit for public types, initializers, helper functions, and exposed computed properties now returns zero undocumented symbols across `Sources/SimpleChart` when preview-only declarations are excluded.
+- Verified on 2026-04-11 after the full-package Quick Help pass with `swift build` and `swift test`: package builds cleanly and 68 tests pass.
+- Added `SCChartTimeViewport`, `SCChartZoomBehavior`, and `SCChartNavigationCoordinator` so indexed and date-based windows share a stable zoom/navigation model.
+- Extended `SCScrollableLineChart` and `SCScrollableTimeSeriesChart` with zoom-aware coordination while preserving the pre-existing public `visibleDomain` wrapper state contract.
+- Added focused zoom/navigation coverage in `SCChartZoomNavigationTests.swift` and updated the docs/tutorial surface to show viewport-driven zoom usage instead of raw Swift Charts fallback patterns.
+- Verified on 2026-04-15 for the zoomable interactive wrapper slice with `swift test --filter SCChartZoomNavigationTests`, `swift test --filter SCNativeInteractionAndTimeSeriesTests`, and full `swift test`: package builds cleanly and 73 tests pass.
+- Added a first-party `SimpleChart.docc` catalog with landing and tutorial-style articles for getting started, wrapper selection, interactive charts, and legacy migration.
+- Added `docs/editor-support.md` so contributors have one place to look for Xcode Quick Help, local DocC rendering, and `sourcekit-lsp` expectations.
+- Added richer Quick Help coverage for the zoom/navigation surface, including `SCChartTimeViewport`, `SCChartScrollBehavior`, `SCChartZoomBehavior`, `SCChartGestureConfiguration`, and the scrollable interactive wrappers.
+- Added a GitHub Actions `Documentation` workflow that runs `xcodebuild docbuild` against the SwiftPM scheme on macOS.
+- Verified on 2026-04-15 for the docs/tooling slice with `swift build`, `swift test`, and `xcodebuild docbuild -scheme SimpleChart -destination 'platform=macOS' -derivedDataPath .build/DerivedData CODE_SIGNING_ALLOWED=NO`: package builds cleanly, all 73 tests pass, and the DocC build succeeds.

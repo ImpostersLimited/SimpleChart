@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// A ready-made single-series quadratic-curve chart backed by Swift Charts.
 public struct SCNativeQuadCurveChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -14,6 +15,7 @@ public struct SCNativeQuadCurveChart: View {
     public let domain: SCChartDomain?
     public let referenceLines: [SCChartReferenceLine]
 
+    /// Creates a quadratic-curve chart from prebuilt categorical points.
     public init(
         points: [SCChartPoint],
         seriesStyle: SCChartSeriesStyle = SCChartSeriesStyle(interpolation: .catmullRom),
@@ -28,6 +30,7 @@ public struct SCNativeQuadCurveChart: View {
         self.referenceLines = referenceLines
     }
 
+    /// Creates a quadratic-curve chart from floating-point values and optional labels.
     public init<T: BinaryFloatingPoint>(
         values: [T],
         labels: [String]? = nil,
@@ -48,6 +51,7 @@ public struct SCNativeQuadCurveChart: View {
         )
     }
 
+    /// Creates a quadratic-curve chart from integer values and optional labels.
     public init<T: BinaryInteger>(
         values: [T],
         labels: [String]? = nil,
@@ -68,6 +72,7 @@ public struct SCNativeQuadCurveChart: View {
         )
     }
 
+    /// Creates a quadratic-curve chart from labeled floating-point values.
     public init<T: BinaryFloatingPoint>(
         labeledValues: [(String, T)],
         seriesStyle: SCChartSeriesStyle = SCChartSeriesStyle(interpolation: .catmullRom),
@@ -87,6 +92,7 @@ public struct SCNativeQuadCurveChart: View {
         )
     }
 
+    /// Creates a quadratic-curve chart from labeled integer values.
     public init<T: BinaryInteger>(
         labeledValues: [(String, T)],
         seriesStyle: SCChartSeriesStyle = SCChartSeriesStyle(interpolation: .catmullRom),

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Describes reusable overlay content that can be layered onto a composed chart.
 public enum SCChartOverlay: Equatable {
     case referenceLine(SCChartReferenceLine)
     case referenceLines([SCChartReferenceLine])

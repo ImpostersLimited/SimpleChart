@@ -8,12 +8,14 @@
 import Charts
 import SwiftUI
 
+/// A chart that renders lower and upper y-bounds for each category.
 public struct SCNativeRangeChart: View {
     public let points: [SCChartRangePoint]
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a range chart from prebuilt range points.
     public init(
         points: [SCChartRangePoint],
         seriesStyle: SCChartSeriesStyle = SCChartSeriesStyle(),
@@ -26,6 +28,7 @@ public struct SCNativeRangeChart: View {
         self.domain = domain
     }
 
+    /// Creates a range chart from floating-point lower and upper arrays.
     public init<T: BinaryFloatingPoint>(
         ranges: [(T, T)],
         labels: [String]? = nil,
@@ -44,6 +47,7 @@ public struct SCNativeRangeChart: View {
         )
     }
 
+    /// Creates a range chart from integer lower and upper arrays.
     public init<T: BinaryInteger>(
         ranges: [(T, T)],
         labels: [String]? = nil,
@@ -62,6 +66,7 @@ public struct SCNativeRangeChart: View {
         )
     }
 
+    /// Creates a range chart from labeled floating-point lower and upper tuples.
     public init<T: BinaryFloatingPoint>(
         labeledRanges: [(String, T, T)],
         seriesStyle: SCChartSeriesStyle = .rangeFill(),
@@ -79,6 +84,7 @@ public struct SCNativeRangeChart: View {
         )
     }
 
+    /// Creates a range chart from labeled integer lower and upper tuples.
     public init<T: BinaryInteger>(
         labeledRanges: [(String, T, T)],
         seriesStyle: SCChartSeriesStyle = .rangeFill(),

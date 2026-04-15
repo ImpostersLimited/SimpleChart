@@ -8,11 +8,13 @@
 import SwiftUI
 
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
+/// Deprecated compatibility wrapper that forwards the original histogram config API to the native histogram implementation.
 public struct SCHistogram: View {
     let chartData: [SCHistogramData]
     let chartConfig: SCHistogramConfig
     
     @available(*, deprecated, message: "Use SCNativeHistogramChart with SCHistogramBin or raw values plus SCChartAxesStyle instead.")
+    /// Creates the deprecated histogram wrapper from a legacy configuration value.
     public init(config: SCHistogramConfig) {
         self.chartData = config.chartData
         self.chartConfig = config

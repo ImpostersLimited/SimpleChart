@@ -22,6 +22,8 @@
 - Public interaction helper types: `SCChartSelectionState`, `SCChartInspectionOverlay`, `SCChartScrollBehavior`, `SCChartGestureConfiguration`, and `SCChartHoverState`.
 - Viewport coordination helpers for centered, clamped, and zoomed visible-window updates.
 - Focused tests for the interaction-helper slice, including interaction helper state, wrapper configuration, and viewport utilities.
+- Zoomable navigation helpers: `SCChartTimeViewport`, `SCChartZoomBehavior`, and `SCChartNavigationCoordinator`.
+- Viewport-driven zoom support for `SCScrollableLineChart` and `SCScrollableTimeSeriesChart`, including focused tests for indexed and time-series navigation state.
 - Helper-style annotation presets for caption, badge, and formatted value-label rendering via `SCChartAnnotation`.
 - Availability-gated `SCSelectableSectorChart` and `SCSelectableDonutChart` wrappers for `SectorMark` angle-selection workflows on newer OS versions.
 - Focused tests for selectable sector/donut wrapper configuration and annotation helper presets.
@@ -33,6 +35,8 @@
 - Visible-domain and scroll-behavior presets for analytics- and finance-style windows.
 - Focused tests for inspection-wrapper configuration and time-series selection state.
 - A new `docs/tutorials/` learning path with sequenced tutorials for first chart setup, helper-first data construction, interactions, time-series, composed charts, and legacy migration.
+- A first-party `SimpleChart.docc` catalog with package overview and focused articles for getting started, wrapper selection, interactive charts, and legacy migration.
+- A contributor-facing `docs/editor-support.md` guide covering Xcode Quick Help, local DocC builds, and `sourcekit-lsp` usage.
 - Availability-gated vectorized plot wrappers: `SCNativeLinePlotChart`, `SCNativeAreaPlotChart`, `SCNativeBarPlotChart`, `SCNativePointPlotChart`, and `SCNativeRectanglePlotChart`.
 - Availability-gated function and parametric plot wrappers: `SCNativeFunctionLinePlotChart`, `SCNativeParametricLinePlotChart`, and `SCNativeFunctionAreaPlotChart`.
 - Availability-gated 3D wrappers and helpers: `SCChart3DPoint`, `SCChart3DPoseStyle`, `SCChart3DSeriesStyle`, `SCNative3DPointChart`, `SCNative3DRectangleChart`, `SCNative3DRuleChart`, and `SCNativeSurfacePlotChart`.
@@ -47,7 +51,8 @@
 
 ### Changed
 
-- Added Xcode Quick Help documentation to the first-discovery public API surface so the core models, styles, composition entrypoints, and primary wrappers are easier to explore directly from Xcode.
+- Added Xcode Quick Help documentation across the full exposed package API surface, including the native wrapper/helper layer and the deprecated compatibility layer, so every public type and entry point is easier to discover directly from Xcode.
+- Added richer Quick Help coverage for the zoom/navigation surface, including `SCChartTimeViewport`, `SCChartScrollBehavior`, `SCChartZoomBehavior`, and the scrollable interactive wrappers.
 - Raised minimum supported platform versions to Swift Charts baselines:
   - iOS 16+
   - macOS 13+
@@ -66,7 +71,9 @@
 - Refactored composed-chart annotation rendering and sector-selection overlays to use the shared `SCChartAnnotationLabelView` helper path.
 - Refactored selection and hover inspection rendering to share the same callout and value-label helper path.
 - Reworked the documentation entrypoint around a real quick-start flow, with dedicated getting-started and chart-selection guides for new users.
+- Added repository-level documentation discovery links for the DocC catalog and editor support guide, plus a CI docbuild path for keeping the package documentation healthy.
 - Expanded the README wrapper catalog and coverage/status sections to include the vectorized plot and 3D chart surface.
+- Updated the scrolling and time-series docs to show viewport-based zoom configuration for indexed and date-based interactive wrappers.
 
 ### Deprecated
 

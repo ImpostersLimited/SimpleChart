@@ -8,12 +8,14 @@
 import Charts
 import SwiftUI
 
+/// A multi-line chart that renders multiple named series on a shared categorical axis.
 public struct SCNativeMultiLineChart: View {
     public let series: [SCChartLineSeries]
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
     public let referenceLines: [SCChartReferenceLine]
 
+    /// Creates a multi-line chart from prebuilt line-series values.
     public init(
         series: [SCChartLineSeries],
         axesStyle: SCChartAxesStyle = .standard(),

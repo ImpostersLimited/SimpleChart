@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A chart that renders one or more highlighted y-range bands across shared categories.
 public struct SCNativeBandChart: View {
     public let categories: [String]
     public let bands: [SCChartBand]
@@ -18,6 +19,7 @@ public struct SCNativeBandChart: View {
     public let plotStyle: SCChartPlotStyle
     public let domain: SCChartDomain?
 
+    /// Creates a band chart from explicit categories and prebuilt bands.
     public init(
         categories: [String],
         bands: [SCChartBand],
@@ -44,6 +46,7 @@ public struct SCNativeBandChart: View {
         )
     }
 
+    /// Creates a band chart from floating-point band tuples.
     public init<T: BinaryFloatingPoint>(
         categories: [String],
         bands: [(String, T, T)],
@@ -72,6 +75,7 @@ public struct SCNativeBandChart: View {
         )
     }
 
+    /// Creates a band chart from integer band tuples.
     public init<T: BinaryInteger>(
         categories: [String],
         bands: [(String, T, T)],

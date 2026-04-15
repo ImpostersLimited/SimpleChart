@@ -103,6 +103,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Derives a domain from matching floating-point lower and upper bound collections.
     public static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         lowerValues: [T],
         upperValues: [U],
@@ -121,6 +122,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Derives a domain from matching integer lower and upper bound collections.
     public static func make<T: BinaryInteger, U: BinaryInteger>(
         lowerValues: [T],
         upperValues: [U],
@@ -156,6 +158,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Convenience alias for `make(values:)` with floating-point input.
     public static func auto<T: BinaryFloatingPoint>(
         values: [T],
         baseZero: Bool = false,
@@ -172,6 +175,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Convenience alias for `make(values:)` with integer input.
     public static func auto<T: BinaryInteger>(
         values: [T],
         baseZero: Bool = false,
@@ -205,6 +209,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Convenience alias for auto-deriving a domain from explicit lower and upper floating-point bounds.
     public static func auto(
         lowerValues: [Double],
         upperValues: [Double],
@@ -223,6 +228,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Convenience alias for auto-deriving a domain from matching floating-point lower and upper bound collections.
     public static func auto<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         lowerValues: [T],
         upperValues: [U],
@@ -241,6 +247,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Convenience alias for auto-deriving a domain from matching integer lower and upper bound collections.
     public static func auto<T: BinaryInteger, U: BinaryInteger>(
         lowerValues: [T],
         upperValues: [U],
@@ -259,6 +266,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Convenience alias for auto-deriving a domain from existing range points.
     public static func auto(
         points: [SCChartRangePoint],
         baseZero: Bool = false,
@@ -276,6 +284,7 @@ public struct SCChartDomain: Equatable, Codable {
         )
     }
 
+    /// Creates a fixed domain without applying automatic padding.
     public static func fixed(_ range: ClosedRange<Double>) -> SCChartDomain {
         SCChartDomain(
             lowerBound: range.lowerBound,

@@ -11,8 +11,10 @@ If you are new to the package, start here instead of reading the full README top
 3. Use the focused guides below when you need the next step
 
 - [Getting Started](docs/getting-started.md)
+- [DocC Catalog Source](Sources/SimpleChart/SimpleChart.docc/SimpleChart.md)
 - [Tutorials](docs/tutorials/README.md)
 - [Chart Selection Guide](docs/chart-selection-guide.md)
+- [Editor Support](docs/editor-support.md)
 - [Migration from the legacy API](#migration-from-the-legacy-api)
 
 ## Platform requirements
@@ -41,10 +43,10 @@ The native layer is built around a small shared model surface:
 - `SCChartSectorSegment` for sector and donut charts
 - `SCChartBarGroup` and `SCChartStackSegment` for grouped and stacked bars
 - `SCChartTimePoint` for time-series datasets
-- `SCChartVisibleDomain` and `SCChartViewport` for scroll-window helpers
+- `SCChartVisibleDomain`, `SCChartViewport`, and `SCChartTimeViewport` for scroll-window helpers
 - `SCChartNumericValueFormat` and `SCChartDateValueFormat` for helper-style axis formatting
 - `SCChartSelection` for wrapper-managed chart selection state
-- `SCChartSelectionState`, `SCChartInspectionOverlay`, `SCChartScrollBehavior`, `SCChartGestureConfiguration`, and `SCChartHoverState` for reusable interaction configuration
+- `SCChartSelectionState`, `SCChartInspectionOverlay`, `SCChartScrollBehavior`, `SCChartZoomBehavior`, `SCChartGestureConfiguration`, and `SCChartHoverState` for reusable interaction configuration
 - `SCChartMark` for composed mark-based chart definitions
 - `SCChartAnnotationStyle`, `SCChartAnnotation`, `SCChartOverlay`, `SCChartScale`, and `SCChartComposition` for reusable composed-chart helpers
 
@@ -163,6 +165,14 @@ let scrollBehavior = SCChartScrollBehavior.continuous(.points(7))
 let timeWindow = SCChartScrollBehavior.timeWindow(hours: 24)
 let analyticsScroll = SCChartScrollBehavior.analytics(points: 21)
 let financeScroll = SCChartScrollBehavior.finance(tradingDays: 10)
+let timeViewport = SCChartTimeViewport.starting(
+    at: Date(timeIntervalSince1970: 1_700_000_000),
+    duration: 60 * 60 * 24
+)
+let zoomBehavior = SCChartZoomBehavior(
+    minimumVisibleLength: 3,
+    maximumVisibleLength: 14
+)
 let gestures = SCChartGestureConfiguration.interactive
 let compositionScale = SCChartScale(
     xVisibleDomain: .points(6),
@@ -356,7 +366,10 @@ struct RevenueExplorer: View {
     @State private var selectionState = SCChartSelectionState()
     @State private var hoverState: SCChartHoverState?
     @State private var viewport = SCChartViewport.starting(at: 0, length: 7)
-    @State private var scrollPosition = Date(timeIntervalSince1970: 1_700_000_000)
+    @State private var timeViewport = SCChartTimeViewport.starting(
+        at: Date(timeIntervalSince1970: 1_700_000_000),
+        duration: 7_200
+    )
 
     let points = SCChartPoint.make(
         labeledValues: [("Mon", 12), ("Tue", 18), ("Wed", 15), ("Thu", 20)]
@@ -394,14 +407,16 @@ struct RevenueExplorer: View {
                 points: points,
                 viewport: $viewport,
                 scrollBehavior: .continuous(.points(3)),
+                zoomBehavior: .init(minimumVisibleLength: 2, maximumVisibleLength: 7),
                 gestureConfiguration: .interactive,
                 yAxisFormat: .number(precision: 0)
             )
 
             SCScrollableTimeSeriesChart(
                 points: history,
-                scrollPosition: $scrollPosition,
+                viewport: $timeViewport,
                 scrollBehavior: .timeWindow(seconds: 7_200),
+                zoomBehavior: .init(minimumVisibleLength: 1_800, maximumVisibleLength: 14_400),
                 xAxisFormat: .hourMinute,
                 gestureConfiguration: .scrollOnly,
                 yAxisFormat: .compact

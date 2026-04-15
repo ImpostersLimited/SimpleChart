@@ -7,12 +7,14 @@
 
 import Foundation
 
+/// Represents a single x/y point for vectorized plot-based charts.
 public struct SCChartPlotPoint: Identifiable, Equatable {
     public let id: String
     public let x: Double
     public let y: Double
     public let seriesName: String?
 
+    /// Creates a plot point from explicit x/y coordinates and optional series metadata.
     public init(
         id: String? = nil,
         x: Double,
@@ -26,6 +28,7 @@ public struct SCChartPlotPoint: Identifiable, Equatable {
     }
 }
 
+/// Represents a horizontal plot span with shared y-value and x start/end bounds.
 public struct SCChartPlotSpan: Identifiable, Equatable {
     public let id: String
     public let xStart: Double
@@ -33,6 +36,7 @@ public struct SCChartPlotSpan: Identifiable, Equatable {
     public let y: Double
     public let seriesName: String?
 
+    /// Creates a plot span from explicit x-range, y-value, and optional series metadata.
     public init(
         id: String? = nil,
         xStart: Double,
@@ -50,6 +54,7 @@ public struct SCChartPlotSpan: Identifiable, Equatable {
     }
 }
 
+/// Represents a vertical plot range with shared x-value and y start/end bounds.
 public struct SCChartPlotRange: Identifiable, Equatable {
     public let id: String
     public let x: Double
@@ -57,6 +62,7 @@ public struct SCChartPlotRange: Identifiable, Equatable {
     public let yEnd: Double
     public let seriesName: String?
 
+    /// Creates a plot range from explicit x-value, y-bounds, and optional series metadata.
     public init(
         id: String? = nil,
         x: Double,
@@ -74,6 +80,7 @@ public struct SCChartPlotRange: Identifiable, Equatable {
     }
 }
 
+/// Represents a plot rectangle bounded by x and y start/end coordinates.
 public struct SCChartPlotRectangle: Identifiable, Equatable {
     public let id: String
     public let xStart: Double
@@ -82,6 +89,7 @@ public struct SCChartPlotRectangle: Identifiable, Equatable {
     public let yEnd: Double
     public let seriesName: String?
 
+    /// Creates a plot rectangle from explicit corner bounds and optional series metadata.
     public init(
         id: String? = nil,
         xStart: Double,
@@ -105,6 +113,7 @@ public struct SCChartPlotRectangle: Identifiable, Equatable {
 }
 
 public extension SCChartPlotPoint {
+    /// Builds plot points from floating-point `(x, y)` tuples.
     static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         points: [(T, U)],
         seriesName: String? = nil
@@ -119,6 +128,7 @@ public extension SCChartPlotPoint {
         }
     }
 
+    /// Builds plot points from integer `(x, y)` tuples.
     static func make<T: BinaryInteger, U: BinaryInteger>(
         points: [(T, U)],
         seriesName: String? = nil
@@ -133,6 +143,7 @@ public extension SCChartPlotPoint {
         }
     }
 
+    /// Builds plot points from parallel floating-point x and y arrays.
     static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         xValues: [T],
         yValues: [U],
@@ -150,6 +161,7 @@ public extension SCChartPlotPoint {
 }
 
 public extension SCChartPlotSpan {
+    /// Builds plot spans from floating-point `(xStart, xEnd, y)` tuples.
     static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         spans: [(T, T, U)],
         seriesName: String? = nil
@@ -165,6 +177,7 @@ public extension SCChartPlotSpan {
         }
     }
 
+    /// Builds plot spans from integer `(xStart, xEnd, y)` tuples.
     static func make<T: BinaryInteger, U: BinaryInteger>(
         spans: [(T, T, U)],
         seriesName: String? = nil
@@ -182,6 +195,7 @@ public extension SCChartPlotSpan {
 }
 
 public extension SCChartPlotRange {
+    /// Builds plot ranges from floating-point `(x, yStart, yEnd)` tuples.
     static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         ranges: [(T, U, U)],
         seriesName: String? = nil
@@ -197,6 +211,7 @@ public extension SCChartPlotRange {
         }
     }
 
+    /// Builds plot ranges from integer `(x, yStart, yEnd)` tuples.
     static func make<T: BinaryInteger, U: BinaryInteger>(
         ranges: [(T, U, U)],
         seriesName: String? = nil
@@ -214,6 +229,7 @@ public extension SCChartPlotRange {
 }
 
 public extension SCChartPlotRectangle {
+    /// Builds plot rectangles from floating-point `(xStart, xEnd, yStart, yEnd)` tuples.
     static func make<T: BinaryFloatingPoint, U: BinaryFloatingPoint>(
         rectangles: [(T, T, U, U)],
         seriesName: String? = nil
@@ -230,6 +246,7 @@ public extension SCChartPlotRectangle {
         }
     }
 
+    /// Builds plot rectangles from integer `(xStart, xEnd, yStart, yEnd)` tuples.
     static func make<T: BinaryInteger, U: BinaryInteger>(
         rectangles: [(T, T, U, U)],
         seriesName: String? = nil

@@ -6,6 +6,8 @@ If you already know which chart you need, use the [Chart Selection Guide](chart-
 
 If you prefer a guided sequence instead of a reference-style guide, use the [Tutorials](tutorials/README.md).
 
+If you want IDE-native docs, open the package in Xcode and use the DocC catalog at [Sources/SimpleChart/SimpleChart.docc/SimpleChart.md](../Sources/SimpleChart/SimpleChart.docc/SimpleChart.md). For editor setup details, use the [Editor Support guide](editor-support.md).
+
 ## Requirements
 
 SimpleChart uses the first-party Swift Charts baselines:
@@ -32,6 +34,7 @@ Some interaction wrappers require newer OS versions:
 2. Go to `Package Dependencies`.
 3. Add `https://github.com/ImpostersLimited/SimpleChart.git`.
 4. Link the `SimpleChart` product to your target.
+5. Option-click `SimpleChart` symbols for Quick Help, or use `Product > Build Documentation` after opening the package in Xcode to render the DocC catalog locally.
 
 ### Package.swift
 
@@ -206,7 +209,8 @@ struct ScrollableExample: View {
         SCScrollableLineChart(
             points: points,
             viewport: $viewport,
-            scrollBehavior: .continuous(.points(4))
+            scrollBehavior: .continuous(.points(4)),
+            zoomBehavior: .init(minimumVisibleLength: 2, maximumVisibleLength: 7)
         )
     }
 }
@@ -233,4 +237,5 @@ For a fuller chooser, use the [Chart Selection Guide](chart-selection-guide.md).
 
 - [Tutorials](tutorials/README.md)
 - [Chart Selection Guide](chart-selection-guide.md)
+- [Editor Support](editor-support.md)
 - [README](../README.md) for the full API surface and migration notes

@@ -8,11 +8,13 @@
 import SwiftUI
 
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
+/// Deprecated compatibility wrapper that forwards the original line-chart config API to the native line-chart implementation.
 public struct SCLineChart: View {
     let chartData: [SCLineChartData]
     let chartConfig: SCLineChartConfig
     
     @available(*, deprecated, message: "Use SCNativeLineChart with SCChartPoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
+    /// Creates the deprecated line-chart wrapper from a legacy configuration value.
     public init(config: SCLineChartConfig) {
         self.chartData = config.chartData
         self.chartConfig = config

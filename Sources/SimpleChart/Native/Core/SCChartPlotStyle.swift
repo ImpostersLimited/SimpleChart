@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Styles the background, padding, and border of a chart plot area.
 public struct SCChartPlotStyle: Equatable {
     public let backgroundColor: Color
     public let backgroundOpacity: Double
@@ -16,6 +17,7 @@ public struct SCChartPlotStyle: Equatable {
     public let borderColor: Color?
     public let borderWidth: CGFloat
 
+    /// Creates a plot-area style from explicit background, border, and padding values.
     public init(
         backgroundColor: Color = .clear,
         backgroundOpacity: Double = 0,
@@ -38,6 +40,7 @@ public struct SCChartPlotStyle: Equatable {
 public extension SCChartPlotStyle {
     static let standard = SCChartPlotStyle()
 
+    /// Creates a card-style plot background suitable for dashboards and inspector views.
     static func card(
         backgroundColor: Color = .secondary,
         backgroundOpacity: Double = 0.12,

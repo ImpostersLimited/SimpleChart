@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A ready-made time-series line chart with date-aware axis formatting.
 public struct SCNativeTimeSeriesChart: View {
     public let points: [SCChartTimePoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -17,6 +18,7 @@ public struct SCNativeTimeSeriesChart: View {
     public let xAxisFormat: SCChartDateValueFormat
     public let yAxisFormat: SCChartNumericValueFormat
 
+    /// Creates a time-series chart from prebuilt time points.
     public init(
         points: [SCChartTimePoint],
         seriesStyle: SCChartSeriesStyle = .line(),
@@ -35,6 +37,7 @@ public struct SCNativeTimeSeriesChart: View {
         self.yAxisFormat = yAxisFormat
     }
 
+    /// Creates a time-series chart from floating-point `(date, value)` tuples.
     public init<T: BinaryFloatingPoint>(
         values: [(Date, T)],
         seriesStyle: SCChartSeriesStyle = .line(),
@@ -55,6 +58,7 @@ public struct SCNativeTimeSeriesChart: View {
         )
     }
 
+    /// Creates a time-series chart from integer `(date, value)` tuples.
     public init<T: BinaryInteger>(
         values: [(Date, T)],
         seriesStyle: SCChartSeriesStyle = .line(),

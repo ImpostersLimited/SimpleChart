@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Wraps a `Chart` with shared axis-title, legend, and plot-area presentation used by native wrappers.
 public struct SCNativeChartContainer<Content: View>: View {
     private let xAxis: SCChartAxis
     private let yAxis: SCChartAxis
@@ -14,6 +15,7 @@ public struct SCNativeChartContainer<Content: View>: View {
     private let plotStyle: SCChartPlotStyle
     private let content: Content
 
+    /// Creates a chart container that derives axis titles from a shared axes style unless overridden.
     public init(
         axesStyle: SCChartAxesStyle,
         xAxis: SCChartAxis? = nil,

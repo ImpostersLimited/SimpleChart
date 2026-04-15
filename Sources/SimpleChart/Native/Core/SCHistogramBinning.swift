@@ -7,7 +7,9 @@
 
 import Foundation
 
+/// Builds histogram bins from raw numeric values when callers do not pre-bin data.
 public enum SCHistogramBinning {
+    /// Converts raw values into evenly sized histogram bins.
     public static func makeBins(values: [Double], binCount: Int) -> [SCHistogramBin] {
         guard !values.isEmpty else { return [] }
 

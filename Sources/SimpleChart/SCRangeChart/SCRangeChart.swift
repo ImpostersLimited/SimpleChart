@@ -8,11 +8,13 @@
 import SwiftUI
 
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
+/// Deprecated compatibility wrapper that forwards the original range-chart config API to the native range-chart implementation.
 public struct SCRangeChart: View {
     let chartData: [SCRangeChartData]
     let chartConfig: SCRangeChartConfig
     
     @available(*, deprecated, message: "Use SCNativeRangeChart with SCChartRangePoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
+    /// Creates the deprecated range-chart wrapper from a legacy configuration value.
     public init(config: SCRangeChartConfig) {
         self.chartData = config.chartData
         self.chartConfig = config

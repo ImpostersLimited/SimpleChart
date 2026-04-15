@@ -9,6 +9,7 @@ import Charts
 import Foundation
 import SwiftUI
 
+/// A stacked area chart that accumulates multiple named series over a shared category axis.
 public struct SCNativeStackedAreaChart: View {
     public let series: [SCChartLineSeries]
     public let axesStyle: SCChartAxesStyle
@@ -17,6 +18,7 @@ public struct SCNativeStackedAreaChart: View {
     public let foregroundStyleScale: SCChartForegroundStyleScale
     public let referenceLines: [SCChartReferenceLine]
 
+    /// Creates a stacked area chart from prebuilt line-series values.
     public init(
         series: [SCChartLineSeries],
         axesStyle: SCChartAxesStyle = .standard(),

@@ -8,12 +8,14 @@
 import Charts
 import SwiftUI
 
+/// A histogram chart that can render either pre-binned or raw numeric input.
 public struct SCNativeHistogramChart: View {
     public let bins: [SCHistogramBin]
     public let seriesStyle: SCChartSeriesStyle
     public let axesStyle: SCChartAxesStyle
     public let domain: SCChartDomain?
 
+    /// Creates a histogram chart from precomputed bins.
     public init(
         bins: [SCHistogramBin],
         seriesStyle: SCChartSeriesStyle = SCChartSeriesStyle(),
@@ -26,6 +28,7 @@ public struct SCNativeHistogramChart: View {
         self.domain = domain
     }
 
+    /// Creates a histogram chart by binning raw floating-point values.
     public init(
         values: [Double],
         binCount: Int = 10,
@@ -42,6 +45,7 @@ public struct SCNativeHistogramChart: View {
         )
     }
 
+    /// Creates a histogram chart by binning raw integer values.
     public init<T: BinaryInteger>(
         values: [T],
         binCount: Int = 10,

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Places an explicit axis title and marks on a specific edge of the chart.
 public enum SCChartAxisPosition: String, Codable, Equatable {
     case automatic
     case leading
@@ -15,6 +16,7 @@ public enum SCChartAxisPosition: String, Codable, Equatable {
     case bottom
 }
 
+/// Describes where axis-mark values should come from when building Swift Charts axes.
 public enum SCChartAxisValueSource: Equatable {
     case automatic(desiredCount: Int? = nil)
     case integers([Int])
@@ -23,6 +25,7 @@ public enum SCChartAxisValueSource: Equatable {
     case dates([Date])
 }
 
+/// Configures the marks rendered for a single chart axis.
 public struct SCChartAxisMarks: Equatable {
     public let desiredCount: Int
     public let valueSource: SCChartAxisValueSource
@@ -33,6 +36,7 @@ public struct SCChartAxisMarks: Equatable {
     public let lineColor: Color
     public let labelColor: Color
 
+    /// Creates an axis-mark configuration with optional fixed values and styling.
     public init(
         desiredCount: Int = 3,
         valueSource: SCChartAxisValueSource = .automatic(),
@@ -54,6 +58,7 @@ public struct SCChartAxisMarks: Equatable {
     }
 }
 
+/// Describes a fully configured x- or y-axis, including title, placement, and mark styling.
 public struct SCChartAxis: Equatable {
     public let isVisible: Bool
     public let title: String
@@ -62,6 +67,7 @@ public struct SCChartAxis: Equatable {
     public let position: SCChartAxisPosition
     public let marks: SCChartAxisMarks
 
+    /// Creates a chart axis from explicit visibility, title, and mark configuration.
     public init(
         isVisible: Bool = false,
         title: String = "",
@@ -82,6 +88,7 @@ public struct SCChartAxis: Equatable {
 public extension SCChartAxis {
     static let hidden = SCChartAxis()
 
+    /// Creates a visible bottom x-axis with the supplied title and mark styling.
     static func x(
         title: String = "",
         titleColor: Color = .primary,
@@ -114,6 +121,7 @@ public extension SCChartAxis {
         )
     }
 
+    /// Creates a visible y-axis with the supplied title, placement, and mark styling.
     static func y(
         title: String = "",
         titleColor: Color = .primary,

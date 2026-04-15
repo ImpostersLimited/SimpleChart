@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Represents a highlighted y-range band that can be overlaid on another chart.
 public struct SCChartBand: Identifiable, Equatable {
     public let id: String
     public let title: String
@@ -16,6 +17,7 @@ public struct SCChartBand: Identifiable, Equatable {
     public let opacity: Double
     public let annotation: SCChartAnnotation?
 
+    /// Creates a band from explicit bounds, fill styling, and optional annotation.
     public init(
         id: String? = nil,
         title: String,
@@ -38,6 +40,7 @@ public struct SCChartBand: Identifiable, Equatable {
 }
 
 public extension SCChartBand {
+    /// Builds bands from floating-point tuples of title, lower bound, and upper bound.
     static func make<T: BinaryFloatingPoint>(
         bands: [(String, T, T)],
         color: Color = .accentColor,
@@ -54,6 +57,7 @@ public extension SCChartBand {
         }
     }
 
+    /// Builds bands from integer tuples of title, lower bound, and upper bound.
     static func make<T: BinaryInteger>(
         bands: [(String, T, T)],
         color: Color = .accentColor,

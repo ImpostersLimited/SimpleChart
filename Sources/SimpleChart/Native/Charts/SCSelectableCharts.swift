@@ -9,6 +9,7 @@ import Charts
 import SwiftUI
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A line chart wrapper with native point selection and inspection support.
 public struct SCSelectableLineChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -21,6 +22,7 @@ public struct SCSelectableLineChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates a selectable line chart bound directly to an optional selection.
     public init(
         points: [SCChartPoint],
         selection: Binding<SCChartSelection?>,
@@ -43,6 +45,7 @@ public struct SCSelectableLineChart: View {
         self.yAxisFormat = yAxisFormat
     }
 
+    /// Creates a selectable line chart bound to the shared selection-state helper.
     public init(
         points: [SCChartPoint],
         selectionState: Binding<SCChartSelectionState>,
@@ -173,6 +176,7 @@ public struct SCSelectableLineChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A bar chart wrapper with native bar selection and inspection support.
 public struct SCSelectableBarChart: View {
     public let points: [SCChartPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -184,6 +188,7 @@ public struct SCSelectableBarChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates a selectable bar chart bound directly to an optional selection.
     public init(
         points: [SCChartPoint],
         selection: Binding<SCChartSelection?>,
@@ -204,6 +209,7 @@ public struct SCSelectableBarChart: View {
         self.yAxisFormat = yAxisFormat
     }
 
+    /// Creates a selectable bar chart bound to the shared selection-state helper.
     public init(
         points: [SCChartPoint],
         selectionState: Binding<SCChartSelectionState>,
@@ -308,6 +314,7 @@ public struct SCSelectableBarChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A scatter chart wrapper with native point selection and inspection support.
 public struct SCSelectableScatterChart: View {
     public let points: [SCChartScatterPoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -319,6 +326,7 @@ public struct SCSelectableScatterChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates a selectable scatter chart bound directly to an optional selection.
     public init(
         points: [SCChartScatterPoint],
         selection: Binding<SCChartSelection?>,
@@ -339,6 +347,7 @@ public struct SCSelectableScatterChart: View {
         self.yAxisFormat = yAxisFormat
     }
 
+    /// Creates a selectable scatter chart bound to the shared selection-state helper.
     public init(
         points: [SCChartScatterPoint],
         selectionState: Binding<SCChartSelectionState>,

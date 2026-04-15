@@ -8,6 +8,7 @@
 import CoreGraphics
 import Foundation
 
+/// Controls how overlapping plot-based series should stack vertically.
 public enum SCChartPlotStacking: String, Codable, Equatable {
     case standard
     case normalized
@@ -15,6 +16,7 @@ public enum SCChartPlotStacking: String, Codable, Equatable {
     case unstacked
 }
 
+/// Describes plot widths, heights, or insets for vectorized plot marks.
 public enum SCChartPlotDimension: Equatable {
     case automatic
     case fixed(CGFloat)

@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Describes the mark families that can be combined inside `SCComposedChart`.
 public enum SCChartMark: Equatable {
     case line([SCChartPoint], style: SCChartSeriesStyle = .line())
     case area([SCChartPoint], style: SCChartSeriesStyle = .area())

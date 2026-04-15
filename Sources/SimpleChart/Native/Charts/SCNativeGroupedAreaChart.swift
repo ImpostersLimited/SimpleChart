@@ -8,6 +8,7 @@
 import Charts
 import SwiftUI
 
+/// A multi-series grouped area chart built from named line-series models.
 public struct SCNativeGroupedAreaChart: View {
     public let series: [SCChartLineSeries]
     public let axesStyle: SCChartAxesStyle
@@ -16,6 +17,7 @@ public struct SCNativeGroupedAreaChart: View {
     public let foregroundStyleScale: SCChartForegroundStyleScale
     public let referenceLines: [SCChartReferenceLine]
 
+    /// Creates a grouped area chart from prebuilt line-series values.
     public init(
         series: [SCChartLineSeries],
         axesStyle: SCChartAxesStyle = .standard(),

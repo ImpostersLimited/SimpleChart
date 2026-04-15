@@ -89,8 +89,8 @@ These wrappers are availability-gated to the newer OS levels supported by Swift 
 | Hover to inspect line values | `SCHoverableLineChart` |
 | Hover to inspect bar values | `SCHoverableBarChart` |
 | Hover to inspect scatter values | `SCHoverableScatterChart` |
-| Scroll an indexed line chart | `SCScrollableLineChart` |
-| Scroll a time-series chart | `SCScrollableTimeSeriesChart` |
+| Scroll or zoom an indexed line chart | `SCScrollableLineChart` |
+| Scroll or zoom a time-series chart | `SCScrollableTimeSeriesChart` |
 
 Shared helper types:
 
@@ -98,8 +98,10 @@ Shared helper types:
 - `SCChartHoverState`
 - `SCChartInspectionOverlay`
 - `SCChartScrollBehavior`
+- `SCChartZoomBehavior`
 - `SCChartGestureConfiguration`
 - `SCChartViewport`
+- `SCChartTimeViewport`
 
 ## When to Use `SCComposedChart`
 

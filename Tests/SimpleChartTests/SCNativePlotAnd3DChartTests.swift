@@ -159,6 +159,7 @@ final class SCNativePlotAnd3DChartTests: XCTestCase {
         XCTAssertEqual(bandAreaChart.bandFunction?(2).yEnd, 4)
     }
 
+    #if compiler(>=6.3)
     @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
     @available(tvOS, unavailable)
     @available(watchOS, unavailable)
@@ -201,4 +202,5 @@ final class SCNativePlotAnd3DChartTests: XCTestCase {
         XCTAssertEqual(surfaceChart.pose, pose)
         XCTAssertEqual(surfaceChart.function(2, 3), 5)
     }
+    #endif
 }

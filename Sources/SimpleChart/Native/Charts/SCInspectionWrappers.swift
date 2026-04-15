@@ -313,6 +313,7 @@ public struct SCCrosshairScatterChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A time-series wrapper that always shows inspector-style selection callouts.
 public struct SCInspectorTimeSeriesChart: View {
     public let points: [SCChartTimePoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -326,6 +327,7 @@ public struct SCInspectorTimeSeriesChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates an inspector-style time-series wrapper bound directly to an optional selection.
     public init(
         points: [SCChartTimePoint],
         selection: Binding<SCChartSelection?>,
@@ -367,6 +369,7 @@ public struct SCInspectorTimeSeriesChart: View {
 }
 
 @available(iOS 17, macOS 14, tvOS 17, watchOS 10, macCatalyst 17, *)
+/// A time-series wrapper that always shows crosshair-style selection guides.
 public struct SCCrosshairTimeSeriesChart: View {
     public let points: [SCChartTimePoint]
     public let seriesStyle: SCChartSeriesStyle
@@ -381,6 +384,7 @@ public struct SCCrosshairTimeSeriesChart: View {
 
     @Binding private var selection: SCChartSelection?
 
+    /// Creates a crosshair-style time-series wrapper bound directly to an optional selection.
     public init(
         points: [SCChartTimePoint],
         selection: Binding<SCChartSelection?>,

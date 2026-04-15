@@ -7,12 +7,14 @@
 
 import Foundation
 
+/// Represents a single stacked-bar segment inside a category.
 public struct SCChartStackSegment: Identifiable, Equatable {
     public let id: String
     public let category: String
     public let segment: String
     public let value: Double
 
+    /// Creates a stacked-bar segment from category, segment label, and value.
     public init(id: String? = nil, category: String, segment: String, value: Double) {
         self.id = id ?? "\(category)-\(segment)"
         self.category = category

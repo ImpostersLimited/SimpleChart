@@ -8,11 +8,13 @@
 import SwiftUI
 
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
+/// Deprecated compatibility wrapper that forwards the original bar-chart config API to the native bar-chart implementation.
 public struct SCBarChart: View {
     let chartData: [SCBarChartData]
     let chartConfig: SCBarChartConfig
     
     @available(*, deprecated, message: "Use SCNativeBarChart with SCChartPoint, SCChartSeriesStyle, and SCChartAxesStyle instead.")
+    /// Creates the deprecated bar-chart wrapper from a legacy configuration value.
     public init(config: SCBarChartConfig) {
         self.chartData = config.chartData
         self.chartConfig = config
