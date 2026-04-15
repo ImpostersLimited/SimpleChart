@@ -1,5 +1,9 @@
 # Active Todo
 
+- [x] Fix the docbuild CI regression by matching the 3D test coverage to the source-side compiler guards
+- [x] Re-run local docbuild verification, preferring Xcode 16.4 to match GitHub Actions when available
+- [x] Re-run full package tests after the docbuild fix
+
 - [x] Fix the review follow-ups for 3D wrapper compiler guards and gesture-configuration Codable compatibility
 - [x] Add regression coverage for decoding older `SCChartGestureConfiguration` payloads
 - [x] Re-run targeted interaction tests plus full package verification
@@ -10,6 +14,8 @@
 
 ## Review Notes
 
+- Fixed the docbuild CI regression by moving the 3D test coverage behind the same `#if compiler(>=6.3)` gate as the source wrappers.
+- Verified on 2026-04-15 with local `xcodebuild docbuild` and full package tests after the CI-specific fix.
 - Fixed the 3D wrapper compiler-guard regression so every `SCComposedChart3D`-dependent wrapper stays behind the Swift 6.3+ gate.
 - Added backward-compatible decoding for `SCChartGestureConfiguration` so older payloads infer `allowsZooming` from `allowsScrolling` when that key is absent.
 - Added focused regression coverage for legacy gesture-configuration decoding.
