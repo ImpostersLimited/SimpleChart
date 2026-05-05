@@ -1,5 +1,11 @@
 # Active Todo
 
+- [x] Final checkup: verify git/worktree state and package metadata
+- [x] Final checkup: run `swift build`
+- [x] Final checkup: run full `swift test`
+- [x] Final checkup: run DocC/docbuild verification where the local toolchain supports it
+- [x] Final checkup: document the final evidence and any blockers
+
 - [x] Fix the docbuild CI regression by matching the 3D test coverage to the source-side compiler guards
 - [x] Re-run local docbuild verification, preferring Xcode 16.4 to match GitHub Actions when available
 - [x] Re-run full package tests after the docbuild fix
@@ -13,6 +19,14 @@
 - [x] Re-run targeted zoom/navigation tests plus full `swift test`
 
 ## Review Notes
+
+- Final checkup on 2026-05-02 verified detached worktree `/Users/fung/.codex/worktrees/b143/SimpleChart` at `73fb1d18598640a70a8b4cea27bc9d9057f5232e`, which is also contained by local `main`.
+- Verified toolchain: Swift 6.3.1 via Xcode 26.4.1.
+- `swift build` passed.
+- `swift test` passed: 76 XCTest cases, 0 failures. The only compiler warnings were expected deprecation warnings in `SCLegacyBridgeTests`, which intentionally exercises legacy compatibility APIs.
+- `xcodebuild docbuild -scheme SimpleChart -destination 'platform=macOS' -derivedDataPath .build/DerivedData CODE_SIGNING_ALLOWED=NO` passed. Xcode emitted the usual multiple matching macOS destination warning before completing successfully.
+- `git diff --check` passed.
+- A source/test scan for `TODO`, `FIXME`, `fatalError(`, `try!`, and `as!` found no matches.
 
 - Fixed the docbuild CI regression by moving the 3D test coverage behind the same `#if compiler(>=6.3)` gate as the source wrappers.
 - Verified on 2026-04-15 with local `xcodebuild docbuild` and full package tests after the CI-specific fix.
