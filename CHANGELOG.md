@@ -38,6 +38,7 @@
 - A first-party `SimpleChart.docc` catalog with package overview and focused articles for getting started, wrapper selection, interactive charts, and legacy migration.
 - A contributor-facing `docs/editor-support.md` guide covering Xcode Quick Help, local DocC builds, and `sourcekit-lsp` usage.
 - Availability-gated vectorized plot wrappers: `SCNativeLinePlotChart`, `SCNativeAreaPlotChart`, `SCNativeBarPlotChart`, `SCNativePointPlotChart`, and `SCNativeRectanglePlotChart`.
+- Availability-gated vectorized `RulePlot` and `SectorPlot` wrappers: `SCNativeRulePlotChart`, `SCNativeSectorPlotChart`, and `SCNativeDonutPlotChart`.
 - Availability-gated function and parametric plot wrappers: `SCNativeFunctionLinePlotChart`, `SCNativeParametricLinePlotChart`, and `SCNativeFunctionAreaPlotChart`.
 - Availability-gated 3D wrappers and helpers: `SCChart3DPoint`, `SCChart3DPoseStyle`, `SCChart3DSeriesStyle`, `SCNative3DPointChart`, `SCNative3DRectangleChart`, `SCNative3DRuleChart`, and `SCNativeSurfacePlotChart`.
 - Focused tests for vectorized plot model normalization, plot wrapper state, function plot wrapper state, and 3D helper/wrapper configuration.
@@ -73,6 +74,7 @@
 - Reworked the documentation entrypoint around a real quick-start flow, with dedicated getting-started and chart-selection guides for new users.
 - Added repository-level documentation discovery links for the DocC catalog and editor support guide, plus a CI docbuild path for keeping the package documentation healthy.
 - Expanded the README wrapper catalog and coverage/status sections to include the vectorized plot and 3D chart surface.
+- Updated the wrapper catalog and chooser docs after auditing Apple’s live Swift Charts updates page; Apple’s current notable Swift Charts updates remain the June 2024 vector/function plot APIs and the June 2025 3D chart APIs, with no separate iOS 27 Swift Charts additions published in the updates feed at audit time.
 - Updated the scrolling and time-series docs to show viewport-based zoom configuration for indexed and date-based interactive wrappers.
 
 ### Deprecated

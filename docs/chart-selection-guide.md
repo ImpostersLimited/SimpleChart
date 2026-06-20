@@ -18,6 +18,8 @@ If you want a step-by-step learning path instead of a chooser, start with the [T
 | Show a distribution | `SCNativeHistogramChart` | Use raw values or pre-binned `SCHistogramBin` data |
 | Show x/y relationships | `SCNativeScatterChart` | Best when x is numeric instead of categorical |
 | Show part-to-whole | `SCNativeSectorChart` or `SCNativeDonutChart` | Requires the newer OS availability for `SectorMark` |
+| Show vectorized part-to-whole data | `SCNativeSectorPlotChart` or `SCNativeDonutPlotChart` | Uses the newer `SectorPlot` API for collection-based segment rendering |
+| Show vectorized rule ranges | `SCNativeRulePlotChart` | Use with `SCChartPlotSpan` or `SCChartPlotRange` for efficient rule collections |
 | Show thresholds or targets | `SCNativeThresholdChart` or `SCNativeGoalChart` | Good for KPI dashboards |
 | Mix several chart marks together | `SCComposedChart` | Use when no single ready-made wrapper matches the view |
 
@@ -74,6 +76,8 @@ Use:
 
 - `SCNativeSectorChart`
 - `SCNativeDonutChart`
+- `SCNativeSectorPlotChart`
+- `SCNativeDonutPlotChart`
 - `SCChartSectorSegment.make(segments:)`
 
 ## Choose by Interaction

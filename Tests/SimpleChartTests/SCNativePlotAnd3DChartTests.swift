@@ -105,6 +105,48 @@ final class SCNativePlotAnd3DChartTests: XCTestCase {
     }
 
     @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+    func testRuleAndSectorPlotWrappersStoreConfiguration() {
+        let spans = SCChartPlotSpan.make(spans: [(7, 3, 4)])
+        let ranges = SCChartPlotRange.make(ranges: [(1, 9, 3)])
+        let segments = SCChartSectorSegment.make(segments: [("A", 2), ("B", 3)])
+        let scale = SCChartForegroundStyleScale.categorical(["A", "B"], palette: [.red, .blue])
+
+        let spanRuleChart = SCNativeRulePlotChart(
+            spans: spans,
+            seriesStyle: .rangeStroke([.purple], width: 4)
+        )
+        let rangeRuleChart = SCNativeRulePlotChart(ranges: ranges)
+        let sectorPlotChart = SCNativeSectorPlotChart(
+            segments: segments,
+            outerRadius: .ratio(0.9),
+            angularInset: 1.5,
+            foregroundStyleScale: scale
+        )
+        let donutPlotChart = SCNativeDonutPlotChart(
+            segments: [("A", 2), ("B", 3)],
+            innerRadius: .ratio(0.55),
+            angularInset: 2
+        )
+
+        XCTAssertEqual(spanRuleChart.spans, spans)
+        XCTAssertEqual(spanRuleChart.seriesStyle.strokeWidth, 4)
+        XCTAssertEqual(spanRuleChart.domain?.actualUpperBound, 4)
+
+        XCTAssertEqual(rangeRuleChart.ranges, ranges)
+        XCTAssertEqual(rangeRuleChart.domain?.actualLowerBound, 3)
+        XCTAssertEqual(rangeRuleChart.domain?.actualUpperBound, 9)
+
+        XCTAssertEqual(sectorPlotChart.segments, segments)
+        XCTAssertEqual(sectorPlotChart.outerRadius, .ratio(0.9))
+        XCTAssertEqual(sectorPlotChart.angularInset, 1.5)
+        XCTAssertEqual(sectorPlotChart.foregroundStyleScale, scale)
+
+        XCTAssertEqual(donutPlotChart.segments.map(\.title), ["A", "B"])
+        XCTAssertEqual(donutPlotChart.innerRadius, .ratio(0.55))
+        XCTAssertEqual(donutPlotChart.angularInset, 2)
+    }
+
+    @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
     func testFunctionPlotWrappersStoreTitlesDomainsAndFunctions() {
         let lineChart = SCNativeFunctionLinePlotChart(
             xTitle: "X",

@@ -1,5 +1,11 @@
 # Active Todo
 
+- [x] Audit Apple Swift Charts docs for iOS 27 / latest first-party API changes
+- [x] Add missing vectorized first-party plot wrappers found in current Apple docs
+- [x] Update package docs and changelog for the new plot coverage
+- [x] Run focused and full package verification
+- [x] Fix Swift 6.3 sendability warnings in function plot handoffs
+
 - [x] Final checkup: verify git/worktree state and package metadata
 - [x] Final checkup: run `swift build`
 - [x] Final checkup: run full `swift test`
@@ -19,6 +25,16 @@
 - [x] Re-run targeted zoom/navigation tests plus full `swift test`
 
 ## Review Notes
+
+- Audited Apple’s live Swift Charts updates JSON on 2026-06-17. The published notable updates are June 2024 vector/function plots and June 2025 `Chart3D` / `SurfacePlot`; no separate iOS 27 Swift Charts API entry was published in that feed at audit time.
+- Cross-checked Apple docs and the installed Xcode 26.5 `Charts.swiftinterface`; the missing current first-party plot wrappers were vectorized `RulePlot` and `SectorPlot`.
+- Added availability-gated `SCNativeRulePlotChart`, `SCNativeSectorPlotChart`, and `SCNativeDonutPlotChart` on the existing plot/sector helper models.
+- Updated README, chart-selection docs, DocC wrapper chooser, and changelog so the new first-party plot coverage is discoverable.
+- Verified on 2026-06-17 with `swift test --filter SCNativePlotAnd3DChartTests`: 6 tests passed, 0 failures.
+- Verified on 2026-06-17 with full `swift test`: 77 tests passed, 0 failures.
+- Verified on 2026-06-17 with `swift build`, `git diff --check`, and CI-shaped `xcodebuild docbuild`.
+- Fixed on 2026-06-18: wrapped stored `@Sendable` function plot closures in fresh closure literals before passing them into Apple’s plot APIs, removing the Swift 6.3 conversion warnings without changing the public wrapper signatures.
+- Verified on 2026-06-18 with `swift build -Xswiftc -warnings-as-errors`, `swift test --filter SCNativePlotAnd3DChartTests`, full `swift test`, and `git diff --check`.
 
 - Final checkup on 2026-05-02 verified detached worktree `/Users/fung/.codex/worktrees/b143/SimpleChart` at `73fb1d18598640a70a8b4cea27bc9d9057f5232e`, which is also contained by local `main`.
 - Verified toolchain: Swift 6.3.1 via Xcode 26.4.1.

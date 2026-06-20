@@ -331,6 +331,227 @@ public struct SCNativeRectanglePlotChart: View {
 }
 
 @available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized rule-plot wrapper for horizontal or vertical rule collections.
+public struct SCNativeRulePlotChart: View {
+    public let spans: [SCChartPlotSpan]
+    public let ranges: [SCChartPlotRange]
+    public let seriesStyle: SCChartSeriesStyle
+    public let axesStyle: SCChartAxesStyle
+    public let domain: SCChartDomain?
+
+    /// Creates a horizontal rule plot from span-based plot input.
+    public init(
+        spans: [SCChartPlotSpan],
+        seriesStyle: SCChartSeriesStyle = .rangeStroke(),
+        axesStyle: SCChartAxesStyle = .minimal,
+        domain: SCChartDomain? = nil
+    ) {
+        self.spans = spans
+        self.ranges = []
+        self.seriesStyle = seriesStyle
+        self.axesStyle = axesStyle
+        self.domain = domain ?? .auto(values: spans.map(\.y))
+    }
+
+    /// Creates a vertical rule plot from range-based plot input.
+    public init(
+        ranges: [SCChartPlotRange],
+        seriesStyle: SCChartSeriesStyle = .rangeStroke(),
+        axesStyle: SCChartAxesStyle = .minimal,
+        domain: SCChartDomain? = nil
+    ) {
+        self.spans = []
+        self.ranges = ranges
+        self.seriesStyle = seriesStyle
+        self.axesStyle = axesStyle
+        self.domain = domain ?? .auto(values: ranges.flatMap { [$0.yStart, $0.yEnd] })
+    }
+
+    public var body: some View {
+        SCNativeChartContainer(axesStyle: axesStyle) {
+            Chart {
+                if !spans.isEmpty {
+                    RulePlot(
+                        spans,
+                        xStart: .value("Start X", \SCChartPlotSpan.xStart),
+                        xEnd: .value("End X", \SCChartPlotSpan.xEnd),
+                        y: .value("Y", \SCChartPlotSpan.y)
+                    )
+                    .foregroundStyle(seriesStyle.foregroundGradient)
+                    .lineStyle(StrokeStyle(lineWidth: seriesStyle.strokeWidth))
+                } else {
+                    RulePlot(
+                        ranges,
+                        x: .value("X", \SCChartPlotRange.x),
+                        yStart: .value("Start Y", \SCChartPlotRange.yStart),
+                        yEnd: .value("End Y", \SCChartPlotRange.yEnd)
+                    )
+                    .foregroundStyle(seriesStyle.foregroundGradient)
+                    .lineStyle(StrokeStyle(lineWidth: seriesStyle.strokeWidth))
+                }
+            }
+            .scChartDomain(domain)
+            .scChartAxes(axesStyle)
+        }
+    }
+}
+
+@available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized sector-plot wrapper for pie-style segment collections.
+public struct SCNativeSectorPlotChart: View {
+    public let segments: [SCChartSectorSegment]
+    public let innerRadius: SCChartPlotDimension
+    public let outerRadius: SCChartPlotDimension
+    public let angularInset: CGFloat?
+    public let foregroundStyleScale: SCChartForegroundStyleScale
+
+    /// Creates a sector plot from prebuilt segment models.
+    public init(
+        segments: [SCChartSectorSegment],
+        innerRadius: SCChartPlotDimension = .ratio(0),
+        outerRadius: SCChartPlotDimension = .automatic,
+        angularInset: CGFloat? = nil,
+        foregroundStyleScale: SCChartForegroundStyleScale? = nil,
+        palette: [Color] = [.accentColor, .blue, .orange, .green, .pink, .purple]
+    ) {
+        self.segments = segments
+        self.innerRadius = innerRadius
+        self.outerRadius = outerRadius
+        self.angularInset = angularInset
+        self.foregroundStyleScale = foregroundStyleScale ?? .categorical(segments.map(\.title), palette: palette)
+    }
+
+    /// Creates a sector plot from floating-point `(title, value)` tuples.
+    public init<T: BinaryFloatingPoint>(
+        segments: [(String, T)],
+        innerRadius: SCChartPlotDimension = .ratio(0),
+        outerRadius: SCChartPlotDimension = .automatic,
+        angularInset: CGFloat? = nil,
+        colors: [Color] = [],
+        foregroundStyleScale: SCChartForegroundStyleScale? = nil,
+        palette: [Color] = [.accentColor, .blue, .orange, .green, .pink, .purple]
+    ) {
+        self.init(
+            segments: SCChartSectorSegment.make(segments: segments, colors: colors),
+            innerRadius: innerRadius,
+            outerRadius: outerRadius,
+            angularInset: angularInset,
+            foregroundStyleScale: foregroundStyleScale,
+            palette: palette
+        )
+    }
+
+    /// Creates a sector plot from integer `(title, value)` tuples.
+    public init<T: BinaryInteger>(
+        segments: [(String, T)],
+        innerRadius: SCChartPlotDimension = .ratio(0),
+        outerRadius: SCChartPlotDimension = .automatic,
+        angularInset: CGFloat? = nil,
+        colors: [Color] = [],
+        foregroundStyleScale: SCChartForegroundStyleScale? = nil,
+        palette: [Color] = [.accentColor, .blue, .orange, .green, .pink, .purple]
+    ) {
+        self.init(
+            segments: SCChartSectorSegment.make(segments: segments, colors: colors),
+            innerRadius: innerRadius,
+            outerRadius: outerRadius,
+            angularInset: angularInset,
+            foregroundStyleScale: foregroundStyleScale,
+            palette: palette
+        )
+    }
+
+    public var body: some View {
+        Chart {
+            SectorPlot(
+                segments,
+                angle: .value("Value", \SCChartSectorSegment.value),
+                innerRadius: innerRadius.markDimensions(),
+                outerRadius: outerRadius.markDimensions(),
+                angularInset: angularInset
+            )
+            .foregroundStyle(by: .value("Segment", \SCChartSectorSegment.title))
+        }
+        .scChartForegroundStyleScale(foregroundStyleScale)
+    }
+}
+
+@available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
+/// A vectorized sector-plot wrapper configured as a donut chart.
+public struct SCNativeDonutPlotChart: View {
+    public let sectorPlot: SCNativeSectorPlotChart
+
+    public var segments: [SCChartSectorSegment] { sectorPlot.segments }
+    public var innerRadius: SCChartPlotDimension { sectorPlot.innerRadius }
+    public var outerRadius: SCChartPlotDimension { sectorPlot.outerRadius }
+    public var angularInset: CGFloat? { sectorPlot.angularInset }
+    public var foregroundStyleScale: SCChartForegroundStyleScale { sectorPlot.foregroundStyleScale }
+
+    /// Creates a donut-style sector plot from prebuilt segment models.
+    public init(
+        segments: [SCChartSectorSegment],
+        innerRadius: SCChartPlotDimension = .ratio(0.6),
+        outerRadius: SCChartPlotDimension = .automatic,
+        angularInset: CGFloat? = nil,
+        foregroundStyleScale: SCChartForegroundStyleScale? = nil,
+        palette: [Color] = [.accentColor, .blue, .orange, .green, .pink, .purple]
+    ) {
+        self.sectorPlot = SCNativeSectorPlotChart(
+            segments: segments,
+            innerRadius: innerRadius,
+            outerRadius: outerRadius,
+            angularInset: angularInset,
+            foregroundStyleScale: foregroundStyleScale,
+            palette: palette
+        )
+    }
+
+    /// Creates a donut-style sector plot from floating-point `(title, value)` tuples.
+    public init<T: BinaryFloatingPoint>(
+        segments: [(String, T)],
+        innerRadius: SCChartPlotDimension = .ratio(0.6),
+        outerRadius: SCChartPlotDimension = .automatic,
+        angularInset: CGFloat? = nil,
+        colors: [Color] = [],
+        foregroundStyleScale: SCChartForegroundStyleScale? = nil,
+        palette: [Color] = [.accentColor, .blue, .orange, .green, .pink, .purple]
+    ) {
+        self.init(
+            segments: SCChartSectorSegment.make(segments: segments, colors: colors),
+            innerRadius: innerRadius,
+            outerRadius: outerRadius,
+            angularInset: angularInset,
+            foregroundStyleScale: foregroundStyleScale,
+            palette: palette
+        )
+    }
+
+    /// Creates a donut-style sector plot from integer `(title, value)` tuples.
+    public init<T: BinaryInteger>(
+        segments: [(String, T)],
+        innerRadius: SCChartPlotDimension = .ratio(0.6),
+        outerRadius: SCChartPlotDimension = .automatic,
+        angularInset: CGFloat? = nil,
+        colors: [Color] = [],
+        foregroundStyleScale: SCChartForegroundStyleScale? = nil,
+        palette: [Color] = [.accentColor, .blue, .orange, .green, .pink, .purple]
+    ) {
+        self.init(
+            segments: SCChartSectorSegment.make(segments: segments, colors: colors),
+            innerRadius: innerRadius,
+            outerRadius: outerRadius,
+            angularInset: angularInset,
+            foregroundStyleScale: foregroundStyleScale,
+            palette: palette
+        )
+    }
+
+    public var body: some View {
+        sectorPlot
+    }
+}
+
+@available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *)
 /// A function-based line-plot wrapper that samples a scalar function over x.
 public struct SCNativeFunctionLinePlotChart: View {
     public let xTitle: String
@@ -360,7 +581,9 @@ public struct SCNativeFunctionLinePlotChart: View {
     public var body: some View {
         SCNativeChartContainer(axesStyle: axesStyle) {
             Chart {
-                LinePlot(x: xTitle, y: yTitle, domain: domain, function: function)
+                LinePlot(x: xTitle, y: yTitle, domain: domain) { x in
+                    function(x)
+                }
                     .foregroundStyle(seriesStyle.foregroundGradient)
                     .lineStyle(StrokeStyle(lineWidth: seriesStyle.strokeWidth))
                     .interpolationMethod(seriesStyle.chartInterpolationMethod)
@@ -408,8 +631,9 @@ public struct SCNativeParametricLinePlotChart: View {
                     y: yTitle,
                     t: parameterTitle,
                     domain: parameterDomain,
-                    function: function
-                )
+                ) { t in
+                    function(t)
+                }
                 .foregroundStyle(seriesStyle.foregroundGradient)
                 .lineStyle(StrokeStyle(lineWidth: seriesStyle.strokeWidth))
                 .interpolationMethod(seriesStyle.chartInterpolationMethod)
@@ -477,7 +701,9 @@ public struct SCNativeFunctionAreaPlotChart: View {
         SCNativeChartContainer(axesStyle: axesStyle) {
             Chart {
                 if let singleFunction {
-                    AreaPlot(x: xTitle, y: yTitle, domain: domain, function: singleFunction)
+                    AreaPlot(x: xTitle, y: yTitle, domain: domain) { x in
+                        singleFunction(x)
+                    }
                         .foregroundStyle(seriesStyle.foregroundGradient)
                         .interpolationMethod(seriesStyle.chartInterpolationMethod)
                 } else if let bandFunction, let yStartTitle, let yEndTitle {
@@ -485,9 +711,10 @@ public struct SCNativeFunctionAreaPlotChart: View {
                         x: xTitle,
                         yStart: yStartTitle,
                         yEnd: yEndTitle,
-                        domain: domain,
-                        function: bandFunction
-                    )
+                        domain: domain
+                    ) { x in
+                        bandFunction(x)
+                    }
                     .foregroundStyle(seriesStyle.foregroundGradient)
                     .interpolationMethod(seriesStyle.chartInterpolationMethod)
                 }

@@ -129,7 +129,9 @@ public struct SCNativeSurfacePlotChart: View {
                     yTitle: yTitle,
                     zTitle: zTitle,
                     style: style,
-                    function: function
+                    function: { x, y in
+                        function(x, y)
+                    }
                 )
             ],
             pose: pose
