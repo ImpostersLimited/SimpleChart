@@ -1,5 +1,14 @@
 # Active Todo
 
+- [x] Document `SCNativeChart` in the README and composed-chart tutorial
+- [x] Re-run stable and Xcode 27 beta verification after the documentation update
+- [x] Commit and push the feature branch, then fast-forward and push `main`
+
+- [x] Inventory Swift Charts declarations introduced by the latest Xcode 27 beta SDK
+- [x] Add package support for confirmed iOS 27 API gaps
+- [x] Update public support documentation and focused tests
+- [x] Run beta-toolchain focused/full verification and close GitHub issue #5
+
 - [x] Audit Apple Swift Charts docs for iOS 27 / latest first-party API changes
 - [x] Add missing vectorized first-party plot wrappers found in current Apple docs
 - [x] Update package docs and changelog for the new plot coverage
@@ -25,6 +34,14 @@
 - [x] Re-run targeted zoom/navigation tests plus full `swift test`
 
 ## Review Notes
+
+- Added matching conditional first-party mark examples to the README and composed-chart tutorial.
+- Re-ran all 78 tests successfully on Xcode 26.6 and Xcode 27 beta 5, then rebuilt DocC successfully with Xcode 27 beta 5.
+
+- Audited Apple Swift Charts with Xcode 27 beta 5 (27A5237l) and the iOS 27 SDK. The new surface is unified SwiftUI `ViewBuilder` composition plus iOS 27 `ChartContent` conformances for empty, conditional, and variadic tuple content; no new mark, plot, scale, or chart types were present.
+- Added `SCNativeChart` as the direct first-party `ChartContent` entry point. Swift 6.4 uses `ViewBuilder`; older compilers retain `ChartContentBuilder` compatibility.
+- Verified on 2026-08-20 with warnings-as-errors library builds, the focused conditional-content test, and full `swift test` on Xcode 26.6 and Xcode 27 beta 5. Both full runs passed 78 tests with 0 failures.
+- Verified the Xcode 27 beta 5 DocC build and `git diff --check`.
 
 - Audited Apple’s live Swift Charts updates JSON on 2026-06-17. The published notable updates are June 2024 vector/function plots and June 2025 `Chart3D` / `SurfacePlot`; no separate iOS 27 Swift Charts API entry was published in that feed at audit time.
 - Cross-checked Apple docs and the installed Xcode 26.5 `Charts.swiftinterface`; the missing current first-party plot wrappers were vectorized `RulePlot` and `SectorPlot`.

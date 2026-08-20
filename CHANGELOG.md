@@ -49,6 +49,7 @@
 - Legacy-to-native bridge adapters so the original `SC*Config` and `SC*Data` API remains functional during migration.
 - Focused native wrapper and legacy bridge tests, including histogram binning and range normalization coverage.
 - Migration guidance in the README for moving from the legacy config/data API to the native wrapper layer.
+- `SCNativeChart` for direct first-party `ChartContent` composition, using Xcode 27's unified SwiftUI content builder while retaining older compiler compatibility.
 
 ### Changed
 
@@ -75,6 +76,7 @@
 - Added repository-level documentation discovery links for the DocC catalog and editor support guide, plus a CI docbuild path for keeping the package documentation healthy.
 - Expanded the README wrapper catalog and coverage/status sections to include the vectorized plot and 3D chart surface.
 - Updated the wrapper catalog and chooser docs after auditing Apple’s live Swift Charts updates page; Apple’s current notable Swift Charts updates remain the June 2024 vector/function plot APIs and the June 2025 3D chart APIs, with no separate iOS 27 Swift Charts additions published in the updates feed at audit time.
+- Audited Xcode 27 beta 5 and added support for its SwiftUI `ViewBuilder` chart-content integration; no new mark, plot, scale, or chart types were present in the iOS 27 Swift Charts SDK.
 - Updated the scrolling and time-series docs to show viewport-based zoom configuration for indexed and date-based interactive wrappers.
 
 ### Deprecated

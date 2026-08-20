@@ -55,6 +55,30 @@ SCComposedChart(
 )
 ```
 
+## Step 5: Use First-Party Marks Directly
+
+Use `SCNativeChart` instead when you want to write Swift Charts marks directly. Xcode 27's unified SwiftUI content builder supports conditional chart content without changing the call site on older supported toolchains.
+
+```swift
+import Charts
+import SimpleChart
+import SwiftUI
+
+struct FlexibleRevenueChart: View {
+    let showLine: Bool
+
+    var body: some View {
+        SCNativeChart(axesStyle: .standard(x: "Month", y: "Revenue")) {
+            if showLine {
+                LineMark(x: .value("Month", "Jan"), y: .value("Revenue", 12))
+            } else {
+                BarMark(x: .value("Month", "Jan"), y: .value("Revenue", 12))
+            }
+        }
+    }
+}
+```
+
 ## When to Reach for `SCComposedChart`
 
 Use it when you need:
@@ -65,6 +89,8 @@ Use it when you need:
 - mixed mark types that do not have a dedicated wrapper
 
 If one dedicated wrapper already fits your chart, prefer that first.
+
+Use `SCNativeChart` when direct access to first-party marks is more useful than SimpleChart's reusable composition models.
 
 ## Next Step
 

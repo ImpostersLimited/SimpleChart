@@ -9,6 +9,7 @@ Choose a ready-made wrapper first. Reach for the helper layer directly only when
 - Use ``SCNativeRangeChart`` when each x-position has lower and upper bounds.
 - Use ``SCNativeTimeSeriesChart`` for date-based lines without interaction.
 - Use ``SCComposedChart`` when you need mixed marks, overlays, or reusable compositions.
+- Use ``SCNativeChart`` when you want to compose first-party Swift Charts marks directly, including Xcode 27's unified SwiftUI content-builder behavior.
 - Use ``SCNativeRulePlotChart``, ``SCNativeSectorPlotChart``, or ``SCNativeDonutPlotChart`` when you want the collection-based vectorized plot APIs Apple documents for larger rule and sector datasets.
 
 ## Interactive Variants

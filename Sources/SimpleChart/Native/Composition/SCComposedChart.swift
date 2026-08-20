@@ -8,6 +8,41 @@
 import Charts
 import SwiftUI
 
+/// A native Swift Charts container for composing first-party chart content directly.
+public struct SCNativeChart<Content: ChartContent>: View {
+    public let content: Content
+    public let axesStyle: SCChartAxesStyle
+
+    #if compiler(>=6.4)
+    /// Creates a native chart using Xcode 27's unified SwiftUI content builder.
+    public init(
+        axesStyle: SCChartAxesStyle = .minimal,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.axesStyle = axesStyle
+        self.content = content()
+    }
+    #else
+    /// Creates a native chart using the legacy chart-content builder.
+    public init(
+        axesStyle: SCChartAxesStyle = .minimal,
+        @ChartContentBuilder content: () -> Content
+    ) {
+        self.axesStyle = axesStyle
+        self.content = content()
+    }
+    #endif
+
+    public var body: some View {
+        SCNativeChartContainer(axesStyle: axesStyle) {
+            Chart {
+                content
+            }
+            .scChartAxes(axesStyle)
+        }
+    }
+}
+
 /// A wrapper that renders an arbitrary `SCChartComposition` using the native Swift Charts backend.
 public struct SCComposedChart: View {
     public let composition: SCChartComposition

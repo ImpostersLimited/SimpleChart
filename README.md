@@ -86,6 +86,7 @@ The native layer is built around a small shared model surface:
 - `SCHoverableScatterChart` (`iOS 17+`, `macOS 14+`, `tvOS 17+`, `watchOS 10+`, `Mac Catalyst 17+`)
 - `SCScrollableLineChart` (`iOS 17+`, `macOS 14+`, `tvOS 17+`, `watchOS 10+`, `Mac Catalyst 17+`)
 - `SCScrollableTimeSeriesChart` (`iOS 17+`, `macOS 14+`, `tvOS 17+`, `watchOS 10+`, `Mac Catalyst 17+`)
+- `SCNativeChart` for direct first-party mark composition, including Xcode 27's unified `ViewBuilder` chart content
 - `SCNativeLinePlotChart` (`iOS 18+`, `macOS 15+`, `tvOS 18+`, `watchOS 11+`, `visionOS 2+`)
 - `SCNativeAreaPlotChart` (`iOS 18+`, `macOS 15+`, `tvOS 18+`, `watchOS 11+`, `visionOS 2+`)
 - `SCNativeBarPlotChart` (`iOS 18+`, `macOS 15+`, `tvOS 18+`, `watchOS 11+`, `visionOS 2+`)
@@ -137,6 +138,30 @@ SCNativeGroupedBarChart(
 SCNativeScatterChart(
     labeledPoints: [("A", 1.5, 2.5), ("B", 3.0, 4.5)]
 )
+```
+
+### Direct first-party composition
+
+Use `SCNativeChart` when you need Swift Charts marks directly. Xcode 27 uses SwiftUI's unified `ViewBuilder`, including conditional chart content, while the same source remains compatible with older supported toolchains.
+
+```swift
+import Charts
+import SimpleChart
+import SwiftUI
+
+struct FlexibleChart: View {
+    let showLine: Bool
+
+    var body: some View {
+        SCNativeChart(axesStyle: .standard(x: "Month", y: "Revenue")) {
+            if showLine {
+                LineMark(x: .value("Month", "Jan"), y: .value("Revenue", 12))
+            } else {
+                BarMark(x: .value("Month", "Jan"), y: .value("Revenue", 12))
+            }
+        }
+    }
+}
 ```
 
 The helper builders are also available directly on the shared models:
@@ -585,6 +610,7 @@ The package intentionally still does not expose every single first-party Swift C
 - multi-series line charts
 - average and threshold reference lines
 - composed mark-based charts with line, area, point, bar, range, sector, and rule marks
+- direct first-party mark composition through `SCNativeChart`, with Xcode 27 `ViewBuilder` support and older-toolchain compatibility
 - composition helpers for overlays, annotations, scales, foreground-style scales, legends, plot styling, and shared chart composition objects
 - time-series wrappers with helper date/value formatting
 - availability-gated selection wrappers for line, bar, scatter, time-series, sector, and donut charts

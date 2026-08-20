@@ -1,8 +1,22 @@
 import XCTest
+import Charts
 import SwiftUI
 @testable import SimpleChart
 
 final class SCComposedChartHelperTests: XCTestCase {
+    func testNativeChartAcceptsConditionalFirstPartyContent() {
+        let chart = SCNativeChart(axesStyle: .standard(x: "Time", y: "Value")) {
+            if true {
+                LineMark(x: .value("X", 0), y: .value("Y", 1))
+            } else {
+                BarMark(x: .value("X", 0), y: .value("Y", 1))
+            }
+        }
+
+        XCTAssertEqual(chart.axesStyle.xLegend, "Time")
+        XCTAssertEqual(chart.axesStyle.yLegend, "Value")
+    }
+
     func testScaleHelpersCaptureVisibleDomainAndFixedYRange() {
         let visible = SCChartScale.visible(x: .points(8))
         let fixed = SCChartScale.fixed(y: 10...30)
