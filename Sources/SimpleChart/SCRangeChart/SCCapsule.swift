@@ -11,9 +11,9 @@ import SwiftUI
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCCapsule: View {
     
-    @State var config: SCRangeChartConfig
-    @State var data: SCRangeChartData
-    @State var size: CGSize
+    private let config: SCRangeChartConfig
+    private let data: SCRangeChartData
+    private let size: CGSize
     var width: Double
     var height: Double
     var offset: Double

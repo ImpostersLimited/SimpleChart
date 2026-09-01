@@ -11,9 +11,9 @@ import SwiftUI
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCHistogramBar: View {
     
-    @State var config: SCHistogramConfig
-    @State var data: SCHistogramData
-    @State var size: CGSize
+    private let config: SCHistogramConfig
+    private let data: SCHistogramData
+    private let size: CGSize
     var width: Double
     var height: Double
     

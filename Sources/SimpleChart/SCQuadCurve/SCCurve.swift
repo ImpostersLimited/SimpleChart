@@ -11,8 +11,8 @@ import SwiftUI
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCCurve: View {
     
-    @State var config: SCQuadCurveConfig
-    @State var size: CGSize
+    private let config: SCQuadCurveConfig
+    private let size: CGSize
     var width: Double
     
     internal init(_ config: SCQuadCurveConfig, _ size: CGSize){

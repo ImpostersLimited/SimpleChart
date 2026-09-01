@@ -11,8 +11,8 @@ import SwiftUI
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 struct SCRangeChartInterval: View {
     
-    @State var config: SCRangeChartConfig
-    @State var size: CGSize
+    private let config: SCRangeChartConfig
+    private let size: CGSize
     
     init(_ config: SCRangeChartConfig, _ size: CGSize){
         self.config = config

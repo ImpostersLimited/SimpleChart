@@ -11,8 +11,8 @@ import SwiftUI
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCBarChartInterval: View {
     
-    @State var config: SCBarChartConfig
-    @State var size: CGSize
+    private let config: SCBarChartConfig
+    private let size: CGSize
     
     init(_ config: SCBarChartConfig, _ size: CGSize){
         self.config = config

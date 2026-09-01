@@ -12,9 +12,9 @@ import SwiftUI
 @available(iOS 13, macOS 10.15, tvOS 13, watchOS 6, *)
 internal struct SCBar: View {
     
-    @State var config: SCBarChartConfig
-    @State var data: SCBarChartData
-    @State var size: CGSize
+    private let config: SCBarChartConfig
+    private let data: SCBarChartData
+    private let size: CGSize
     var width: Double
     var height: Double
     

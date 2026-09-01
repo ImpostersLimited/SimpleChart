@@ -1,5 +1,11 @@
 # Active Todo
 
+- [x] Read the linked Point-Free post and audit every SwiftUI state declaration
+- [x] Replace immutable legacy view inputs with private stored values
+- [x] Verify every remaining `@State` declaration is private
+- [x] Run stable and Xcode 27 beta package verification
+- [x] Record the result and close GitHub issue #6
+
 - [x] Document `SCNativeChart` in the README and composed-chart tutorial
 - [x] Re-run stable and Xcode 27 beta verification after the documentation update
 - [x] Commit and push the feature branch, then fast-forward and push `main`
@@ -34,6 +40,10 @@
 - [x] Re-run targeted zoom/navigation tests plus full `swift test`
 
 ## Review Notes
+
+- Reviewed Point-Free's SwiftUI `@State` macro guidance and audited all 26 package declarations.
+- Replaced 23 immutable legacy view inputs with `private let`; the three genuine mutable `@State` properties were already private.
+- Verified warnings-as-errors builds and all 78 tests on stable Xcode and Xcode 27 beta, then closed GitHub issue #6.
 
 - Added matching conditional first-party mark examples to the README and composed-chart tutorial.
 - Re-ran all 78 tests successfully on Xcode 26.6 and Xcode 27 beta 5, then rebuilt DocC successfully with Xcode 27 beta 5.
