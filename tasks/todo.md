@@ -1,5 +1,39 @@
 # Active Todo
 
+## Routine Maintenance Release 1.0.9 - 2026-10-27
+
+- [x] Confirm release tag, clean sibling main, and hosted stable Xcode availability
+- [x] Update checkout, stable toolchain selection, unit-test execution, and test path triggers
+- [ ] Validate workflow syntax and run hosted stable build, tests, and DocC
+- [ ] Request Codex GitHub review and resolve actionable findings
+- [ ] Fast-forward and push main, publish annotated 1.0.9, and verify remote refs
+- [ ] Record final verification, update issue #7, and remove temporary artifacts
+
+### Review
+
+- Scope: CI maintenance plus changelog and task evidence. Preserve all library APIs, Swift 5.7 tools minimum, and deployment targets.
+- Use the hosted `xcode-27` image with explicit stable Xcode 27.1; local Xcode 27.2 RC is not a stable verification substitute.
+- Verify on the feature PR before integrating main and tagging; never force-push or move an existing tag.
+- Local verification passed: actionlint 1.7.12 (checksum-verified download; temporary config includes GitHub's documented `xcode-27` label), parsed workflow acceptance checks for both test triggers, stable toolchain, build, tests and DocC, plus `git diff --check`.
+
+## Routine Maintenance Audit - 2026-10-27
+
+- [x] Check current Apple Swift/Charts documentation and installed toolchain release channel
+- [x] Review package compatibility, availability guards, and CI coverage
+- [x] Run warnings-as-errors build with the initially selected toolchain (Xcode 27.2 RC)
+- [ ] Run full tests and DocC with stable Xcode (blocked: only prerelease tools installed)
+- [x] Record necessary updates, optional modernization, and verification limits
+
+### Review
+
+- Tracking: https://github.com/ImpostersLimited/SimpleChart/issues/7. GitHub MCP required reauthentication; authenticated `gh` fallback created the issue without assignees or project placement.
+- Official Swift 6.4 release notes and Apple's Swift updates describe availability shorthand, async defer, and noncopyable iteration/collections. No concrete benefit requiring these newer features was found for this synchronous chart wrapper; retain the Swift 5.7 tools minimum and current deployment targets.
+- Apple's current Swift Charts updates feed still lists June 2024 vectorized/function plots and June 2025 3D charts. The package already covers these families and conditionally enables Xcode 27 ViewBuilder chart composition. No new chart family requiring a wrapper was identified.
+- Current checkout and origin/main both remain at release commit `12508be`. `swift build -Xswiftc -warnings-as-errors` passed on the installed Swift 6.4.2 toolchain (69.87 seconds); no non-private `@State` declarations remain in Sources.
+- Toolchain correction: `/Applications/Xcode.app` reports Xcode 27.2 build 27B48, which Apple's current documentation identifies as RC. Command Line Tools receipt is also 27.2. The latest stable Apple release found is Xcode 27.1; do not count the RC build as stable verification or run further prerelease tests under the stable-only policy.
+- Recommended CI maintenance: `.github/workflows/docs.yml` still uses `actions/checkout@v4` (upstream latest v7.0.1), has no `swift test` step, and omits `Tests/**` from path triggers. Add stable-toolchain unit-test coverage and refresh checkout in a separate implementation change.
+- Fresh stable tests and DocC, simulator/device rendering, and Swift 6 language-mode migration were not verified. No package source, manifest, workflow, or release refs were changed by this audit.
+
 - [x] Read the linked Point-Free post and audit every SwiftUI state declaration
 - [x] Replace immutable legacy view inputs with private stored values
 - [x] Verify every remaining `@State` declaration is private

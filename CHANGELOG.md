@@ -53,6 +53,7 @@
 
 ### Changed
 
+- Updated CI to checkout v7 and stable Xcode 27.1, with a warnings-as-errors library build, full package tests, DocC verification, and test-file path triggers.
 - Added Xcode Quick Help documentation across the full exposed package API surface, including the native wrapper/helper layer and the deprecated compatibility layer, so every public type and entry point is easier to discover directly from Xcode.
 - Added richer Quick Help coverage for the zoom/navigation surface, including `SCChartTimeViewport`, `SCChartScrollBehavior`, `SCChartZoomBehavior`, and the scrollable interactive wrappers.
 - Raised minimum supported platform versions to Swift Charts baselines:
