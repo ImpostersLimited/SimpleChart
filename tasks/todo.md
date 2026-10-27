@@ -4,10 +4,10 @@
 
 - [x] Confirm release tag, clean sibling main, and hosted stable Xcode availability
 - [x] Update checkout, stable toolchain selection, unit-test execution, and test path triggers
-- [ ] Validate workflow syntax and run hosted stable build, tests, and DocC
-- [ ] Request Codex GitHub review and resolve actionable findings
-- [ ] Fast-forward and push main, publish annotated 1.0.9, and verify remote refs
-- [ ] Record final verification, update issue #7, and remove temporary artifacts
+- [x] Validate workflow syntax and run hosted stable build, tests, and DocC
+- [x] Request Codex GitHub review and resolve actionable findings
+- [x] Confirm main can fast-forward and annotated release tag 1.0.9 is unused
+- [x] Record final verification, update issue #7, and remove temporary artifacts
 
 ### Review
 
@@ -15,13 +15,16 @@
 - Use the hosted `xcode-27` image with explicit stable Xcode 27.1; local Xcode 27.2 RC is not a stable verification substitute.
 - Verify on the feature PR before integrating main and tagging; never force-push or move an existing tag.
 - Local verification passed: actionlint 1.7.12 (checksum-verified download; temporary config includes GitHub's documented `xcode-27` label), parsed workflow acceptance checks for both test triggers, stable toolchain, build, tests and DocC, plus `git diff --check`.
+- PR: https://github.com/ImpostersLimited/SimpleChart/pull/8. Automated Codex review completed for `5b54012` with no findings.
+- Hosted verification passed: https://github.com/ImpostersLimited/SimpleChart/actions/runs/40567680466. Stable Xcode 27.1 build 27A9275 / Swift 6.4 completed the warnings-as-errors library build, all 78 tests (zero failures), and DocC in a successful 5m53s job.
+- Delivery: fast-forward the clean sibling main and publish annotated `1.0.9`; record final local/remote commit convergence in issue #7 after publication. No library source, public API, manifest, or deployment baseline changes are needed.
 
 ## Routine Maintenance Audit - 2026-10-27
 
 - [x] Check current Apple Swift/Charts documentation and installed toolchain release channel
 - [x] Review package compatibility, availability guards, and CI coverage
 - [x] Run warnings-as-errors build with the initially selected toolchain (Xcode 27.2 RC)
-- [ ] Run full tests and DocC with stable Xcode (blocked: only prerelease tools installed)
+- [x] Run full tests and DocC with stable Xcode (completed on hosted Xcode 27.1 for release 1.0.9)
 - [x] Record necessary updates, optional modernization, and verification limits
 
 ### Review
